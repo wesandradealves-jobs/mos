@@ -1,0 +1,28 @@
+
+<style>
+  iframe {
+    width: 1px;
+    min-width: 100%;
+  }
+</style>
+
+
+<iframe
+  id="emailBuilder-react"
+  src='{{mos2Url}}'
+  onLoad="sendEmailIdIframe()"
+  data-hj-allow-iframe=""
+>
+</iframe>
+
+
+<script type="text/javascript" src="../js/vendor/iframe-resizer/js/iframeResizer.min.js"></script>
+<script type="text/javascript">
+
+  iFrameResize({
+    log                     : false,                  // Enable console logging
+    checkOrigin: false,
+  },'#emailBuilder-react');
+
+</script>
+

@@ -1,0 +1,62 @@
+//DataTables
+//Overrides
+
+table.dataTable.no-footer {
+  border: 1px solid $light-turquoise !important;
+}
+.dataTables_wrapper .dataTables_length { display: none; }
+
+table.dataTable thead th, table.dataTable thead td {
+  background-color: $white-blue;
+  font-family: $heading-font-family;
+  color: $dark-grey;
+  font-weight: 900;
+  text-transform: uppercase;
+  border: none !important;
+  padding: 15px 10px !important;
+  @include font-size(12);
+}
+
+table.dataTable thead .sorting_asc { background-image: none !important; }
+
+table.dataTable.row-border tbody tr td {
+  color: $dark-grey;
+  font-family: $font-family;
+  border-right: 1px solid $light-turquoise !important;
+  @include font-size(12);
+  vertical-align: middle;
+  text-align: center;
+}
+
+table.dataTable.row-border tbody tr td:last-child {
+  border: none !important;
+}
+
+table.dataTable.row-border tbody td {
+  border: none !important;
+}
+
+table.dataTable.hover tbody tr:hover { background-color: $white-grey !important; }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background: $light-grey !important;
+  border: 1px solid $light-turquoise !important;
+  color: $light-turquoise;
+  font-family: $font-family;
+  color: $dark-grey;
+  font-weight: 900;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: $light-turquoise !important;
+  border: 1px solid $turquoise !important;
+}
+
+.dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {
+  color: $black;
+  @include font-size(12);
+}
+
+.dataTables_filter{
+  display: none
+}

@@ -1,0 +1,6 @@
+[
+  {"title":"Tkt Médio","subtitle":"por transações","ranges":[0,0,67.62],"measures":[75.21,0],"markers":[47.42]},
+  {"title":"Dias entre visita","subtitle":"%","ranges":[4.69,3.42,4.42],"measures":[2.5,3.5],"markers":[4]},
+  {"title":"Tkt","subtitle":"por visita","ranges":[98,75,100],"measures":[100,320],"markers":[250]},
+  {"title":"Gastos","subtitle":"por cliente","ranges":[523.97,482.15,536.68],"measures":[200,600],"markers":[550]}
+]

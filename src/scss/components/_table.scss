@@ -1,0 +1,21 @@
+///* ========================================================================
+//   TABELA
+//   ======================================================================== */
+.table{
+
+  td{
+    vertical-align: middle;
+  }
+
+  &.-center{
+    text-align: center;
+  }
+
+  &.-wide{
+    width: 325px;
+  }
+}
+
+.campaign-list-icons {
+  text-align: center;
+}

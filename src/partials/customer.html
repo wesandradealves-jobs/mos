@@ -1,0 +1,328 @@
+<!-- Menu Include -->
+<ng-include src="'partials/includes/menu.html'" ng-controller="PermissionsController"></ng-include>
+<!-- End Menu Include -->
+
+<!-- Customer Content -->
+<section class="container">
+  <!--ng-controller="CustomerController"-->
+  <!-- UserMenu Include -->
+  <ng-include src="'partials/includes/user-menu.html'" ng-controller="UserMenuController"></ng-include>
+  <!-- End UserMenu Include -->
+
+  <h1 class="page-title">Customer View</h1>
+
+  <div class="wrapper-breadcrumbs">
+    <ol class="breadcrumbs">
+      <li class="item">Home</li>
+      <li class="item">Customer View - {{mallName}}</li>
+    </ol>
+<!--
+    <div class="col-1-4-xl">
+      <input ng-model="cpf" ng-enter="searchClientByCpf()" ng-change="searchClientByCpf()" type="text"
+        class="search -icon" placeholder="Pesquisar o cliente por CPF" ui-br-cpf-mask>
+    </div> -->
+
+    <div class="col-1-4-xl">
+      <input ng-model="cpfAndName" id="cpfAndName" ng-change="autoComplete()" type="text" ng-enter="getClient(clients[0].cpf)"
+        class="search -icon" ng-blur="searchBlur()" ng-focus="searchFocus()" placeholder="Pesquisar o cliente por CPF ou Nome">
+      <div class="auto-complete" ng-if="boxAutoComplete">
+        <div class="link" ng-repeat="client in clients | limitTo:7">
+          <span ng-click="getClient(client.cpf)">{{client.fullName}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Column #1-->
+  <div class="col-1-4-l -noleft">
+    <div class="customer-client -height">
+
+      <div class="targeting">
+        <img src="../img/targeting/silver.svg"
+          ng-if="data.registrationData.targeting == 'Prata' && data.registrationData.clubAcceptance == true">
+        <img src="../img/targeting/gold.svg"
+          ng-if="data.registrationData.targeting == 'Ouro' && data.registrationData.clubAcceptance == true">
+        <img src="../img/targeting/diamond.svg"
+          ng-if="data.registrationData.targeting == 'Diamante' && data.registrationData.clubAcceptance == true">
+        <img src="../img/targeting/prospect.svg" ng-if="data.registrationData.clubAcceptance == false">
+      </div>
+
+      <h5 class="title"><strong>{{data.registrationData.name}}</strong> {{data.registrationData.lastName}}</h5>
+      <span class="title -small" ng-if="data.registrationData.clubAcceptance == true">Cliente
+        {{data.registrationData.targeting}}</span>
+      <span class="title -small" ng-if="data.registrationData.clubAcceptance == false">Prospect</span>
+
+      <div class="button-more -edit" ng-click="openEditClient(data.registrationData.cpf)">
+          <img  src="img/rascunho.svg">
+      </div>
+
+      <div class="clearfix"></div>
+      <div>
+        <div class="customer-avatar">
+          <div class="border">
+            <div class="avatar">
+              {{data.registrationData.name | limitTo: 1}}{{data.registrationData.lastName | limitTo: 1}}</div>
+          </div>
+        </div>
+        <div class="customer-info">
+          <div class="info">
+            <div class="tooltip -top" ng-show="registrationData" ng-class="{toggle:registrationData}">
+              <div class="item">CPF: {{data.registrationData.cpf}}</div>
+              <div class="item">Nascimento: {{data.registrationData.birthday}}</div>
+              <div class="item">Cadastro: {{data.registrationData.registerDate}}</div>
+              <div class="item">Bairro: {{data.registrationData.neighborhood}}</div>
+              <div class="item">Celular: {{data.registrationData.mobileNumber}}</div>
+              <div class="item">E-mail: {{data.registrationData.email}}</div>
+            </div>
+            <span class="small">Dados <br> Cadastrais</span>
+
+            <!--
+            $scope.data.registrationData = {
+              "name",
+              "lastName",
+              "targeting",
+              "birthday",
+              "age",
+              "registerDate",
+              "mobileNumber",
+              "email",
+              "neighborhood",
+            }
+          -->
+            <div class="button-more button-center" ng-click="toggleRegistration()">
+              <img src="../img/more.svg">
+            </div>
+          </div>
+          <div class="info">
+            <div class="tooltip" ng-show="engagementData" ng-class="{toggle:engagementData}">
+              <div class="item">{{data.engagementData.monthlyVisits}} visitas / mês</div>
+              <div class="item">Uso App / Mês: {{data.engagementData.monthlyAppInteractions}}</div>
+              <div class="item">Última visita: {{data.engagementData.lastVisit}}</div>
+            </div>
+            <span class="small">Engajamento</span>
+
+            <!--
+            $scope.data.engagementData = {
+              "monthlyVisits",
+              "monthlyAppInteractions",
+              "lastVisit",
+              "mdv",
+            }
+          -->
+            <div class="button-more -engagement" ng-click="toggleEngagement()">
+              <img src="../img/more.svg">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box loading">
+      <h5 class="title">
+        Buyer Profile
+        <div class="button-more" ng-click="openHorizontalStacked('buyerProfile')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.buyerProfile" class="loader" src="img/loader.svg">
+      <iframe id="buyerProfile" src='../graph/horizontal-stacked-bar/horizontal-stacked-bar.html' width="100%"
+        height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+  </div>
+  <!--END Column #1-->
+
+  <!-- Column #2 -->
+  <div class="col-1-4-l">
+    <div class="box loading">
+      <h5 class="title">
+        Compras por Segmento
+        <div class="button-more" ng-click="openNgDialog('purchaseBySegment')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.purchaseBySegment" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10" id="purchaseBySegment" src='../graph/pie-chart/pie-chart.html' width="100%"
+        height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+
+    </div>
+    <div class="box loading">
+      <h5 class="title">
+        Uso do App
+        <div class="button-more" ng-click="openHorizontalStacked('appUse')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.appUse" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10" id="appUse" src='../graph/horizontal-stacked-bar/horizontal-stacked-bar.html'
+        width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+  </div>
+  <!-- END Column #2 -->
+
+  <!-- Column #3 -->
+  <div class="col-1-4-l">
+    <div class="box loading">
+      <h5 class="title">
+        Propensão a Eventos
+        <div class="button-more" ng-click="openRadarChart('eventsPropension')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.eventsPropension" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10" id="eventsPropension" src='../graph/radar-chart/radar-chart.html' width="100%"
+        height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+    <div class="box loading">
+      <h5 class="title">
+        Uso de Facilities
+        <div class="button-more" ng-click="openHorizontalStacked('facilitiesUse')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.facilitiesUse" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10" id="facilitiesUse" src='../graph/horizontal-stacked-bar/horizontal-stacked-bar.html'
+        width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+  </div>
+  <!-- END Column #3 -->
+
+  <!-- Column #4 -->
+  <div class="col-1-4-l -noright">
+    <div class="box loading">
+      <h5 class="title">
+        Top 5 Lojas
+        <div class="button-more" ng-click="openDoubleChart('topStores')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.topStores" class="loader" src="img/loader.svg">
+
+
+      <div class="col-1-2-xl">
+        <iframe class="_mar-top-10" id="topStores" src="../graph/bar-chart/bar-chart.html" width="100%" height="auto"
+          scrolling="no" data-hj-allow-iframe=""></iframe>
+      </div>
+      <div class="col-1-2-xl">
+        <iframe class="_mar-top-10" id="topStoresAlike" src="../graph/bar-chart/bar-chart.html" width="100%"
+          height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+      </div>
+
+    </div>
+    <div class="box loading">
+      <h5 class="title">
+        Spending
+        <div class="button-more" ng-click="openNgDialog('spending')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.spending" class="loader" src="img/loader.svg">
+      <iframe id="spending" src='../graph/multi-serie-line/multi-serie-line.html' width="100%" height="auto"
+        scrolling="no" class="iframe-position" data-hj-allow-iframe=""></iframe>
+    </div>
+  </div>
+  <!-- END Column #4 -->
+
+  <div class="clearfix"></div>
+
+  <!-- Data Footer -->
+  <div class="row">
+    <div class="col-2-xl">
+      <div class="data-footer -dark-purple">
+        <div class="gradient">
+          R$
+          <span class="number">{{data.transactionalData.lifetimeSpending | number:2}}</span>
+          <hr class="divider">
+        </div>
+        <div class="text">
+          Lifetime<br>
+          Spending
+        </div>
+      </div>
+    </div>
+    <div class="col-2-xl">
+      <div class="data-footer -purple">
+        <div class="gradient">
+          R$
+          <span class="number">{{data.transactionalData.meanTicket | number:2}}</span>
+          <hr class="divider">
+        </div>
+        <div class="text">
+          Ticket Médio<br>
+          por Transação
+        </div>
+      </div>
+    </div>
+    <div class="col-2-xl">
+      <div class="data-footer -purple">
+        <div class="gradient">
+          R$
+          <span class="number">{{data.transactionalData.meanMonthlySpending | number:2}}</span>
+          <hr class="divider">
+        </div>
+        <div class="text">
+          Spending<br>
+          Médio/Mês
+        </div>
+      </div>
+    </div>
+    <div class="col-2-xl">
+      <div class="data-footer -aquamarine">
+        <div class="gradient">
+          R$
+          <span class="number">{{data.transactionalData.maxSpending | number:2}}</span>
+          <hr class="divider">
+        </div>
+        <div class="text">
+          Max.<br>
+          Spending
+        </div>
+      </div>
+    </div>
+    <div class="col-2-xl">
+      <div class="data-footer -dark-turquoise">
+        <div class="gradient">
+          R$
+          <span class="number">{{data.transactionalData.maxTransaction | number:2}}</span>
+          <hr class="divider">
+        </div>
+        <div class="text">
+          Maior<br>
+          Transação
+        </div>
+      </div>
+    </div>
+    <div class="col-2-xl">
+      <div class="data-footer -turquoise">
+        <div class="gradient">
+          R$
+          <span class="number">{{data.transactionalData.meanVisitySpending | number:2}}</span>
+          <hr class="divider">
+        </div>
+        <div class="text">
+          Valor<br>
+          Médio/Visita
+        </div>
+      </div>
+    </div>
+    <div class="col-2-xl">
+      <div class="data-footer -turquoise">
+        <div class="gradient">
+          R$
+          <span class="number">{{data.transactionalData.lastPurchase.value | number:2}}</span>
+          <hr class="divider">
+        </div>
+        <div>
+          Última Compra<br>
+          <marquee scrolldelay="200"><span class="small"
+              alt="{{data.transactionalData.lastPurchase.store}}-{{data.transactionalData.lastPurchase.date}}"
+              title="{{data.transactionalData.lastPurchase.store}}-{{data.transactionalData.lastPurchase.date}}">
+              ({{data.transactionalData.lastPurchase.store}} - {{data.transactionalData.lastPurchase.date}})</span>
+          </marquee>
+          <!-- {{data.transactionalData.lastPurchase.preview}} -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END Data Footer -->
+
+</section>
+<!-- End Customer Content -->

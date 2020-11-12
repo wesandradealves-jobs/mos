@@ -1,0 +1,69 @@
+// BANNER NO APP
+
+.container-banner {
+
+
+    h1 {
+        text-align: center;
+    }
+
+    .box-complete {
+        display: table;
+        width: $container-full;
+        margin-top: 50px;
+
+        .box-text {
+            text-align: left;
+            clear: both;
+            margin-bottom: 20px;
+        }
+    }
+
+    .container-button {
+        clear: both;
+        padding-top: 30px;
+        text-align: center;
+    }
+
+    &.-mid{
+        width: 500px;
+        margin: 0 auto;
+    }
+}
+
+.box-textarea {
+    @extend .col-full;
+}
+
+
+
+// .position-content {
+//     position: absolute;
+//     width: 100%;
+//     height: 264px;
+
+//     // background cinza com imagem
+//     .bg-grey {
+//         position: absolute;
+//         right: 0;
+//         height: 100%;
+//     }
+// }
+
+// .skew {
+//     float: right;
+//     width: 50%;
+//     height: 100%;
+//     background: $light-grey;
+//     transform: skew(0deg);
+//     transform: skew(10deg) translateX(-26px);
+//     position: relative;
+// }
+
+// .negative {
+//     margin-left: 55%;
+//     width: 45%;
+//     height: 100%;
+//     background: $light-grey;
+//     position: relative;
+// }

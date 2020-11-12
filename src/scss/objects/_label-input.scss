@@ -1,0 +1,22 @@
+///* ========================================================================
+//   LABEL INPUT
+//   ======================================================================== */
+
+.label-input {
+    color: $dark-grey;
+    font-weight: 900;
+    font-family: $heading-font-family;
+    text-transform: uppercase;
+    display: block;    
+    margin-right: 10px;
+    @include font-size(12);
+    @include line-height(22);
+
+    &.-tab {
+        padding-top: 5px;
+    }
+}
+
+.store-logo {
+    margin-bottom: 5px;
+}

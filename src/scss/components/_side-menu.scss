@@ -1,0 +1,165 @@
+///* ========================================================================
+//   MENU
+//   ======================================================================== */
+
+.open {
+	.wrapper-sidemenu  {
+		left: 0;
+		.side-menu {
+			overflow: auto;
+		}
+		.footer {
+			display: flex;
+		}
+	}
+}
+
+.wrapper-sidemenu { 
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	z-index: 999;
+	transition: all .4s ease 0s;
+	background: #fff;
+	border-right: 1px solid $light-grey;
+	box-shadow: 5px 0 5px -2px $light-grey;	
+	overflow: hidden;
+	display: flex;
+	flex-flow: column;
+	justify-content: space-between;	
+	width: 269px;
+	left: -208px; 
+	.footer {
+		flex: 0 0 auto;
+		padding: 20px 20px 0;
+		width: 100%;
+		display: none;
+		flex-flow: row;
+		justify-content: flex-end;
+		align-items: center;
+	}
+	.side-menu {
+	  width: 100%;
+	  height: 100%;
+	  display: inherit;
+	  flex-flow: column;
+	  justify-content: space-between;
+	  align-items: flex-end;
+	  padding: 15px 0;
+	  overflow: hidden;
+	  flex: 1;
+	  .list {
+	  	width: 100%;
+	  	display: inherit;
+	  	flex-flow: row;
+	  	justify-content: flex-end;
+	  	align-items: center;
+	  	padding: 0 20px 15px;
+	  	> * {
+		  	display: inherit;
+		  	flex-flow: inherit;
+		  	justify-content: space-between;
+		  	align-items: center;
+		  	span {
+		  		text-align: right;
+		  		top: -4px;
+		  		position: relative;
+		  		padding-right: 20px;
+		  	}
+		  	> * {
+		  		flex: 1;
+		  		&.icon {
+		  			flex: 0 0 auto;
+		  			position: relative;
+		  			&:only-child {
+		  				right: -2px;
+		  			}
+		  			&:not(:only-child) {
+		  				opacity: .5;
+		  			}
+		  			img {
+		  				height: 30px;
+		  			}
+		  		}
+		  	}
+		  	&:hover .icon {
+		  		opacity: 1;
+		  	}		  	
+	  	}
+
+	  }
+	  /*width: $container-full;
+	  position: absolute;
+	  top: 0;
+	  bottom: 0;
+	  padding: 0;
+	  margin: 0;
+	  text-indent: 20px;
+	  overflow-x: hidden;
+	  overflow-y: hidden;
+
+	  &:hover {
+	    overflow-y: auto;
+	  }
+
+	  .header {
+		width: 100%;
+		display: flex;
+		flex-flow: row;
+		justify-content: flex-end;
+	  	> .icon {
+			box-sizing: border-box;
+			padding: 10px 22px 25px 18px;  		
+	  		width: 69px;
+	  		display: inherit;
+	  		flex-flow: inherit;
+	  		justify-content: center;
+	  		align-items: center;
+	  		img {
+	  			max-width: 100%;
+	  			height: auto;
+	  		}
+	  	}
+	  }
+
+	  > .list {
+	    height: 45px;
+	    //height: 50px;
+	    opacity: 0.5;
+
+	    &:hover {
+	      opacity: 1;
+	      transition: all .4s ease 0s;
+	      color: $purple;
+	      border-left: 3px solid $purple;
+	    }
+	  }
+
+	  > .list > .link {
+	    width: $container-full;
+	    display: block;
+	    text-decoration: none;
+	    color: $purple;
+	    @include font-size(14);
+	    @include line-height(35);
+
+	    > .icon {
+	      float: right;
+	      margin-right: 25px;
+	    }
+	  }
+
+	  > .footer {
+	    width: $container-full;
+	    height: 40.5px;
+	    position: relative;
+	    bottom: 0;
+	    padding: 0;
+	    right: 20px;
+	    transition: all .6s ease 0s;
+	    text-align: right;
+	  } */
+	}
+}
+

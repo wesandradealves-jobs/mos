@@ -1,0 +1,166 @@
+///* ========================================================================
+//   FORMS
+//   ======================================================================== */
+
+label,
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: $input-color;
+  margin: 0;
+}
+
+label {font-family: $heading-font-family;}
+
+input:focus { box-shadow: 0 0 4px 0 $light-turquoise; }
+
+[type="text"],
+[type="email"],
+[type="password"],
+[type="tel"],
+[type="number"],
+[type="date"] {
+  width: $container-full;
+  height: $input-height;
+  padding: 10px;
+  background-color: $white-grey;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  border-radius: 3px;
+    border: solid 1px $light-turquoise;
+  font-family: $font-family;
+
+}
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+[type="date"]::-webkit-inner-spin-button {
+  display: none;
+  -webkit-appearance: none;
+}
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+[type="search"] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+// Placeholder Color
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: $input-placeholder-color;
+  font-family: $font-family;
+  @include font-size(10);
+}
+
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: $input-placeholder-color;
+  font-family: $font-family;
+  @include font-size(10);
+}
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+  color: $input-placeholder-color;
+  font-family: $font-family;
+  @include font-size(10);
+}
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  color: $input-placeholder-color;
+  font-family: $font-family;
+  @include font-size(10);
+}
+
+// Text Area
+textarea {
+    width: $container-full;
+    padding: 10px;
+    background-color: $white-grey;
+    overflow: auto;
+    border-radius: 3px;
+    border: solid 1px $light-turquoise;
+    resize: none;
+
+    &:focus { box-shadow: 0 0 4px 0 $light-turquoise; }
+
+}
+
+// Select
+select {
+    width: $container-full;
+    font-family: $font-family;
+    text-transform: none;
+    height: $input-height;
+    padding: 0 10px;
+    background-color: $white-grey;
+    border: 0;
+    border-radius: 3px;
+    border: solid 1px $light-turquoise;
+
+    &:focus { box-shadow: 0 0 4px 0 $light-turquoise; }
+
+}
+optgroup { font-weight: 700; }
+
+// Buttons
+button {
+    border-radius: 0;
+    overflow: visible;
+    text-transform: none;
+    cursor: pointer;
+}
+
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button;
+    border-radius: 0;
+}
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+    border-style: none;
+    padding: 0;
+}
+
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+    outline: 1px dotted ButtonText;
+}
+
+img[disabled],
+select[disabled],
+textarea[disabled],
+button[disabled],
+html input[disabled] {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: .4;
+}
+
+form#login-prompt-screen {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  margin-top: 5em;
+}

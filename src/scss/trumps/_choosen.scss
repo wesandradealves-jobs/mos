@@ -1,0 +1,50 @@
+///* ========================================================================
+//   CHOOSEN
+//   ======================================================================== */
+
+.chosen-container { 
+    width: 100% !important;
+    margin-top: 20px;
+} 
+
+.chosen-container-multi .chosen-choices {
+    background-image: none !important;
+    background: $white-grey !important;
+    border: 1px solid $light-turquoise !important;
+    border-radius: 3px;
+}
+
+.chosen-container-multi .chosen-choices li.search-field input[type=text] {
+    height: 36px !important;
+    font-family: $font-family !important;
+    font-size: 10px !important;
+    padding: 0 5px !important;
+}
+
+.chosen-container .chosen-results li {
+    padding: 5px 10px !important;
+    color: $dark-grey !important;
+    font-family: $font-family !important;
+}
+
+.chosen-container .chosen-results li.highlighted {
+    background: $turquoise !important;
+    color: #fff !important;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice {
+    border: none !important;
+    margin: 10px 5px 0 0 !important;
+    background: #fff !important;
+    font-size: 10px;
+}
+
+.chosen-container-multi .chosen-drop .result-selected {
+    color: $grey !important;
+}
+
+@include breakpoint(xl) { 
+    .chosen-container { 
+        margin-top: 0;
+    } 
+}

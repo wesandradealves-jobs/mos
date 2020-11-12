@@ -1,0 +1,595 @@
+<!-- Menu Include -->
+<ng-include
+  src="'partials/includes/menu.html'"
+  ng-controller="PermissionsController"
+></ng-include>
+<!-- End Menu Include -->
+
+<!-- Flash -->
+<section class="container">
+  <!-- UserMenu Include -->
+  <ng-include
+    src="'partials/includes/user-menu.html'"
+    ng-controller="UserMenuController"
+  ></ng-include>
+  <!-- End UserMenu Include -->
+
+  <h1 class="page-title">Flash</h1>
+
+  <div class="wrapper-breadcrumbs">
+    <ol class="breadcrumbs">
+      <li class="item">Home</li>
+      <li class="item">Flash</li>
+    </ol>
+  </div>
+
+  <div class="row">
+    <ul>
+      <!-- NOVO FLASH -->
+      <li class="nav-tab" ng-show="menuPermissions['CREATE-FLASH']">
+        <input
+          type="radio"
+          name="tabs"
+          class="tabs"
+          id="new-flash"
+          ng-checked="menuPermissions['CREATE-FLASH']"
+          ng-click="switchToTab('new-flash')"
+        />
+        <label class="label -first" for="new-flash">
+          <img src="../img/tabs/new.svg" class="icon" />
+          Novo flash
+        </label>
+        <div class="content">
+          <div class="col-1-2-xl">
+            <div class="row">
+              <label class="label-input">Shopping*</label>
+              <select
+                ng-model="flash.mallId"
+                ng-change="fillStoreSelect()"
+                ng-init="flash.mallId='-1'"
+                tabindex="1"
+                id="new-flash-input-mall"
+              >
+                <option value="-1" disabled selected>-- Selecione --</option>
+                <option ng-repeat="mall in malls" value="{{ mall.id }}">{{
+                  mall.name
+                }}</option>
+              </select>
+            </div>
+
+            <div class="row">
+              <label class="label-input">Loja</label>
+              <select
+                chosen
+                multiple
+                ng-model="flash.store"
+                max-selected-options="1"
+                data-placeholder=" "
+                id="new-flash-input-store"
+                placeholder-text-multiple="' '"
+                convert-to-number
+                tabindex="2"
+                ng-options="store.id as store.name for store in stores"
+              >
+                <option value="" disabled></option>
+              </select>
+              <!--select chosen multiple data-placeholder="Selecionar loja" ng-model="flash.store" required>
+                                <option ng-repeat="store in stores" value="{{store.id}}">{{store.name}}</option>
+                            </select-->
+            </div>
+
+            <div class="row">
+              <div class="col-1-2-xl">
+                <label class="label-input">Data Inicial*</label>
+                <input
+                  type="text"
+                  ng-model="flash.startDate"
+                  id="new-flash-input-start-date"
+                  ui-date-mask
+                  required
+                  ng-class="{'input-error': startError}"
+                  ng-blur="validateStart()"
+                  tabindex="3"
+                />
+              </div>
+              <div class="col-1-2-xl">
+                <label class="label-input">Data Final*</label>
+                <input
+                  type="text"
+                  ng-model="flash.endDate"
+                  id="new-flash-input-end-date"
+                  ui-date-mask
+                  required
+                  ng-class="{'input-error': endError}"
+                  ng-blur="validateEnd()"
+                  tabindex="4"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-2-3-xl">
+                <label class="label-input">Exclusivo do clube</label>
+                <div>
+                  <div class="col-1-2">
+                    <label class="checkbox">
+                      <input
+                        type="radio"
+                        name="radio"
+                        ng-model="flash.clubExclusive"
+                        value="true"
+                        ng-value="true"
+                      />
+                      <span class="checkmark"></span>SIM
+                    </label>
+                  </div>
+
+                  <div class="col-1-2 _no-padding">
+                    <label class="checkbox">
+                      <input
+                        type="radio"
+                        name="radio"
+                        ng-model="flash.clubExclusive"
+                        value="false"
+                        ng-value="false"
+                        checked
+                      />
+                      <span class="checkmark"></span>NÃO
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-1-2-xl -noright">
+            <label class="label-input">Canais</label>
+            <div class="box -channels">
+              <h6>
+                SMS
+                <div class="button-more" ng-click="openSMS()">
+                  <img src="../img/more.svg" />
+                </div>
+
+                <div ng-show="channels.sms" class="button-sucess">
+                  <img src="../img/success.svg" />
+                </div>
+              </h6>
+            </div>
+            <div class="box -channels">
+              <h6>
+                Push
+                <div class="button-more" ng-click="openPush()">
+                  <img src="../img/more.svg" />
+                </div>
+
+                <div ng-show="channels.push" class="button-sucess">
+                  <img src="../img/success.svg" />
+                </div>
+              </h6>
+            </div>
+            <div class="box -channels">
+              <h6>
+                Banner no App
+                <div class="button-more" ng-click="openBanner()">
+                  <img src="../img/more.svg" />
+                </div>
+
+                <div ng-show="channels.banner" class="button-sucess">
+                  <img src="../img/success.svg" />
+                </div>
+              </h6>
+            </div>
+            <div class="box -channels">
+              <h6>
+                E-mail Marketing
+                <div class="button-more" ng-click="openEmail()">
+                  <img src="../img/more.svg" />
+                </div>
+
+                <div ng-show="channels.email" class="button-sucess">
+                  <img src="../img/success.svg" />
+                </div>
+              </h6>
+            </div>
+          </div>
+
+          <!-- BUTTON -->
+          <!-- TO DO melhorar posicionamentos -->
+
+          <div class="clearfix"></div>
+
+          <span class="obs">*Campos obrigatórios</span>
+
+          <div class="col-9 _right">
+            <div class="col-1-3">
+              <button
+                class="button-default -action -small"
+                ng-click="publishFlash();"
+                ng-disabled="flash.mallId == '-1' || !flash.startDate || !flash.endDate"
+              >
+                PUBLICAR
+              </button>
+            </div>
+
+            <div class="_right">
+              <div class="_right">
+                <div class="col-2-5">
+                  <input
+                    class="button-default -grey -small -filter"
+                    value="Apagar"
+                    type="submit"
+                    ng-click="deleteFlash();"
+                    ng-disabled="!flash.id"
+                  />
+                </div>
+
+                <div class="col-2-5">
+                  <button
+                    class="button-default -turquoise -small -filter"
+                    type="submit"
+                    ng-click="newFlash();"
+                    ng-disabled="flash.mallId == '-1' || !flash.startDate || !flash.endDate"
+                  >
+                    Salvar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- RELATORIOS -->
+      <li class="nav-tab" ng-show="menuPermissions['REPORT-FLASH']">
+        <input
+          type="radio"
+          name="tabs"
+          class="tabs"
+          id="report"
+          ng-checked="(!menuPermissions['CREATE-FLASH']) && menuPermissions['REPORT-FLASH']"
+          ng-click="switchToTab('report')"
+        />
+        <label class="label" for="report">
+          <img src="../img/tabs/report.svg" class="icon" />
+          RELATÓRIO
+        </label>
+        <div class="content">
+          <!-- FILTRO -->
+
+          <div class="row">
+            <div class="col-1-4-xl">
+              <label class="label-input">Shopping</label>
+              <select
+                ng-model="reportMall"
+                ng-init="reportMall = '-1'"
+                ng-change="resetSearchStore()"
+              >
+                <option disabled selected value="-1">-- Selecione --</option>
+                <option ng-repeat="m in malls" ng-value="m.id">{{
+                  m.name
+                }}</option>
+              </select>
+            </div>
+            <div class="col-1-4-xl">
+              <label class="label-input">Loja</label>
+              <select
+                ng-model="storeSearchId"
+                ng-change="reportSelectStore()"
+                ng-init="storeSearchId='-1'"
+              >
+                <option value="-1" selected disabled>-- Selecione --</option>
+                <option ng-repeat="s in storesWithFlashs" value="{{ s.id }}">{{
+                  s.name
+                }}</option>
+              </select>
+            </div>
+            <div class="col-1-4-xl">
+              <label class="label-input">Período</label>
+              <select
+                ng-model="reportSelectedFlashId"
+                ng-change="selectFlash()"
+                ng-init="reportSelectedFlashId='-1'"
+              >
+                <option selected disabled value="-1">-- Selecione --</option>
+                <option ng-repeat="p in period" value="{{ p.id }}">{{
+                  p.period
+                }}</option>
+              </select>
+            </div>
+
+            <div class="col-2-xl">
+              <button
+                class="button-default -turquoise -small -filter"
+                ng-click="reportSearchFlash()"
+                ng-disabled="unselectedFields()"
+              >
+                Buscar
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- RELATÓRIO GERAL -->
+            <div class="col-1-2-xl">
+              <div class="box loading">
+                <h5 class="title">
+                  Relatório Geral
+                  <div
+                    class="button-more"
+                    ng-click="openBarChart('dailySales')"
+                  >
+                    <img src="../img/more.svg" />
+                  </div>
+                </h5>
+                <img
+                  ng-if="loading.dailySales"
+                  class="loader"
+                  src="img/loader.svg"
+                />
+                <div class="pattern-flash">
+                  <iframe
+                    id="dailySales"
+                    src="../graph/bar-chart/bar-chart.html"
+                    width="100%"
+                    height="auto"
+                    scrolling="no"
+                    data-hj-allow-iframe=""
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+
+            <!-- BANNER -->
+            <div class="col-1-2-xl">
+              <div class="box -medium">
+                <h5 class="title">
+                  Funis
+                  <div class="button-more" ng-click="openFunnelChart('funnel')">
+                    <img src="../img/more.svg" />
+                  </div>
+                </h5>
+
+                <!-- INICIO DO CARROSSEL -->
+                <div class="loading">
+                  <img
+                    ng-if="loading.dailySales"
+                    class="loader"
+                    src="img/loader.svg"
+                  />
+
+                  <div
+                    ng-show="showFunelDiv"
+                    class="carousel infinity"
+                    id="slider1"
+                  >
+                    <input
+                      type="radio"
+                      name="slides"
+                      checked="checked"
+                      id="slides_1"
+                    />
+                    <input type="radio" name="slides" id="slides_2" />
+                    <input type="radio" name="slides" id="slides_3" />
+                    <input type="radio" name="slides" id="slides_4" />
+
+                    <ul>
+                      <li>
+                        <h5 class="small">E-mail</h5>
+                        <funnel values="emailFunnelData" title="email-funnel"></funnel>
+                      </li>
+                      <li>
+                        <h5 class="small">SMS</h5>
+                        <funnel values="smsFunnelData" title="sms-funnel"></funnel>
+                      </li>
+                      <li>
+                        <h5 class="small">Push</h5>
+                        <funnel values="pushFunnelData" title="push-funnel"></funnel>
+                      </li>
+                      <li>
+                        <h5 class="small">Geral</h5>
+                        <funnel values="campaignFunnelData" title="campaign-funnel"></funnel>
+                      </li>
+                    </ul>
+                    <div class="arrows">
+                      <label for="slides_1"></label>
+                      <label for="slides_2"></label>
+                      <label for="slides_3"></label>
+                      <label for="slides_4"></label>
+
+                      <label class="goto-first" for="slides_1"></label>
+                      <label class="goto-last" for="slides_4"></label>
+                    </div>
+                    <div class="navigation">
+                      <div>
+                        <label for="slides_1"></label>
+                        <label for="slides_2"></label>
+                        <label for="slides_3"></label>
+                        <label for="slides_4"></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FIM DO CARROSSEL -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- TODOS FLASHS -->
+      <li class="nav-tab" ng-show="menuPermissions['LIST-FLASH']">
+        <input
+          type="radio"
+          name="tabs"
+          class="tabs"
+          id="flash"
+          ng-checked="(!menuPermissions['CREATE-FLASH']) && (!menuPermissions['REPORT-FLASH'])"
+          ng-click="switchToTab('flash')"
+        />
+        <label class="label" for="flash">
+          <img src="../img/tabs/control.svg" class="icon" />
+          TODOS FLASHES
+        </label>
+        <div class="content">
+          <div class="row">
+            <div class="col-1-4-xl">
+              <label class="label-input">Selecionar Shopping</label>
+              <select
+                ng-model="selectedMallRep"
+                ng-init="selectedMallRep = malls[0]"
+                ng-options="mall as mall.name for mall in malls"
+                ng-change="selectMallReport()"
+              >
+              </select>
+            </div>
+            <div class="col-3">
+              <label class="label-input">Pesquisar Flash</label>
+              <input ng-model="searchText" id="searchText" ng-change="searchTable()" type="text"
+class="search-solid -icon" ng-blur="searchBlur()" ng-focus="searchFocus()" placeholder="Loja, status ou duração">
+          </div>
+          </div>
+
+          <!-- Tabela -->
+          <table
+            datatable="ng"
+            class="row-border hover"
+            width="100%"
+            dt-column-defs="dtColumnDefs"
+            dt-options="dtOptions"
+            dt-instance="dtInstanceCallback"
+          >
+            <thead>
+              <tr class="table">
+                <th class="table -center">Loja</th>
+                <th class="table -center">Status</th>
+                <th class="table -center">Duração</th>
+                <th class="table -center">Exclusivo do Clube</th>
+                <th class="table -center">Push</th>
+                <th class="table -center">SMS</th>
+                <th class="table -center">Banner no App</th>
+                <th class="table -center">E-mail</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr ng-repeat="f in flashList">
+                <td>{{ f.stores[0].name }}</td>
+                <td class="_text-center">
+                  <div ng-if="f.published">
+                    Publicado
+                  </div>
+                    <img
+                      ng-if="f.published"
+                      src="img/check.svg"
+                    />
+                  <div ng-if="!f.published">
+                    Rascunho
+                  </div>
+                  <img
+                    ng-if="!f.published"
+                    class="icon-button"
+                    src="img/rascunho.svg"
+                    ng-click="editFlash( f.id )"
+                  />
+                </td>
+                <td>
+                  {{ formatDate(f.startDate) }} - {{ formatDate(f.endDate) }}
+                </td>
+                <td class="table -center">
+                  <span ng-if="f.clubExclusive">Sim</span>
+                  <span ng-if="!f.clubExclusive">Não</span>
+                </td>
+
+                <td class="table -center">
+                  <img
+                    class="icon-button"
+                    ng-if="f.hasPush && f.published"
+                    src="img/visualizar.svg"
+                    ng-click="reportShowChannel( 'push', f.hasPush )"
+                  />
+                  <img
+                    class="icon-button"
+                    ng-if="!f.hasPush && !f.published"
+                    src="img/rascunho.svg"
+                    ng-click="reportShowChannel( 'push', f.hasPush, true, f.id )"
+                  />
+                  <img
+                    class="icon-button"
+                    ng-if="f.hasPush && !f.published"
+                    src="img/rascunho.svg"
+                    ng-click="reportShowChannel( 'push', f.hasPush, true, f.id )"
+                  />
+                  <span ng-if="!f.hasPush && f.published"> -- </span>
+                </td>
+
+                <td class="table -center">
+                  <img
+                    class="icon-button"
+                    ng-if="f.hasSms && f.published"
+                    src="img/visualizar.svg"
+                    ng-click="reportShowChannel( 'sms', f.hasSms )"
+                  />
+                  <img
+                    class="icon-button"
+                    ng-if="!f.hasSms && !f.published"
+                    src="img/rascunho.svg"
+                    ng-click="reportShowChannel( 'sms', f.hasSms, true, f.id )"
+                  />
+                  <img
+                    class="icon-button"
+                    ng-if="f.hasSms && !f.published"
+                    src="img/rascunho.svg"
+                    ng-click="reportShowChannel( 'sms', f.hasSms, true, f.id )"
+                  />
+                  <span ng-if="!f.hasSms && f.published"> -- </span>
+                </td>
+
+                <td class="table -center">
+                  <img
+                    class="icon-button"
+                    ng-if="!f.hasBanner && !f.published"
+                    src="img/rascunho.svg"
+                    ng-click="reportShowChannel( 'banner', f.hasBanner, true, f.id )"
+                  />
+                  <img
+                    class="icon-button"
+                    ng-if="f.hasBanner && !f.published || f.hasBanner && f.published"
+                    src="img/rascunho.svg"
+                    ng-click="reportShowChannel( 'banner', f.hasBanner, true, f.id )"
+                  />
+                  <span ng-if="!f.hasBanner && f.published"> -- </span>
+                </td>
+
+                <td class="table -center">
+                  <img
+                    class="icon-button"
+                    ng-if="f.hasEmail && f.published"
+                    src="img/visualizar.svg"
+                    ng-click="reportShowChannel( 'email', f.hasEmail )"
+                  />
+                  <img
+                    class="icon-button"
+                    ng-if="!f.hasEmail && !f.published"
+                    src="img/rascunho.svg"
+                    ng-click="reportShowChannel( 'email', f.hasEmail, true, f.id )"
+                  />
+                  <img
+                    class="icon-button"
+                    ng-if="f.hasEmail && !f.published"
+                    src="img/rascunho.svg"
+                    ng-click="reportShowChannel( 'email', f.hasEmail, true, f.id )"
+                  />
+                  <span ng-if="!f.hasEmail && f.published"> -- </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- END Tabela -->
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+<!-- End Flash Content -->

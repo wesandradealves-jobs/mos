@@ -1,0 +1,145 @@
+<div class="select-content">
+  <h2 class="lightbox-title">Selecionar Lojas</h2>
+  <div class="row">
+    <input class="search -icon" ng-model="criteria" type="text" placeholder="Busque por lojas">
+  </div>
+
+  <div class="row">
+    <!-- TODAS AS LOJAS -->
+    <div class="col-1-3">
+      <input class="title-tabs" type="radio" name="tab" id="tab-1" checked="true">
+      <label class="label-tabs" for="tab-1" ng-click="currentTab = 'ALL-STORES'">
+        Todas as lojas
+      </label>
+    </div>
+
+    <!-- PARTICIPANTES -->
+    <div class="col-1-3">
+      <input class="title-tabs" type="radio" name="tab" id="tab-2">
+      <label class="label-tabs" for="tab-2" ng-click="currentTab = 'SELECTED-STORES'">
+        Participantes
+      </label>
+    </div>
+
+    <!-- NÃO PARTICIPANTES -->
+    <div class="col-1-3">
+      <input class="title-tabs" type="radio" name="tab" id="tab-3">
+      <div class="position-tooltip" id="promo-unselected-store">
+        <img src="../img/tooltip.svg" alt="">
+      </div>
+      <label class="label-tabs" for="tab-3" ng-click="currentTab = 'DELETED-STORES'">
+        Não participantes
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- UL TODAS AS LOJAS -->
+    <div ng-if="currentTab == 'ALL-STORES'">
+      <ul class="content-tab selected-tab">
+
+<!--
+        <li class="_pad-bottom-35"
+          ng-class="{'marked-label': selectedAll}">
+          <input
+            class="inp-mark"
+            id="stores-mark-all"
+            type="checkbox"
+            style="display: none;"
+            ng-model="selectedAll"
+            ng-checked="selectedAll"
+            ng-click="toggleAllStores()">
+-->
+
+        <li class="_pad-bottom-35">
+          <input ng-class="{'marked-label': selectedAll}" class="inp-mark" id="stores-mark-all" type="checkbox" style="display: none;"
+           ng-model="selectedAll" ng-checked="selectedAll" ng-click="toggleAllStores()">
+          <label class="mark" for="stores-mark-all">
+            <span>
+              <svg width="12px" height="10px" viewbox="0 0 12 10">
+                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+              </svg>
+            </span>
+            <span>Selecionar todas</span>
+          </label>
+        </li>
+
+        <li ng-repeat="s in promoStores | filter:criteria" ng-class="{'marked-label': s.marked}" ng-click="updateSelections()">
+          <input class="inp-mark" id="stores-mark-{{s.id}}" type="checkbox"
+            style="display: none;"
+            ng-disabled="!s.allowed" ng-checked="(selectedAll && s.allowed) || s.marked" ng-model="s.marked">
+          <label class="mark" for="stores-mark-{{s.id}}">
+            <span>
+              <svg width="12px" height="10px" viewbox="0 0 12 10">
+                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+              </svg>
+            </span>
+            <span ng-class="{'disabled-store':!s.allowed}">{{s.name}}</span>
+          </label>
+        </li>
+      </ul>
+    </div>
+
+    <!-- UL DE PARTICIPANTES -->
+    <div ng-if="currentTab == 'SELECTED-STORES'">
+      <ul class="content-tab selected-tab">
+        <li ng-repeat="s in selectedStores | filter:criteria" ng-class="{'marked-label': s.marked}" ng-click="updateSelections()">
+
+          <input class="inp-mark" id="selected-mark-{{s.id}}" type="checkbox" style="display: none;"
+            ng-disabled="!s.allowed" ng-model="s.marked">
+          <label class="mark" for="selected-mark-{{s.id}}">
+            <span>
+              <svg width="12px" height="10px" viewbox="0 0 12 10">
+                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+              </svg>
+            </span>
+            <span ng-class="{'disabled-store':!s.allowed}">{{s.name}}</span>
+          </label>
+        </li>
+      </ul>
+    </div>
+
+    <!-- UL DE NAO PARTICIPANTES -->
+    <div ng-if="currentTab == 'DELETED-STORES'">
+      <ul class="content-tab selected-tab">
+        <li ng-repeat="s in promoDeletedStores" ng-class="{'marked-label': s.marked}" ng-click="updateSelections()">
+
+          <input class="inp-mark" id="unselected-mark-{{s.id}}" type="checkbox" style="display: none;"
+            ng-disabled="!s.allowed" ng-model="s.marked">
+          <label class="mark" for="unselected-mark-{{s.id}}" style="cursor: default;">
+            <span>
+              <svg width="12px" height="10px" viewbox="0 0 12 10">
+                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+              </svg>
+            </span>
+            <span ng-class="{'disabled-store':!s.allowed}">{{s.name}}</span>
+          </label>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+
+
+    <button class="button-default -small -action" ng-click="saveSelectedStores()"
+      ng-disabled="promoSelectedStores.length === 0">
+      salvar
+    </button>
+  </div>
+
+</div>
+<script>
+  (function () {
+    const reference = document.querySelector('#promo-unselected-store');
+    new Tooltip(reference, {
+      placement: 'top',
+      title: ' Não poderão participar da promoção lojas de medicamentos, armas e munições, explosivos, fogos de artifício ou estampido, bebidas alcoólicas, fumos e seus derivados. <br><br> As lojas destes segmentos estão automaticamente classificadas como não participantes.  ',
+      // arrowSelector: 'tooltip-arrow',
+      // innerSelector: 'tooltip-content',
+      html: 'true',
+      container: document.querySelector('#promo-unselected-store'),
+    });
+  })();
+
+</script>

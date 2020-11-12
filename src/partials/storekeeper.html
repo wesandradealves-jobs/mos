@@ -1,0 +1,32 @@
+<!-- Menu Include -->
+<ng-include src="'partials/includes/menu.html'" ng-controller="PermissionsController"></ng-include>
+<!-- End Menu Include -->
+
+<!-- STOREKEEPER SERVICE -->
+<section class="container">
+  <!-- UserMenu Include -->
+  <ng-include src="'partials/includes/user-menu.html'" ng-controller="UserMenuController"></ng-include>
+  <!-- End UserMenu Include -->
+  <div class="row">
+    <style>
+      iframe {
+        height: 680px;
+        width: 400px;
+        min-width: 100%;
+      }
+    </style>
+    <div class="storekeeper-container" id="storekeeper-container">
+    </div>
+    <script type="text/javascript" src="../js/vendor/iframe-resizer/js/iframeResizer.min.js"></script>
+    <script type="text/javascript">
+
+    iFrameResize({
+      log                     : false,                  // Enable console logging
+      checkOrigin: false,
+    },'#storekeeper-react');
+
+  </script>
+  </div>
+
+ </section>
+<!-- End Colaition Service Content -->

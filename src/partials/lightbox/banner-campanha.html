@@ -1,0 +1,89 @@
+<!-- BANNER CAMPANHA -->
+
+<div class="container-banner -mid">
+
+    <h2 class="lightbox-title">Banner no app</h2>
+
+    <!--    INFORMAÇÕES   -->
+    <form>
+
+        <h5 class="small" ng-if="mode !== 'SHOW'">Tipo</h5>
+
+        <div ng-if="mode !== 'SHOW'">
+            <div class="col-1-3 _no-padding" ng-repeat="sectionType in bannerSectionTypes">
+                <label class="checkbox">
+                    <input type="radio" name="opcao" ng-model="banner.section_type_id"
+                        ng-change="resetPreviewBanner();"
+                        value="{{ sectionType.id }}" convert-to-number ng-value="sectionType.id">
+                    <span class="checkmark"></span>{{ sectionType.name.toUpperCase() }}
+                </label>
+            </div>
+        </div>
+
+        <div class="box-complete">
+            <div ng-if="!hideButton" class="col-2-5">
+                <h5 class="small">Imagem</h5>
+                <p><span>formato: {{bannerWidth}}x{{bannerHeight}}px</span></p>
+            </div>
+
+            <div ng-if="!hideButton" class="upload-box">
+                <!-- class="button-default -grey -small"  onloadend="prepareImage" -->
+                <label class="button-default -upload -grey -small" for="file"
+                  ng-disabled="mode === 'SHOW'">{{mode === 'SHOW' ? 'MODO VISUALIZAÇÃO' : 'SELECIONAR ARQUIVO'}}</label>
+                <input id="file" name="file" type="file" base-sixty-four-input ng-model="image"
+                  onchange="angular.element(this).scope().file_changed(this)"
+                  accept="image/*" maxsize="2048" required ng-disabled="mode === 'SHOW'"/>
+            </div>
+
+
+            <div class="box-offer-view -campaign" ng-class="banner.section_type_id == 3 ? 'box-event-view' : 'box-offer-view'">
+
+                <div class="loading">
+                    <img class="loader" ng-show="banner.loading" src="img/loading_icon.svg">
+
+                    <!-- TODO: must recheck that later -->
+                    <div class="img-view">
+                        <img class="img-campaign" ng-src="{{banner.preview}}" ng-hide="banner.loading || !banner.preview"/>
+                        <img class="img-campaign" ng-src="{{banner.image}}" ng-hide="(!banner.image) || banner.preview"/>
+                    </div>
+                </div>
+
+            </div>
+
+            <h5 class="small">Detalhamento/Disclaimer</h5>
+            <textarea class="box-textarea" placeholder="Limite de 250 caracteres" maxlength=250 ng-model="banner.disclaimer"
+            ng-class="{'input-error': disclaimerError}" ng-blur="validateDisclaimer()"></textarea>
+        </div>
+
+        <div ng-if="mode != 'SHOW'" class="container-button">
+            <button ng-if="mode == 'CREATE'" class="button-default -action" value="ADICIONAR" type="submit" ng-click="createBanner()" ng-disabled="!image || !banner.section_type_id || !banner.disclaimer">Adicionar</button>
+            <button ng-if="mode != 'CREATE'" class="button-default _inline-block -turquoise -small -filter" value="ATUALIZAR" type="submit" ng-click="updateBanner()">Atualizar</button>
+            <button ng-if="mode != 'CREATE'" class="button-default _inline-block -grey -small -filter" value="APAGAR" type="submit" ng-click="deleteBanner()">Excluir</button>
+        </div>
+    </form>
+</div>
+
+
+
+<!--div>
+                        <label class="label-input">Exclusivo do clube</label>
+
+                        <div class="col-1-2">
+                            <label class="checkbox">
+                                <input type="radio" name="radio" ng-model="banner.isExclusive" ng-change="previewBanner();"
+                                    value="true">
+                                <span class="checkmark"></span>SIM
+                            </label>
+                        </div>
+
+                        <div class="col-1-2 _no-padding">
+                            <label class="checkbox">
+                                <input type="radio" name="radio" ng-model="banner.isExclusive" ng-change="previewBanner();"
+                                    value="false" checked>
+                                <span class="checkmark"></span>NÃO
+                            </label>
+                        </div>
+                    </div-->
+
+
+<!--   VISUALIZAÇÃO -->

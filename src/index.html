@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="metrics">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Spot Metrics</title>
+
+  <!-- Google Tag Manager -->
+  <script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer', 'gtmKey');</script>
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="Plataforma para as administradoras de shopping">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="img/favicon/favicon.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-touch-icon-114x114.png">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo:400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+
+  <!--JQuery-->
+  <script src="js/vendor/jquery/dist/jquery.min.js"></script>
+
+  <!-- Angular Dependencies -->
+  <script src="js/vendor/angular/angular.min.js"></script>
+  <script src="js/vendor/angular-animate/angular-animate.min.js"></script>
+  <script src="js/vendor/angular-route/angular-route.min.js"></script>
+  <script src="js/vendor/angular-locale-pt-br/angular-locale_pt-br.js"></script>
+
+  <!-- Moment -->
+  <script src="js/vendor/moment/min/moment.min.js"></script>
+
+  <!-- Google analytics -->
+  <script src="js/vendor/angulartics/dist/angulartics.min.js"></script>
+  <script src="js/vendor/angulartics-google-analytics/dist/angulartics-ga.min.js"></script>
+  <script src="js/vendor/angulartics-google-tag-manager/dist/angulartics-google-tag-manager.min.js"></script>
+
+  <!-- CUID -->
+  <script src="js/vendor/cuid/dist/cuid.min.js"></script>
+
+  <!-- ngDialog -->
+  <script src="js/vendor/ng-dialog/js/ngDialog.min.js"></script>
+  <link rel="stylesheet" href="js/vendor/ng-dialog/css/ngDialog.min.css">
+  <link rel="stylesheet" href="js/vendor/ng-dialog/css/ngDialog-theme-default.min.css">
+
+  <!-- Angular Base64 Image -->
+  <script src="js/vendor/angular-base64-upload/dist/angular-base64-upload.min.js"></script>
+
+  <!-- Angular Chosen -->
+  <script src="js/vendor/chosen-js/chosen.jquery.min.js"></script>
+  <script src="js/vendor/angular-chosen-localytics/dist/angular-chosen.min.js"></script>
+  <link rel="stylesheet" href="js/vendor/chosen-js/chosen.min.css">
+
+  <!-- Angular Data Table -->
+  <script src="js/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+  <script src="js/vendor/angular-datatables/dist/angular-datatables.min.js"></script>
+  <script src="js/vendor/datatables.net-responsive/js/dataTables.responsive.js"></script>
+  <link rel="stylesheet" href="js/vendor/datatables.net-responsive-dt/css/responsive.dataTables.css">
+  <link rel="stylesheet" href="js/vendor/datatables/media/css/jquery.dataTables.min.css">
+
+  <!-- Sweet Alert -->
+  <link rel="stylesheet" href="js/vendor/sweetalert/dist/sweetalert.css">
+  <script src="js/vendor/angular-sweetalert/SweetAlert.min.js"></script>
+  <script src="js/vendor/sweetalert/dist/sweetalert.min.js"></script>
+
+  <!-- Angular Mask -->
+  <script src="js/vendor/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
+  <script src="js/vendor/angular-br-filters/release/angular-br-filters.min.js"></script>
+
+    <!-- Angular ngFileUpload -->
+    <script src="js/vendor/ng-file-upload/dist/ng-file-upload.min.js"></script>
+
+  <!-- Grapes JS -->
+  <script src="https://unpkg.com/grapesjs@0.14.33/dist/grapes.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/grapesjs@0.14.33/dist/css/grapes.min.css">
+  <script src="https://grapesjs.com/js/grapesjs-preset-newsletter.min.js"></script>
+
+  <!-- Angular Main -->
+  <script src="js/app.js"></script>
+
+  <!-- Controllers -->
+  <script src="js/controllers/login.js"></script>
+  <script src="js/controllers/menu.js"></script>
+  <script src="js/controllers/userMenu.js"></script>
+  <script src="js/controllers/customer.js"></script>
+  <script src="js/controllers/inmall.js"></script>
+  <script src="js/controllers/flash.js"></script>
+  <script src="js/controllers/campaign.js"></script>
+  <script src="js/controllers/customerService.js"></script>
+  <script src="js/controllers/customerServiceExt.js"></script>
+  <script src="js/controllers/vipLounge.js"></script>
+  <script src="js/controllers/babyCare.js"></script>
+  <script src="js/controllers/campaign.js"></script>
+  <script src="js/controllers/promo.js"></script>
+  <script src="js/controllers/channels/sms.js"></script>
+  <script src="js/controllers/channels/email.js"></script>
+  <script src="js/controllers/channels/email-ext.js"></script>
+  <script src="js/controllers/channels/push.js"></script>
+  <script src="js/controllers/channels/banner.js"></script>
+  <script src="js/controllers/customerDetails.js"></script>
+  <script src="js/controllers/mallsSelector.js"></script>
+  <script src="js/controllers/mallsRadio.js"></script>
+  <script src="js/controllers/permissions.js"></script>
+  <script src="js/controllers/settings.js"></script>
+  <script src="js/controllers/settings/editSegments.js"></script>
+  <script src="js/controllers/coupon.js"></script>
+  <script src="js/controllers/coalition.js"></script>
+  <script src="js/controllers/storekeeper.js"></script>
+  <script src="js/controllers/loan.js"></script>
+  <script src="js/controllers/instoreView.js"></script>
+  <script src="js/controllers/lostfound.js"></script>
+
+  <!-- Factories -->
+  <script src="js/factories/constants.js"></script>
+  <script src="js/factories/sweetAlert.js"></script>
+  <script src="js/factories/session.js"></script>
+  <script src="js/factories/permission.js"></script>
+  <script src="js/factories/eventBus.js"></script>
+  <script src="js/factories/utils.js"></script>
+  <script src="js/factories/validations.js"></script>
+  <script src="js/factories/cache.js"></script>
+  <script src="js/factories/environment.js"></script>
+
+  <!-- Services -->
+  <script src="js/services/login.js"></script>
+  <script src="js/services/customer.js"></script>
+  <script src="js/services/inmall.js"></script>
+  <script src="js/services/customerService.js"></script>
+  <script src="js/services/client.js"></script>
+  <script src="js/services/vipLounge.js"></script>
+  <script src="js/services/babyCare.js"></script>
+  <script src="js/services/channel.js"></script>
+  <script src="js/services/campaign.js"></script>
+  <script src="js/services/clientMall.js"></script>
+  <script src="js/services/settings.js"></script>
+  <script src="js/services/coupon.js"></script>
+  <script src="js/services/promo.js"></script>
+  <script src="js/services/instore.js"></script>
+
+  <!-- Directives -->
+  <script src="js/directives/ngEnter.js"></script>
+
+  <!-- GrapeJS -->
+  <link rel="stylesheet" href="//unpkg.com/grapesjs/dist/css/grapes.min.css">
+  <script src="https://unpkg.com/grapesjs"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- Tooltip -->
+  <script src="https://unpkg.com/popper.js@1.15.0/dist/umd/popper.min.js"></script>
+  <script src="https://unpkg.com/tooltip.js@1.3.2/dist/umd/tooltip.min.js"></script>
+
+  <!-- Loads amCharts 4 -->
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+  <!-- Funnel chart -->
+  <script src="js/directives/funnel.js"></script>
+
+  <!-- Clustered column chart -->
+  <script src="js/directives/clusteredColumns.js"></script>
+
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=gtmKey"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <main id="wrapper" ng-class="{'open': toggle}" cg-busy="actualPromise" ng-controller="MenuController">
+    <!-- Partials -->
+    <ng-view></ng-view>
+    <!-- End Partials -->
+  </main>
+
+</body>
+</html>

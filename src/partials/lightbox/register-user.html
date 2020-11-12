@@ -1,0 +1,79 @@
+<div class=" sms-wrapper">
+    <form>
+        <h2 class="lightbox-title">Cadastro de Operador</h2>
+
+        <div class="row">
+            <div class="col-1-2">
+              <label class="label-input">Nome*</label>
+              <input type="text" ng-model="employee.name" required
+              pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\s]+$" ng-pattern-restrict
+              ng-class="{'input-error': nameError}" ng-blur="validateName()">
+            </div>
+            <div class="col-1-2">
+              <label class="label-input">Area*</label>
+              <input type="text" ng-model="employee.area" required
+              ng-class="{'input-error': areaError}" ng-blur="validateArea()">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-1-2">
+                <label class="label-input">CPF*</label>
+                <input type="text" ng-model="employee.cpf" ui-br-cpf-mask required
+                ng-class="{'input-error': cpfError}" ng-blur="validateCpf()">
+            </div>
+
+            <div class="col-1-2">
+                <label class="label-input">Telefone*</label>
+                <input type="text" ng-model="employee.phone" ui-br-phone-number required
+                ng-class="{'input-error': phoneError}" ng-blur="validatePhone()">
+            </div>
+        </div>
+
+        <div class="row">
+            <label class="label-input">Email*</label>
+            <input type="email" ng-model="employee.email" required
+            ng-class="{'input-error': emailError}" ng-blur="validateEmail()">
+        </div>
+
+        <div class="row">
+            <div class="col-1-2">
+                <label class="label-input">Senha*</label>
+                <input type="password" ng-model="employee.password" required
+                ng-class="{'input-error': passwordError}" ng-blur="validatePassword()">
+            </div>
+
+            <div class="col-1-2">
+                <label class="label-input">Repetir senha*</label>
+                <input type="password" ng-model="employee.confirmPassword" required
+                ng-class="{'input-error': confirmPasswordError}" ng-blur="validateConfirmPassword();confirmPassword()">
+            </div>
+        </div>
+
+        <div class="row">
+            <label class="label-input">Shopping*</label>
+            <select ng-model="employee.mallId" ng-change="getListRole()" ng-class="{'input-error': mallError}" ng-blur="validateMall()" required>
+              <option value="" disabled selected>-- Selecione --</option>
+              <option value="{{mall.id}}" ng-repeat="mall in userMalls" ng-selected="mall.id == employee.mallId">{{mall.name}}</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <label class="label-input">Permissão no Shopping*</label>
+            <select ng-model="employee.roleId" ng-class="{'input-error': roleError}" ng-blur="validateRole()" required>
+              <option value="" disabled selected>-- Selecione --</option>
+              <option value="{{role.id}}" ng-repeat="role in roles">{{role.name}}</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <span class="obs"> Descrição da funcionalidades do operador que está sendo cadastrado, que aparecerá toda vez que um usuário escolher um papel.</span>
+        </div>
+
+        <div class="row">
+                <button class="button-default -action" ng-disabled="!employee.name || !employee.area || !employee.cpf || !employee.phone || !employee.email || !employee.password || !employee.confirmPassword || !employee.mallId || !employee.roleId"
+                ng-click="newEmployee()">Salvar</button>
+            </div>
+
+    </form>
+</div>

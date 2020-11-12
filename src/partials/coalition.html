@@ -1,0 +1,32 @@
+<!-- Menu Include -->
+<ng-include src="'partials/includes/menu.html'" ng-controller="PermissionsController"></ng-include>
+<!-- End Menu Include -->
+
+<!-- COALITION SERVICE -->
+<section class="container">
+  <!-- UserMenu Include -->
+  <ng-include src="'partials/includes/user-menu.html'" ng-controller="UserMenuController"></ng-include>
+  <!-- End UserMenu Include -->
+  <div class="row">
+    <style>
+      iframe {
+        min-height: 680px !important;
+        width: 400px;
+        min-width: 100%;
+      }
+    </style>
+    <div class="coalition-container" id="coalition-container">
+    </div>
+    <script type="text/javascript" src="../js/vendor/iframe-resizer/js/iframeResizer.min.js"></script>
+    <script type="text/javascript">
+
+    iFrameResize({
+      log                     : false,                  // Enable console logging
+      checkOrigin: false,
+    },'#coalition-react');
+
+  </script>
+  </div>
+
+ </section>
+<!-- End Colaition Service Content -->

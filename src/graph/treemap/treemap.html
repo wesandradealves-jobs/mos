@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" src="../_libs/d3.v2.min.js"></script>
+    <script type="text/javascript" src="../_libs/queryParser.js"></script>
+    <script type="text/javascript" src="treemap.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <style type="text/css">
+
+      body {
+        /*background: url(texture-noise.png);*/
+        overflow: hidden;
+        margin: 0;
+        font-size: 14px;
+        font-family: 'Roboto Mono', Helvetica, Arial, sans-serif;
+        text-transform: uppercase;
+      }
+
+      #chart, #header, #footer {
+        position: absolute;
+        top: 0;
+      }
+
+      #header, #footer {
+        z-index: 1;
+        display: block;
+        font-size: 36px;
+        font-weight: 300;
+        text-shadow: 0 1px 0 #fff;
+      }
+
+      #header.inverted, #footer.inverted {
+        color: #fff;
+        text-shadow: 0 1px 4px #000;
+      }
+
+      #header {
+        top: 80px;
+        left: 140px;
+        width: 1000px;
+      }
+
+      #footer {
+        top: 680px;
+        right: 140px;
+        text-align: right;
+      }
+
+      rect {
+        fill: none;
+        pointer-events: all;
+      }
+
+      pre {
+        font-size: 18px;
+      }
+
+      line {
+        stroke: #000;
+        stroke-width: 1.5px;
+      }
+
+      .string, .regexp {
+        color: #f39;
+      }
+
+      .keyword {
+        color: #00c;
+      }
+
+      .comment {
+        color: #777;
+        font-style: oblique;
+      }
+
+      .number {
+        color: #369;
+      }
+
+      .class, .special {
+        color: #1181B8;
+      }
+
+      a:link, a:visited {
+        color: #000;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #666;
+      }
+
+      .hint {
+        position: absolute;
+        right: 0;
+        width: 1280px;
+        font-size: 12px;
+        color: #999;
+      }
+
+.chart {
+  display: block;
+  margin: auto;
+}
+
+text {
+  font-size: 11px;
+}
+
+rect {
+  fill: none;
+}
+
+    </style>
+  </head>
+  <body>
+    <div id="body">
+      <div id="footer">
+        d3.layout.treemap
+        <div class="hint">click or option-click to descend or ascend</div>
+        <div><select>
+          <option value="size">Size</option>
+          <option value="count">Count</option>
+        </select></div>
+      </div>
+    </div>
+    <script type="text/javascript">
+
+var w = window.innerWidth,
+    h = window.innerHeight,
+    x = d3.scale.linear().range([0, w]),
+    y = d3.scale.linear().range([0, h]),
+    //color = d3.scale.category20c(),
+    root,
+    node;
+
+var color = function(indice) {
+  // Insert colors here
+  var cores = {
+    // "Motivos": "#035058",
+    // "Conforto": "#035058",
+    // "Manutenção": "#0b667c",
+    // "Escada Rolante": "#4b8f98",
+    // "Limpeza": "#00a2a3",
+    // "Cobrança": "#54bbab",
+    // "Bebedouro": "#4f7872",
+    // "Atendimento / Informação": "#ddf5db",
+    // "Ticket Perdido": "#035058",
+    // "Elevadores": "#0b667c",
+    // "Atendimento / Troca": "#4b8f98",
+    // "Abordagem": "#00a2a3",
+    // "Colisão": "#54bbab",
+    // "Elogio": "#035058",
+    // "Informação": "#0b667c",
+    // "Solicitação/Sugestão": "#4b8f98",
+    // "Reclamação  ": "#00a2a3",
+
+    //Elogio
+    "1": "#f8eaa5",
+    "2": "#f4dc69",
+    "3": "#ecc505",
+    "4": "#b19404",
+    "5": "#766303",
+
+    //Informação
+    "6": "#b3acb5",
+    "7": "#807483",
+    "8": "#563062",
+    "9": "#41244a",
+    "10": "#251329",
+
+    //Reclamação
+    "11": "#bed7da",
+    "12": "#93bcc1",
+    "13": "#4b8f98",
+    "14": "#386b72",
+    "15": "#26484c",
+
+    //Solicitação
+    "16": "#d9b4a7",
+    "17": "#c0826d",
+    "18": "#b06348",
+    "19": "#844a36",
+    "20": "#583224",
+
+    //Elogio
+    "Banheiros ": "#ecc505",
+    "Mall ": "#ecc505",
+    "Estacionamento ": "#ecc505",
+    "Lojas ": "#ecc505",
+    "Praça de alimentação ": "#ecc505",
+    
+    //Informação
+    "Mall  ": "#563062",
+    "Banheiros  ": "#563062",
+    "Estacionamento  ": "#563062",
+    "Lojas  ": "#563062",
+    "Praça de alimentação  ": "#563062",
+
+    //Reclamação
+    "Mall   ": "#4b8f98",
+    "Banheiros   ": "#4b8f98",
+    "Estacionamento   ": "#4b8f98",
+    "Lojas   ": "#4b8f98",
+    "Praça de alimentação   ": "#4b8f98",
+
+    //Solicitação
+    "Mall    ": "#b06348",
+    "Banheiros    ": "#b06348",
+    "Estacionamento    ": "#b06348",
+    "Lojas    ": "#b06348",
+    "Praça de alimentação    ": "#b06348",
+
+    // "Mall": "#0b667c",
+    // "Banheiros": "#4b8f98",
+    // "Estacionamento": "#00a2a3",
+    // "Lojas": "#54bbab",
+    // "Praça de alimentação": "#4f7872"
+  };
+
+  if ( cores[indice] )
+    return cores[indice];
+  else
+    return "#ddf5db"
+};
+
+var treemap = d3.layout.treemap()
+    .round(false)
+    .size([w, h])
+    .sticky(true)
+    .value(function(d) { return d.size; });
+
+var svg = d3.select("#body").append("div")
+    .attr("class", "chart")
+    .style("width", w + "px")
+    .style("height", h + "px")
+  .append("svg:svg")
+    .attr("width", w)
+    .attr("height", h)
+  .append("svg:g")
+    .attr("transform", "translate(.5,.5)");
+
+// Insert API here
+// d3.json("api/reclamacoes-sac-data.json", function(data) {
+function loadData(data) {
+  node = root = data;
+
+  var nodes = treemap.nodes(root)
+      .filter(function(d) { return !d.children; });
+
+  var cell = svg.selectAll("g")
+      .data(nodes)
+    .enter().append("svg:g")
+      .attr("class", "cell")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .on("click", function(d) { return zoom(node == d.parent ? root : d.parent); });
+
+  cell.append("svg:rect")
+      .attr("width", function(d) { return d.dx - 1; })
+      .attr("height", function(d) { return d.dy - 1; })
+      .style("fill", function(d) { return color(d.parent.color); });
+
+  cell.append("svg:text")
+      .attr("x", function(d) { return d.dx / 2; })
+      .attr("y", function(d) { return d.dy / 2; })
+      .attr("dy", ".35em")
+      .attr("text-anchor", "middle")
+      .text(function(d) { return d.name; })
+      .style("opacity", function(d) { d.w = this.getComputedTextLength(); return d.dx > d.w ? 1 : 0; });
+
+  d3.select(window).on("click", function() { zoom(root); });
+
+  d3.select("select").on("change", function() {
+    treemap.value(this.value == "size" ? size : count).nodes(root);
+    zoom(node);
+  });
+};
+
+function size(d) {
+  return d.size;
+}
+
+function count(d) {
+  return 1;
+}
+
+function zoom(d) {
+  var kx = w / d.dx, ky = h / d.dy;
+  x.domain([d.x, d.x + d.dx]);
+  y.domain([d.y, d.y + d.dy]);
+
+  var t = svg.selectAll("g.cell").transition()
+      .duration(d3.event.altKey ? 7500 : 750)
+      .attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
+
+  t.select("rect")
+      .attr("width", function(d) { return kx * d.dx - 1; })
+      .attr("height", function(d) { return ky * d.dy - 1; })
+
+  t.select("text")
+      .attr("x", function(d) { return kx * d.dx / 2; })
+      .attr("y", function(d) { return ky * d.dy / 2; })
+      .style("opacity", function(d) { return kx * d.dx > d.w ? 1 : 0; });
+
+  node = d;
+  d3.event.stopPropagation();
+}
+
+/*
+var urlQuery = urlQueryObj();
+if ( urlQuery.params )
+  loadData(urlQuery.params.data);
+*/
+
+var urlQuery = urlQueryObj();
+if ( urlQuery.params ) {
+  var graphic_data = JSON.parse( sessionStorage.graphic_data );
+  loadData( JSON.parse( graphic_data[ urlQuery.params.data ] ) );
+}
+    </script>
+  </body>
+</html>

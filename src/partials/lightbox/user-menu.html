@@ -1,0 +1,86 @@
+<div class=" sms-wrapper">
+    <form>
+        <h2 class="lightbox-title">Configurações do Operador</h2>
+
+        <div class="row">
+            <div >
+                <label class="label-input">Nome*</label>
+                <input type="text" value="{{employeeMall.name}}" disabled>
+            </div>
+
+            <!--div class="col-1-2" ng-show="false">
+                <label class="label-input">Status</label>
+
+                    <div class="col-1-2">
+                        <label class="checkbox">
+                            <input type="radio" name="radio"disabled>
+                            <span class="checkmark"></span>Ativo
+                        </label>
+                    </div>
+
+                    <div class="col-1-2 _no-padding">
+                        <label class="checkbox">
+                            <input type="radio" name="radio" disabled >
+                            <span class="checkmark"></span>Inativo
+                        </label>
+                    </div>
+
+            </div-->
+        </div>
+
+            <div class="row">
+                    <div class="col-1-2">
+                        <label class="label-input">CPF*</label>
+                        <input type="text" ng-model="employeeMall.cpf" disabled>
+                    </div>
+
+                    <div class="col-1-2">
+                        <label class="label-input">Telefone</label>
+                        <input type="text" ng-model="employeeMall.phone">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label class="label-input">Email*</label>
+                    <input type="text" ng-model="employeeMall.email">
+                </div>
+
+                <div class="row">
+                    <div class="col-1-2">
+                        <label class="label-input">Senha*</label>
+                        <input type="password" ng-model="employeeMall.newPassword">
+                    </div>
+
+                    <div class="col-1-2">
+                        <label class="label-input">Repetir senha*</label>
+                        <input type="password" ng-model="employeeMall.newPasswordConfirmation" ng-blur="confirmPassword()">
+                    </div>
+                </div>
+
+                <!--div class="row" ng-show="false">
+                    <label class="label-input">Shopping</label>
+                    <select disabled>
+
+                    </select>
+                </div>
+
+                <div class="row" ng-show="false">
+                    <label class="label-input">Papel no Shopping*</label>
+                    <select disabled>
+                            <option value="1">Papel 1</option>
+                            <option value="2">Papel 2</option>
+                            <option value="3">Papel 3</option>
+                          </select>
+                </div>
+
+                <div class="row" ng-show="false">
+                    <span class="obs"> Descrição da funcionalidades do operador que está sendo cadastrado, que aparecerá toda vez que um usuário escolher um papel.</span>
+                </div-->
+
+                <div class="row">
+                    <button class="button-default -action" ng-click="saveUserUpdates()">Salvar</button>
+                </div>
+        </div>
+
+    </form>
+</div>

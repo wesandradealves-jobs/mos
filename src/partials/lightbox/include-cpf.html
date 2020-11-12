@@ -1,0 +1,42 @@
+<div class=" sms-wrapper">
+    <h2 class="lightbox-title">Inserir CPF</h2>
+
+    <div class="row">
+
+        <div class="row">
+            <div class="col-1-2">
+                <label class="label-input">Incluir um CPF</label>
+                <input type="text">
+            </div>
+        </div>
+
+
+        <hr class="divide-line">
+
+        <div class="row">
+            <label class="label-input">Inserir lista de Cpf's</label>
+            <div ng-app="fileUpload">
+
+                <div ngf-drop ngf-select ng-model="files" class="drop-box" ngf-drag-over-class="'dragover'"
+                    ngf-multiple="true" ngf-allow-dir="true" accept="image/*,application/pdf" ngf-pattern="'image/*,application/pdf'">
+
+                    <span class="text-drag">Arraste o Arquivo* para cá <br> - ou - <br> Clique aqui para carregar do
+                        computador</span>
+                </div>
+
+                <span ng-repeat="f in files"> Arquivo adicionado: {{f.name}} {{f.$error}} {{f.$errorParam}}</span>
+
+                <div class="row">
+                    <span class="obs">*O arquivo deve ter Um CPF por linha. Os CPFs devem estar organizados na primeira coluna à esquerda, sem título/cabeçalho, apenas números. O arquivo deve ter o formato TXT.</span>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <button class="button-default -action">Confirmar</button>
+</div>

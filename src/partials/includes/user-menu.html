@@ -1,0 +1,18 @@
+<div class="wrapper-usermenu dropdown-menu">
+  <label class="user-menu" for="dropdown-menu">
+    <figure class="image">
+      <span class="user-settings-avatar-name">{{user.firstName | limitTo: 1}}{{user.lastName | limitTo: 1}}</span>
+    </figure>
+    <span class="name">{{user.name}}</span>
+  </label>
+  <input id="dropdown-menu" class="open" type="checkbox" aria-hidden="true" hidden />
+  <label for="dropdown-menu" class="overlay"></label>
+  <div class="inner">
+    <div class="header">
+      <span class="title">{{user.name}}</span>
+      <span class="subtitle">{{user.area}}</span>
+    </div>
+    <div class="item" ng-click="openUserMenu()">Configurações</div>
+    <div class="item" ng-click="logout()">Sair</div>
+  </div>
+</div>

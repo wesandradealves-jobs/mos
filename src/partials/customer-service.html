@@ -1,0 +1,469 @@
+<!-- Menu Include -->
+<ng-include src="'partials/includes/menu.html'" ng-controller="PermissionsController"></ng-include>
+<!-- End Menu Include -->
+
+<!-- CUSTOMER SERVICE -->
+<section class="container">
+  <!-- UserMenu Include -->
+  <ng-include src="'partials/includes/user-menu.html'" ng-controller="UserMenuController"></ng-include>
+  <!-- End UserMenu Include -->
+
+  <h1 class="page-title">SAC</h1>
+
+  <div class="wrapper-breadcrumbs">
+    <ol class="breadcrumbs">
+      <li class="item">Home</li>
+      <li class="item">SAC</li>
+    </ol>
+  </div>
+
+  <div class="row">
+    <ul>
+      <!-- Novo Registro -->
+      <li class="nav-tab" ng-show="menuPermissions['CREATE-CUSTOMERSERVICE']">
+
+        <input type="radio" name="tabs" class="tabs" id="new-sac"
+          ng-checked="menuPermissions['CREATE-CUSTOMERSERVICE']">
+        <label class="label -first" for="new-sac">
+          <img src="../img/tabs/new.svg" class="icon">
+          NOVO REGISTRO
+        </label>
+        <div class="content">
+
+          <div class="col-1-2-xl">
+            <form action="">
+              <div class="row">
+                <div class="col-1-2">
+                  <label class="label-input">Shopping*</label>
+                  <select ng-model="registerMall" required ng-class="{'input-error': mallError}"
+                    ng-blur="validateMall()" ng-change="unlockFields()">
+                    <option selected disabled value="">-- Selecione --</option>
+                    <option value="{{u.id}}" ng-repeat="u in user.malls track by u.id">{{u.name}}</option>
+                  </select>
+                </div>
+                <div class="col-1-2">
+                  <label class="label-input">CPF*</label>
+                  <input type="text" ng-change="searchClient()" ng-model="client.cpf" ui-br-cpf-mask required=false
+                    ng-class="{'input-error': cpfError}" ng-blur="validateCpf()" ng-disabled="choiceMall">
+                </div>
+              </div>
+
+              <div class="row">
+                <label class="label-input">Nome Completo*</label>
+                <input type="text" ng-model="client.fullName" ng-class="{'input-error': nameError}"
+                  ng-blur="validateName()"
+                  pattern="^([A-Za-zàáâäãåčćèéêëėìíîïńòóôöõùúûüūÿýñçÀÁÂÄÃÅĖĘÈÉÊËÌÍÎÏÒÓÔÖÕÙÚÛÜŪÑßÇ']{2,}[ ])([A-Za-zàáâäãåčćèéêëėìíîïńòóôöõùúûüūÿýñçÀÁÂÄÃÅĖĘÈÉÊËÌÍÎÏÒÓÔÖÕÙÚÛÜŪÑßÇ\.']+[ ]?){2,}$"
+                  ng-disabled="choiceCPF" ng-pattern-restrict required>
+              </div>
+              <div class="row">
+                <div class="col-1-2-xl">
+                  <label class="label-input">Gênero*</label>
+                  <select ng-model="client.sex" required ng-class="{'input-error': sexError}" ng-blur="validateSex()"
+                    ng-disabled="choiceCPF">
+                    <option value="" disabled selected>-- Selecione --</option>
+                    <option value="F">FEMININO</option>
+                    <option value="M">MASCULINO</option>
+                    <option value="O">OUTRO</option>
+                  </select>
+                </div>
+                <div class="col-1-2-xl">
+                  <label class="label-input">CEP*</label>
+                  <input type="text" ng-model="client.address.zipCode" ui-br-cep-mask required
+                    ng-class="{'input-error': zipCodeError}" ng-blur="validateZipCode()" ng-disabled="choiceCPF">
+                </div>
+              </div>
+
+              <div class="row">
+                <label class="label-input">E-mail*</label>
+                <input type="email" ng-model="client.email" required ng-class="{'input-error': emailError}"
+                  ng-blur="validateEmail()" ng-disabled="choiceCPF">
+              </div>
+
+              <div class="row">
+                <div class="col-1-2-xl">
+                  <label class="label-input">Telefone*</label>
+                  <input type="tel" ng-model="client.mobileNumber" ui-br-phone-number required
+                    ng-class="{'input-error': phoneError}" ng-blur="validatePhone()" ng-disabled="choiceCPF">
+                </div>
+
+                <div class="col-1-2-xl">
+                  <label class="label-input">Data de nascimento*</label>
+                  <input type="text" ng-model="client.birthday" ui-date-mask required
+                    ng-class="{'input-error': birthdayError}" ng-blur="validateBirthday()" ng-disabled="choiceCPF">
+                </div>
+              </div>
+              <div class="row" ng-if="selectedTargeting && selectedClubAcceptance == true">
+                <label class="label-input">Cliente já faz parte do clube</label>
+                <img class="targeting-image" ng-src="{{selectedTargeting.icon}}">
+                <span class="targeting-text">Cliente {{selectedTargeting.name}}</span>
+              </div>
+              <div class="row" ng-if="!selectedTargeting || selectedClubAcceptance == false">
+                <div class="col-1-2-xl">
+                  <label class="label-input">Cliente deseja fazer parte do clube?*</label>
+                  <div>
+                    <div class="col-1-2">
+                      <label class="checkbox">
+                        <input type="radio" name="opcao" ng-value="true" ng-model="client.clubAcceptance"
+                          ng-click="clubUnlock()">
+                        <span class="checkmark"></span>SIM
+                      </label>
+                    </div>
+
+                    <div class="col-1-2 _no-padding">
+                      <label class="checkbox">
+                        <input type="radio" name="opcao" ng-value="false" ng-model="client.clubAcceptance"
+                          ng-click="clubLock()">
+                        <span class="checkmark"></span>NÃO
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-1-2-xl">
+                  <label class="label-input">Enviar termo de Adesão</label>
+                  <select ng-model="client.clubAcceptanceChannel" ng-disabled="club">
+                    <option value="" selected disabled>-- Selecione --</option>
+                    <option value="EMAIL">E-mail</option>
+                    <option value="SMS">SMS</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-1-2-xl -noright">
+            <div class="row">
+              <label class="label-input">Canal de atendimento*</label>
+              <div class="row">
+                <div class="col-1-3">
+                  <label class="checkbox">
+                    <input type="radio" ng-model="customerService.origin" value="PRESENCIAL">
+                    <span class="checkmark"></span>Presencial
+                  </label>
+                </div>
+
+                <div class="col-1-3">
+                  <label class="checkbox">
+                    <input type="radio" ng-model="customerService.origin" value="TELEFONE">
+                    <span class="checkmark"></span>Telefone
+                  </label>
+                </div>
+
+                <div class="col-1-3 _no-padding">
+                  <label class="checkbox">
+                    <input type="radio" ng-model="customerService.origin" value="OUTRO">
+                    <span class="checkmark"></span>Outro
+                  </label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <label class="label-input">Motivo do atendimento*</label>
+              <select ng-model="firstReason" ng-change="selectReason(1)" required ng-init="firstReason = ''" required
+                ng-class="{'input-error': firstError}" ng-blur="validateFirst()" ng-disabled="choiceCPF">
+                <option selected disabled value="">-- Selecione --</option>
+                <option value="{{reason.id}}" ng-repeat="reason in firstLevel">{{reason.name}}</option>
+              </select>
+            </div>
+            <div class="row" ng-show="secondLevel">
+              <select ng-model="secondReason" ng-change="selectReason(2)" ng-init="secondReason = ''" required
+                ng-class="{'input-error': secondError}" ng-blur="validateSecond()">
+                <option value="" selected disabled>-- Selecione --</option>
+                <option value="{{item.id}}" ng-repeat="item in secondLevel">{{item.name}}</option>
+              </select>
+            </div>
+            <div class="row" ng-show="thirdLevel">
+              <select ng-model="thirdReason" ng-change="selectReason(3)" ng-init="thirdReason = ''" required
+                ng-class="{'input-error': thirdError}" ng-blur="validateThird()">
+                <option value="" selected disabled>-- Selecione --</option>
+                <option value="{{item.id}}" ng-repeat="item in thirdLevel">{{item.name}}</option>
+              </select>
+            </div>
+            <div class="row">
+              <textarea cols="68" rows="10" ng-model="customerService.comment" ng-disabled="choiceCPF"></textarea>
+            </div>
+            <div class="row">
+              <label class="label-input">Encaminhar Registro</label>
+              <select ng-disabled="choiceCPF" ng-model="customerService.role" ng-init="customerService.role = '-1'">
+                <option value="-1" selected>-- Selecione --</option>
+                <option value="Jurídico">Jurídico</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Operações">Operações</option>
+                <option value="Segurança">Segurança</option>
+                <option value="Estacionamento">Estacionamento</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <span class="obs">*Campos obrigatórios</span>
+
+          <div class="row">
+            <button class="button-default -action -small"
+              ng-disabled="!registerMall || !client.cpf || !client.mobileNumber || !client.fullName || !client.sex || !client.address.zipCode || !client.email || !client.birthday || (client.clubAcceptance && !client.clubAcceptanceChannel) || !customerService.origin || !reasonFlag"
+              ng-click="saveCustomerService();">Salvar</button>
+          </div>
+
+        </div>
+
+      </li>
+      <!-- END Novo Registro -->
+
+      <!-- Relatório -->
+      <li class="nav-tab" ng-show="menuPermissions['REPORT-CUSTOMERSERVICE']">
+        <input type="radio" name="tabs" class="tabs" id="sac-report"
+          ng-checked="(!menuPermissions['CREATE-CUSTOMERSERVICE']) && menuPermissions['REPORT-CUSTOMERSERVICE']">
+        <label class="label" for="sac-report">
+          <img src="../img/tabs/report.svg" class="icon">
+          RELATÓRIO
+        </label>
+        <div class="content">
+
+          <!-- Filtro -->
+          <div class="row">
+            <div class="col-3">
+              <label class="label-input">
+                Shopping
+              </label>
+              <div class="box filter-shopping -select" ng-model="malls" ng-show="malls.length == 1">
+                Selecionar
+                <div class="button-more -select" ng-click="openMalls(malls)">
+                  <img src="../img/more.svg">
+                </div>
+              </div>
+              <div class="box filter-shopping -select" ng-model="malls" ng-show="malls.length > 1">
+                {{malls.length}} Shoppings Selecionados
+                <div class="button-more" ng-click="openMalls(malls)">
+                  <img src="../img/more.svg">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-4">
+              <label class="label-input" for="customer-service-report-channel-origins">Canal</label>
+
+              <select ng-model="origins[0]" id="customer-service-report-channel-origins" ng-init="origins[0]='todos'">
+                <option value="-1" disabled>-- Selecione --</option>
+                <option value="presencial">Presencial</option>
+                <option value="telefone">Telefone</option>
+                <option value="outros">Outros</option>
+                <option value="todos" selected>Todos</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <label class="label-input">Período</label>
+              <select ng-model="offset">
+                <option value="-1" disabled>-- Selecione --</option>
+                <option value="day">Hoje</option>
+                <option value="week">Semana</option>
+                <option value="month">Mês</option>
+                <option value="year">Ano</option>
+              </select>
+            </div>
+
+            <div class="col-1">
+              <button class="button-default -turquoise -small -filter" ng-click="loadGraphics()"
+                id="customer-service-search-button">Buscar</button>
+            </div>
+
+          </div>
+          <!-- END Filtro -->
+
+          <!-- Gráficos -->
+          <div class="col-1-3-l -noleft">
+            <div class="box loading">
+              <h5 class="title">
+                Número de Avaliações
+                <div class="button-more" ng-click="openStackedBar('dailyAttendance')">
+                  <img src="../img/more.svg">
+                </div>
+              </h5>
+              <img ng-if="loading.dailyAttendance" class="loader" src="img/loader.svg">
+              <iframe class="_mar-top-10" id="dailyAttendance" src='../graph/stacked-bar/stacked-bar.html' width="100%"
+                height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+            </div>
+            <div class="box loading">
+              <h5 class="title">
+                Categorias/ Tipo / Avaliação
+                <div class="button-more" ng-click="openNgDialog('statusFlow')">
+                  <img src="../img/more.svg">
+                </div>
+              </h5>
+              <img ng-if="loading.statusFlow" class="loader" src="img/loader.svg">
+              <iframe class="_mar-top-10" id="statusFlow" src='../graph/sankey/sankey.html' width="90%" height="auto"
+                scrolling="no" data-hj-allow-iframe=""></iframe>
+            </div>
+          </div>
+
+          <div class="col-1-3-l">
+            <div class="box loading">
+              <h5 class="title">
+                Motivos
+                <div class="button-more" ng-click="openTreeMapBar('attendanceReason')">
+                  <img src="../img/more.svg">
+                </div>
+              </h5>
+              <img ng-if="loading.attendanceReason" class="loader" src="img/loader.svg">
+              <iframe class="_mar-top-10" id="attendanceReason" src='../graph/treemap/treemap.html' width="100%"
+                height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+            </div>
+
+            <div class="box -height">
+              <h5 class="title">
+                Nota Média
+              </h5>
+              <div class="number -height">{{avg[0].value}}</div>
+            </div>
+          </div>
+
+          <div class="col-1-3-l">
+            <div class="box loading">
+              <h5 class="title">
+                Atendimentos por dia da semana
+                <div class="button-more" ng-click="openNgDialog('weeklyAttendance')">
+                  <img src="../img/more.svg">
+                </div>
+              </h5>
+              <img ng-if="loading.weeklyAttendance" class="loader" src="img/loader.svg">
+              <iframe class="_mar-top-10" id="weeklyAttendance" src='../graph/grouped-bar/grouped-bar.html' width="100%"
+                height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+            </div>
+
+            <div class="box loading">
+              <h5 class="title">
+                Avaliações
+                <div class="button-more" ng-click="openBulletChart('attendanceScore')">
+                  <img src="../img/more.svg">
+                </div>
+              </h5>
+              <img ng-if="loading.attendanceScore" class="loader" src="img/loader.svg">
+              <iframe class="_mar-top-10" id="attendanceScore" src='../graph/bullet-chart/bullet-chart.html'
+                width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+            </div>
+          </div>
+          <!-- END Gráficos -->
+
+        </div>
+      </li>
+      <!-- END Relatório -->
+
+      <!-- Controle -->
+      <li class="nav-tab" ng-show="menuPermissions['LIST-CUSTOMERSERVICE']">
+        <input type="radio" name="tabs" class="tabs" id="sac-control"
+          ng-checked="(!menuPermissions['CREATE-CUSTOMERSERVICE']) && (!menuPermissions['REPORT-CUSTOMERSERVICE'])">
+        <label class="label" for="sac-control">
+          <img src="../img/tabs/control.svg" class="icon">
+          CONTROLE
+        </label>
+        <div class="content" id="sac-control">
+          <div class="row">
+            <div class="col-3">
+              <label class="label-input">Shopping</label>
+
+              <select ng-model="controlMall" ng-init="controlMall = userMalls[0].id "
+                ng-options="m.id as m.name for m in userMalls">
+              </select>
+            </div>
+
+            <div class="col-2">
+              <button class="button-default -filter -small"
+                ng-click="getData()">Buscar</button>
+            </div>
+          </div>
+
+          <table datatable="ng" class="row-border hover" width="100%" dt-column-defs="dtColumnDefs"
+            dt-options="dtOptions">
+            <thead>
+              <tr>
+                <th>Data de Atendimento</th>
+                <th>Nome do Cliente</th>
+                <th>Motivo de Atendimento</th>
+                <th>Nota Recebida</th>
+                <th>Detalhamento</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr ng-repeat="customer in customers">
+                <td>{{customer.registerDate}}</td>
+                <td>{{customer.client.fullName}}</td>
+                <td>{{customer.customerServiceReason.customerServiceReason.name}}</td>
+                <td class="_text-center">{{customer.score}}</td>
+                <td class="_text-center">
+                  <img class="icon-button" ng-click="openDetailingCustomerService(customer)" src="img/more.svg">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </li>
+      <!-- END Controle -->
+
+
+      <!-- edit client -->
+      <li class="nav-tab" ng-show="menuPermissions['LIST-CUSTOMERSERVICE']">
+        <input type="radio" name="tabs" class="tabs" id="edit-client"
+          ng-checked="(!menuPermissions['CREATE-CUSTOMERSERVICE']) && (!menuPermissions['REPORT-CUSTOMERSERVICE'])">
+        <label class="label" for="edit-client">
+          <img src="../img/tabs/control.svg" class="icon">
+          Editar Cliente
+        </label>
+        <div class="content" id="sac-edit">
+          <div class="row">
+            <div class="col-3">
+              <label class="label-input">Shopping</label>
+              <select ng-model="clientMall" ng-init="clientMall = '-1' ">
+                <option value="-1" selected disabled>-- Selecione --</option>
+                <option ng-repeat="m in userMalls track by m.id" ng-value="m.id">{{m.name}}</option>
+              </select>
+            </div>
+
+            <div class="col-1-4">
+              <label class="label-input">CPF</label>
+              <input ng-model="cpf" type="text" placeholder="Pesquisar o cliente" ui-br-cpf-mask>
+            </div>
+
+            <div class="col-1-4">
+              <button class="button-default -filter -small" ng-click="searchClientByCpf()"
+                ng-disabled="clientMall == '-1' || !cpf">Buscar</button>
+            </div>
+
+          </div>
+
+          <table datatable="ng" class="row-border hover" width="100%" dt-column-defs="dtColumnDefs"
+            dt-options="dtOptions">
+            <thead>
+              <tr>
+                <th>CPF</th>
+                <th>Nome do Cliente</th>
+                <th>E-mail</th>
+                <th>telefone</th>
+                <th>editar</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr ng-repeat="client in editClients">
+                <td>{{client.cpf}}</td>
+                <td>{{client.fullName}}</td>
+                <td>{{client.email}}</td>
+                <td>{{client.mobileNumber}}</td>
+                <td class="_text-center">
+                  <img class="icon-button" ng-click="openEditClient(cpf)" src="img/rascunho.svg">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </li>
+
+    </ul>
+  </div>
+
+
+</section>
+<!-- End Customer Service Content -->

@@ -1,0 +1,74 @@
+///* ========================================================================
+//   LEGEND CHARTS
+//   ======================================================================== */
+
+.legend-charts {
+    text-align: center;
+    font-family: $font-family;
+    margin-top: 10px;
+    @extend .row;
+    @include font-size(12);
+
+    > .col-1-5 { text-align: left; }
+    .col-1-5 > .square { margin: 0 10px 0 0 !important; }
+
+    .col-1-5 > .square,
+    > .square {
+        width: 10px;
+        height: 10px;
+        margin: 0 10px 0 20px;
+        display: inline-block;
+
+        &.-light-turquoise { background: #61a19c }
+        &.-light-green { background: #5cd61f }
+        &.-purple { background: $purple; }
+        &.-dark-purple { background: $dark-purple; }
+
+        &.-brown { background: #9c3d40; }
+        &.-blue { background: #4b78b1; }
+        &.-smoke-green { background: #9ed88f; }
+        &.-light-blue { background: #60a19c; }
+
+        &.-aquamarine { background: #4b8f98; }
+        &.-red { background: $red; }
+        &.-yellow { background: $yellow; }
+
+        &.-light-purple { background: #594a76; }
+        &.-dark-turquoise { background: #559398; }
+        &.-dark-yellow { background: #fad82b; }
+        &.-smoke-purple { background: #9a999e; }
+        &.-violet { background: #7e3f5d; }
+        &.-smoke-turquoise { background: $light-turquoise; }
+        &.-dark { background: #140b07; }
+        &.-light-yellow { background: $light-yellow; }
+
+        &.-smoke { background: #c7c9c8; }
+        &.-dark-yellow { background: #d18f00; }
+
+        &.-treemap-01 { background: #f8eaa5; }
+        &.-treemap-02 { background: #f4dc69; }
+        &.-treemap-03 { background: #ecc505; }
+        &.-treemap-04 { background: #b19404; }
+        &.-treemap-05 { background: #766303; }
+
+        &.-treemap-06 { background: #b3acb5; }
+        &.-treemap-07 { background: #807483; }
+        &.-treemap-08 { background: #563062; }
+        &.-treemap-09 { background: #41244a; }
+        &.-treemap-10 { background: #251329; }
+
+        &.-treemap-11 { background: #bed7da; }
+        &.-treemap-12 { background: #93bcc1; }
+        &.-treemap-13 { background: #4b8f98; }
+        &.-treemap-14 { background: #386b72; }
+        &.-treemap-15 { background: #26484c; }
+
+        &.-treemap-16 { background: #d9b4a7; }
+        &.-treemap-17 { background: #c0826d; }
+        &.-treemap-18 { background: #b06348; }
+        &.-treemap-19 { background: #844a36; }
+        &.-treemap-20 { background: #583224; }
+
+    }
+
+}

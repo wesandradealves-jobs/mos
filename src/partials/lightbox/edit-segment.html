@@ -1,0 +1,88 @@
+<div class=" segment-wrapper">
+    <h2 class="lightbox-title">Editar Segmento</h2>
+
+    <div class="row">
+        <div class="col-1-2">
+            <label class="label-input">Nome do segmento</label>
+            <input type="text" ng-model="segments[0].name"/>
+        </div>
+
+        <div class="col-1-2">
+            <label class="label-input">Intervalo de Pontos</label>
+
+            <div class="col-2"><span>De:</span></div>
+            <div class="col-4">
+                <span>{{segments[0].initialRange}}</span>
+            </div>
+
+            <div class="col-2"><span>Até:</span></div>
+            <div class="col-4">
+              <input maxlength="8" size="15" type="number"
+                step="1"
+                ng-min="segments[0].initialRange + 1"
+                ng-max="segments[2].finalRange - 4"
+                ng-model="segments[0].finalRange"
+                ng-change="segments[1].initialRange = segments[0].finalRange + 1"/>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------- -->
+    <hr class="divide-line">
+
+    <div class="row">
+        <div class="col-1-2">
+            <label class="label-input">Nome do segmento</label>
+            <input type="text" ng-model="segments[1].name"/>
+        </div>
+
+        <div class="col-1-2">
+            <label class="label-input">Intervalo de Pontos</label>
+
+            <div class="col-2"><span>De:</span></div>
+            <div class="col-4">
+              <span>{{segments[1].initialRange}}</span>
+            </div>
+
+            <div class="col-2"><span>Até:</span></div>
+            <div class="col-4">
+                <input maxlength="8" size="10" type="number"
+                  step="1"
+                  ng-min="segments[1].initialRange + 1"
+                  ng-max="segments[2].finalRange - 2"
+                  ng-model="segments[1].finalRange"
+                  ng-change="segments[2].initialRange = segments[1].finalRange + 1"/>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------- -->
+    <hr class="divide-line">
+
+    <div class="row">
+        <div class="col-1-2">
+            <label class="label-input">Nome do segmento</label>
+            <input type="text" ng-model="segments[2].name"/>
+        </div>
+
+        <div class="col-1-2">
+            <label class="label-input">Intervalo de Pontos</label>
+
+            <div class="col-2"><span>De:</span></div>
+            <div class="col-4">
+                <span>{{segments[2].initialRange}}</span>
+            </div>
+
+            <div class="col-2"><span>Até:</span></div>
+            <div class="col-4">
+              <span>{{segments[2].finalRange}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <button ng-click="replyModifiedSegments()"
+          class="button-default -action">SALVAR</button>
+    </div>
+
+</div>

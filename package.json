@@ -1,0 +1,83 @@
+{
+  "name": "spot-metrics",
+  "version": "1.4.0",
+  "description": "Plataforma para as administradoras de shopping",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SejaSpot/spot-mts.git"
+  },
+  "authors": [
+    "Rafael Kaustchr <rafael.Kaustchr@sejaspot.com.br>",
+    "Felipe Breuil <felipe.breuil@sejaspot.com.br>"
+  ],
+  "keywords": [
+    "spot",
+    "crm",
+    "platform"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "prod": "yarn install --production --modules-folder src/js/vendor",
+    "build": "gulp build",
+    "prebuild": "yarn cleanup",
+    "cleanup": "rm -rf ./dist ./src/js/vendor",
+    "watch": "gulp watch"
+  },
+  "dependencies": {
+    "angular": "1.5.8",
+    "angular-animate": "1.5.8",
+    "angular-base64-upload": "0.1.19",
+    "angular-br-filters": "^0.7.0",
+    "angular-chosen-localytics": "^1.8.0",
+    "angular-datatables": "0.5.5",
+    "angular-input-masks": "2.4.0",
+    "angular-locale-pt-br": "^1.3.16",
+    "angular-route": "1.5.8",
+    "angular-sweetalert": "1.1.0",
+    "angulartics": "^1.6.0",
+    "angulartics-google-analytics": "^0.5.0",
+    "angulartics-google-tag-manager": "0.0.1",
+    "cuid": "2.1.6",
+    "d3-funnel": "^1.2.2",
+    "datatables": "1.10.12",
+    "datatables.net-responsive": "2.1.1",
+    "datatables.net-responsive-dt": "2.1.1",
+    "dotenv": "^8.2.0",
+    "gulp-webserver": "^0.9.1",
+    "iframe-resizer": "^4.2.10",
+    "moment": "2.14.1",
+    "ng-dialog": "0.6.4",
+    "ng-file-upload": "^12.2.13",
+    "sweetalert": "1.1.0"
+  },
+  "devDependencies": {
+    "angular-cli": "^1.0.0-beta.28.3",
+    "browser-sync": "^2.24.6",
+    "del": "^3.0.0",
+    "gitmoji-cli": "1.9.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-cache": "^1.0.2",
+    "gulp-css-base64": "^1.3.4",
+    "gulp-header": "^2.0.9",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "gulp-watch": "^5.0.0",
+    "merge-stream": "^1.0.1",
+    "path": "^0.12.7",
+    "run-sequence": "^2.2.1"
+  },
+  "bugs": {
+    "url": "https://github.com/SejaSpot/spot-mts/issues"
+  },
+  "homepage": "https://github.com/SejaSpot/spot-mts#readme",
+  "main": "gulpfile.js",
+  "author": ""
+}

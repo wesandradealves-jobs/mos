@@ -1,0 +1,10 @@
+<h5>{{title}}</h5>
+<div class="legend-radar" ng-if="top">{{top}}</div>
+<iframe id="graphic" src='' width="100%" height="{{height}}" scrolling="no" ng-focus="loadGraphic()" data-hj-allow-iframe=""></iframe>
+<div class="legend-radar -bottom" ng-if="bottom">{{bottom}}</div>
+<div class="legend-charts">
+    <span class="square -aquamarine" ng-if="prop1"></span>{{prop1}}
+    <span class="square -red" ng-if="prop2"></span>{{prop2}}
+    <span class="square -yellow" ng-if="prop3"></span>{{prop3}}
+    <span class="square -purple" ng-if="prop4"></span>{{prop4}}
+</div>

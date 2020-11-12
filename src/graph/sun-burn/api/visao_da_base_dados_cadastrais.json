@@ -1,0 +1,910 @@
+{
+  "name": "Clientes",
+  "children": [
+    {
+      "name": "Carioca Shopping",
+      "children": [
+        {
+          "name": "Prata",
+          "children": [
+            {
+              "name": "CredZ",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 74
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 206
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 259
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 222
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 150
+                    },
+                    {
+                      "name": "+65 anos",
+                      "size": 94
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 42
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 113
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 195
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 129
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 81
+                    },
+                    {
+                      "name": "+65 anos",
+                      "size": 41
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Spot",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 1187
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 1740
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 1453
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 835
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 528
+                    },
+                    {
+                      "name": "+65 anos",
+                      "size": 239
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 666
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 1015
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 813
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 498
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 243
+                    },
+                    {
+                      "name": "+65 anos",
+                      "size": 141
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Diamante",
+          "children": [
+            {
+              "name": "CredZ",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "45-54 anos",
+                      "size": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "+65 anos",
+                      "size": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Spot",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Vindi",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "45-54 anos",
+                      "size": 2
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ouro",
+          "children": [
+            {
+              "name": "CredZ",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "35-44 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "45-54 anos",
+                      "size": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Spot",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 2
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 2
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 3
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "45-54 anos",
+                      "size": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Vindi",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 4
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 14
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 15
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 6
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 8
+                    },
+                    {
+                      "name": "+65 anos",
+                      "size": 4
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 2
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 6
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 5
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 6
+                    },
+                    {
+                      "name": "+65 anos",
+                      "size": 2
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pátio Alcantara",
+      "children": [
+        {
+          "name": "Prata",
+          "children": [
+            {
+              "name": "CredZ",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 184
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 441
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 472
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 384
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 235
+                    },
+                    {
+                      "name": "+65 anos",
+                      "size": 91
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 100
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 178
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 168
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 145
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 64
+                    },
+                    {
+                      "name": "+65 anos",
+                      "size": 27
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Spot",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 1748
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 2238
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 1872
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 1015
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 601
+                    },
+                    {
+                      "name": "+65 anos",
+                      "size": 259
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 874
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 901
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 785
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 507
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 225
+                    },
+                    {
+                      "name": "+65 anos",
+                      "size": 108
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Vindi",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 2
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ouro",
+          "children": [
+            {
+              "name": "CredZ",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 3
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 10
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 4
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 9
+                    },
+                    {
+                      "name": "+65 anos",
+                      "size": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "25-34 anos",
+                      "size": 2
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 2
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Spot",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Vindi",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 3
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 2
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 4
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 3
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 2
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Shopping Itapecerica",
+      "children": [
+        {
+          "name": "Prata",
+          "children": [
+            {
+              "name": "Spot",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "35-44 anos",
+                      "size": 2
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "CredZ",
+              "children": [
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "25-34 anos",
+                      "size": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Shopping Leblon",
+      "children": [
+        {
+          "name": "Prata",
+          "children": [
+            {
+              "name": "CredZ",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 8
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 11
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 7
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 5
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 6
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 5
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 10
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 5
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 3
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Spot",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 1403
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 1609
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 1197
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 645
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 346
+                    },
+                    {
+                      "name": "+65 anos",
+                      "size": 112
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 483
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 543
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 322
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 155
+                    },
+                    {
+                      "name": "55-64 anos",
+                      "size": 59
+                    },
+                    {
+                      "name": "+65 anos",
+                      "size": 16
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Diamante",
+          "children": [
+            {
+              "name": "CredZ",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "45-54 anos",
+                      "size": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Spot",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "55-64 anos",
+                      "size": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 2
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ouro",
+          "children": [
+            {
+              "name": "CredZ",
+              "children": [
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "25-34 anos",
+                      "size": 4
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Spot",
+              "children": [
+                {
+                  "name": "F",
+                  "children": [
+                    {
+                      "name": "18-24 anos",
+                      "size": 5
+                    },
+                    {
+                      "name": "25-34 anos",
+                      "size": 5
+                    },
+                    {
+                      "name": "35-44 anos",
+                      "size": 6
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "M",
+                  "children": [
+                    {
+                      "name": "35-44 anos",
+                      "size": 1
+                    },
+                    {
+                      "name": "45-54 anos",
+                      "size": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

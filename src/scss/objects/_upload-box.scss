@@ -1,0 +1,22 @@
+.upload-box{
+    text-align: right;
+
+    &.-left{
+        text-align: left;
+    }
+
+    [type=file]{
+        display: none;
+    }
+
+    span{
+        text-align: center;
+    }
+
+}
+
+.divide-line{
+  color: $light-grey;
+  background-color: $light-grey;
+  height: 3px;
+}

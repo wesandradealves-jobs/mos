@@ -1,0 +1,100 @@
+///* ========================================================================
+//   VARIABLES
+//   ======================================================================== */
+
+// Colors
+$dark-purple: #2e193d;
+$purple: #563062;
+$light-purple: #b3a6af;
+$orange: #d2930f;
+$yellow: #ecc505;
+$light-yellow: #ffe37e; 
+$dark-turquoise: #4f7872;
+$turquoise: #54bbab;
+$light-turquoise: #cbe6e1;
+$black: #1e1f1c;
+$dark-grey: #6b6a69;
+$grey: #9d9e9f;
+$light-grey: #d5dbd9;
+$green: #76a47c;
+$light-green: #adb851;
+$sundance: #c59c4d;
+$brown: #b06348;
+$red: #a43043;
+$aquamarine: #56637f;
+
+// Divergents Colors
+$white-grey: #f9f9f9;
+$white-blue: #e5eaf2;
+
+
+// Typhography
+$background-color: #fff;
+$font-family: 'Roboto Mono', Helvetica, Arial, sans-serif;
+$font-size: 14;
+$line-height: 22;
+$font-weight: 400;
+$font-color: $black;
+$link-color: $turquoise;
+$link-hover-color: $dark-turquoise;
+$table-color: $grey;
+$table-underline-color: $light-grey;
+
+// Headings
+$heading-font-family: 'Arvo', Helvetica, Arial, sans-serif;
+// h1 - para título das páginas
+$h1-font-size: 32;
+$h1-line-height: 38;
+$h1-font-weight: 900;
+$h1-color: $purple;
+$h2-font-size: 26;
+$h2-line-height: 34;
+$h2-font-weight: 100;
+$h2-color: $black;
+$h3-font-size: 22;
+$h3-line-height: 28;
+$h3-font-weight: 100;
+$h3-color: $black;
+$h4-font-size: 18;
+$h4-line-height: 24;
+$h4-font-weight: 100;
+$h4-color: $black;
+// h5 - para título das box
+$h5-font-size: 16;
+$h5-line-height: 22;
+$h5-font-weight: 100;
+$h5-color: $dark-grey;
+// h6 - para pequenas chamadas
+$h6-font-size: 14;
+$h6-line-height: 30;
+$h6-font-weight: 100;
+$h6-color: $dark-turquoise;
+
+// Input & Select
+$input-height: 36px;
+$input-placeholder-color: $grey;
+$input-color: $black;
+$input-background-color: #fff;
+$input-background-focus-color: #fff;
+$input-border-color: $light-grey;
+$input-border-focus-color: $light-grey;
+$select-box-height: 36px;
+
+// Containers
+$container-full: 100%;
+$container-s: 480px;
+$container-m: 720px;
+$container-l: 960px;
+$container-xl: 1200px;
+
+// Gutters
+$grid-gutter: 15px;
+$grid-gutter-m: 15px;
+$grid-gutter-l: 15px;
+$grid-gutter-xl: 15px;
+
+// Breakpoints
+$breakpoint-s: ($container-s + 20);
+$breakpoint-m: ($container-m + 20);
+$breakpoint-l: ($container-l + 20);
+$breakpoint-xl: ($container-xl + 20);

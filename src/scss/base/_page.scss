@@ -1,0 +1,21 @@
+///* ========================================================================
+//   BASE
+//   ======================================================================== */
+
+html { height: 100%; }
+
+body {
+    font-family: $font-family;
+    @include font-size($font-size);
+    @include line-height($line-height);
+    color: $font-color;
+    font-weight: $font-weight;
+    background: $background-color;
+    background-image: url(../img/background.jpg);
+    background-size: 100% 100%;
+}
+
+hr{
+    border-color: #fff;
+    border-style: solid;
+}

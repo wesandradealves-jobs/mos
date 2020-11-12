@@ -1,0 +1,455 @@
+<!-- Menu Include -->
+<ng-include src="'partials/includes/menu.html'" ng-controller="PermissionsController"></ng-include>
+<!-- End Menu Include -->
+
+<!-- CAMPAIGN -->
+<section class="container">
+    <!-- UserMenu Include -->
+    <ng-include src="'partials/includes/user-menu.html'" ng-controller="UserMenuController"></ng-include>
+    <!-- End UserMenu Include -->
+
+    <h1 class="page-title">Campanhas</h1>
+
+    <div class="wrapper-breadcrumbs">
+        <ol class="breadcrumbs">
+            <li class="item">Home</li>
+            <li class="item">Campanhas</li>
+        </ol>
+    </div>
+
+
+
+    <div class="row">
+        <ul>
+            <!-- NOVA CAMPANHA -->
+            <li class="nav-tab" ng-show="menuPermissions['CREATE-CAMPAIGN']">
+                <input type="radio" name="tabs" class="tabs" id="new-campaign"
+                  ng-checked="menuPermissions['CREATE-CAMPAIGN']"
+                  ng-click="switchToTab('new-campaign');">
+                <label class="label -first" for="new-campaign">
+                    <img src="../img/tabs/new.svg" class="icon">
+                    Nova campanha
+                </label>
+                <div class="content">
+                    <div class="col-1-2-xl">
+                        <div class="row">
+                          <form>
+                            <div class="col-1-2-xl">
+                                <label class="label-input">Shopping*</label>
+                                <select ng-model="campaign.mallId" ng-change="fillStoreSelect()" ng-init="campaign.mallId='-1'"
+                                    tabindex="1" required>
+                                    <option disabled selected value="-1">-- Selecione --</option>
+                                    <option ng-repeat="mall in malls" value="{{mall.id}}">{{mall.name}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-1-2-xl">
+                                <label class="label-input">Nome da campanha*</label>
+                                <input type="text" ng-model="campaign.name" tabindex="2" required ng-class="{'input-error': nameError}"
+                                    ng-blur="validateName()">
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-1-2-xl">
+                                <label class="label-input">Data Inicial*</label>
+                                <input type="text" ng-model="campaign.startDate" id="new-campaign-input-start-date"
+                                    ui-date-mask required ng-class="{'input-error': startError}" ng-blur="validateStart()"
+                                    tabindex="3">
+                            </div>
+                            <div class="col-1-2-xl">
+                                <label class="label-input">Data Final*</label>
+                                <input type="text" ng-model="campaign.endDate" id="new-campaign-input-end-date"
+                                    ui-date-mask required ng-class="{'input-error': endError}" ng-blur="validateEnd()"
+                                    tabindex="4">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="label-input">Etiquetas</label>
+                            <select chosen multiple data-placeholder=" " ng-model="campaign.tags" tabindex="5"
+                                disable-search="false" allow-single-deselect="true" data-placeholder=" "
+                                skip-no-results="true" placeholder-text-multiple="' '" id="campaign-register-input-tags"
+                                ng-options="tag for tag in storeTags" ng-change="announcementWarning()">
+                                <!--
+                                <option ng-repeat="tag in storeTags" value="{{tag}}">{{tag}}</option>
+                                -->
+                                <option value="" disabled></option>
+                            </select>
+                            <!-- <div class="button-more -select">
+                                    <img src="../img/more.svg">
+                                </div> -->
+                        </div>
+
+                        <div class="row">
+                            <label class="label-input">Lojas Participantes</label>
+
+                            <select chosen multiple data-placeholder=" " ng-model="campaign.stores" tabindex="6"
+                                ng-change="previewCutBase()" disable-search="false" allow-single-deselect="true"
+                                data-placeholder-text-single="' '" placeholder-text-single="' '"
+                                placeholder-text-multiple="' '" id="campaign-register-input-stores" ng-options="store.id as store.name for store in stores">
+                                <!--
+                                <option ng-repeat="store in stores" value="{{store.id}}">{{store.name}}</option>
+                                -->
+                                <option value="" disabled></option>
+                            </select>
+
+                            <!-- <div class="button-more -select">
+                                <img src="../img/more.svg">
+                            </div> -->
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-2-3-xl">
+                                <label class="label-input">Exclusivo do clube</label>
+                                <div>
+                                    <div class="col-1-2">
+                                        <label class="checkbox">
+                                            <input type="radio" name="radio" ng-model="campaign.clubExclusive" ng-value="true">
+                                            <span class="checkmark"></span>SIM
+                                        </label>
+                                    </div>
+
+                                    <div class="col-1-2 _no-padding">
+                                        <label class="checkbox">
+                                            <input type="radio" name="radio" ng-model="campaign.clubExclusive" ng-value="false">
+                                            <span class="checkmark"></span>NÃO
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-1-2-xl -noright">
+                        <label class="label-input">Canais</label>
+                        <div class="box -channels">
+                            <h6>
+                                SMS
+                                <div class="button-more" ng-click="openSMS()">
+                                    <img src="../img/more.svg">
+                                </div>
+
+                                <div ng-show="channels.sms" class="button-sucess">
+                                    <img src="../img/success.svg">
+                                </div>
+                            </h6>
+                        </div>
+                        <div class="box -channels">
+                            <h6>
+                                Push
+                                <div class="button-more" ng-click="openPush()">
+                                    <img src="../img/more.svg">
+                                </div>
+
+                                <div ng-show="channels.push" class="button-sucess">
+                                    <img src="../img/success.svg">
+                                </div>
+                            </h6>
+                        </div>
+                        <div class="box -channels">
+                            <h6>
+                                Banner no App
+                                <div class="button-more" ng-click="openBanner()">
+                                    <img src="../img/more.svg">
+                                </div>
+
+                                <div ng-show="channels.banner" class="button-sucess">
+                                    <img src="../img/success.svg">
+                                </div>
+                            </h6>
+                        </div>
+                        <div class="box -channels">
+                            <h6>
+                                E-mail Marketing
+                                <div class="button-more" ng-click="openEmail()">
+                                    <img src="../img/more.svg">
+                                </div>
+
+                                <div ng-show="channels.email" class="button-sucess">
+                                    <img src="../img/success.svg">
+                                </div>
+                            </h6>
+                        </div>
+                      </form>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <span class="obs">*Campos obrigatórios</span>
+
+                    <!-- BUTTON -->
+
+                    <div class="col-9 _right">
+                        <div class="col-1-3">
+                            <input class="button-default -purple -action -small" value="PUBLICAR" type="submit" ng-click="publishCampaign()"
+                                ng-disabled="campaign.mallId == '-1' || !campaign.name || !campaign.startDate || !campaign.endDate || !campaign.stores">
+                        </div>
+
+                        <div class="_right">
+                            <div class="col-2-5">
+                                <input ng-click="excludeCampaign()" class="button-default -grey -small -filter" value="Apagar" type="submit">
+                            </div>
+
+                            <div class="col-2-5">
+                                <input class="button-default -turquoise -small -filter" value="Salvar" type="submit"
+                                    ng-click="newCampaign();" ng-disabled="campaign.mallId == '-1' || !campaign.name || !campaign.startDate || !campaign.endDate">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+
+            <!-- RELATORIOS -->
+            <li class="nav-tab" ng-show="menuPermissions['REPORT-CAMPAIGN']">
+                <input type="radio" name="tabs" class="tabs" id="campaign-report"
+                  ng-checked="(!menuPermissions['CREATE-CAMPAIGN']) && menuPermissions['REPORT-CAMPAIGN']"
+                  ng-click="switchToTab('campaign-report');">
+                <label class="label" for="campaign-report">
+                    <img src="../img/tabs/report.svg" class="icon">
+                    RELATÓRIO
+                </label>
+                <div class="content">
+
+                    <!-- FILTRO -->
+                    <div class="row">
+                            <div class="col-1-4">
+                                <label class="label-input">Shopping</label>
+                                <select ng-model="reportMall" ng-init="reportMall = '-1'"
+                                  ng-change="refreshCampaignsList()">
+                                    <option disabled selected value="-1">-- Selecione --</option>
+                                    <option ng-repeat="m in malls" ng-value="m.id">{{m.name}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-2-4">
+                                    <label class="label-input">Nome de Campanha</label>
+                                    <!--input type="text" ng-model="searchName"-->
+                                    <select ng-model="selectedCampaignId" ng-init="selectedCampaignId = '-1'">
+                                        <option value="-1">-- Selecione --</option>
+                                        <option value="{{c.id}}"
+                                          ng-repeat="c in publishedCampaignsList">{{c.name}} ({{c.mall.name}}), {{c.period}}</option>
+                                    </select>
+                            </div>
+                            <div class="col-1-4-xl">
+                                    <button class="button-default -turquoise -small -filter" ng-click="selectCampaign()"
+                                      ng-disabled="reportMall == '-1' || selectedCampaignId == '-1'">Buscar</button>
+                                </div>
+
+                    </div>
+
+                    <div class="row">
+                        <!-- VENDA TOTAL DIARIA -->
+                        <div class="col-1-3-l">
+                            <div class="box -medium loading">
+                                <h5 class="title">
+                                    Venda total diária
+                                    <div class="button-more" ng-click="openBarChart('dailySales')">
+                                        <img src="../img/more.svg">
+                                    </div>
+                                </h5>
+                                <img ng-if="loading.dailySales" class="loader" src="img/loader.svg">
+                                <div class="pattern-campaing">
+                                    <iframe id="dailySales" src="../graph/bar-chart/bar-chart.html" width="100%" height="auto"
+                                        scrolling="no" data-hj-allow-iframe="" ></iframe>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- VENDA INDIVIDUAL POR DIA  -->
+
+                        <div class="col-1-3-l">
+                            <div class="box -medium loading">
+                                <h5 class="title">
+                                    Venda individual por dia
+                                    <div class="button-more" ng-click="openNgDialog('individualSales')">
+                                        <img src="../img/more.svg">
+                                    </div>
+                                </h5>
+                                <img ng-if="loading.individualSales" class="loader" src="img/loader.svg">
+                                <div class="pattern-campaing">
+                                    <iframe id="individualSales" src='../graph/pie-chart/pie-chart.html' width="100%"
+                                        height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- BANNER -->
+                        <div class="col-1-3-l">
+                            <div class="box -medium">
+                                <h5 class="title">
+                                    Funis
+
+                                    <div class="button-more" ng-click="openFunnelChart('funnel')">
+                                        <img src="../img/more.svg">
+                                    </div>
+
+                                </h5>
+
+                                <!-- INICIO DO CARROSSEL -->
+                                <div class="loading">
+                                    <img ng-if="loading.emailFunnelChart" class="loader" src="img/loader.svg">
+
+                                    <funnel values="emailFunnelData" title="0" style="width: auto; height: 180px"></funnel>
+                                </div>
+
+                                <!-- FIM DO CARROSSEL -->
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-1-5">
+                            <div class="box _text-center">
+                                <h5 class="title">
+                                    Venda total
+                                </h5>
+                                <span class="number">R$ {{report.totalSales | number:2}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-1-5">
+                            <div class="box _text-center">
+                                <h5 class="title">
+                                    Tkt Médio Trans.
+                                </h5>
+                                <span class="number">R$ {{report.totalAverageDailySales | number:2}}</span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-1-5">
+                            <div class="box _text-center">
+                                <h5 class="title">
+                                    Tkt Médio Clientes
+                                </h5>
+                                <span class="number">R$ {{report.averageTicketByClient | number:2}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-1-5">
+                            <div class="box _text-center">
+                                <h5 class="title">
+                                    Total de transações
+                                </h5>
+                                <span class="number">{{report.totalTransactions}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-1-5">
+                            <div class="box _text-center">
+                                <h5 class="title">
+                                    Total de Clientes
+                                </h5>
+                                <span class="number">{{report.totalClients}}</span>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </li>
+
+            <!-- CAMPANHAS -->
+            <li class="nav-tab" ng-show="menuPermissions['LIST-CAMPAIGN']">
+                <input type="radio" name="tabs" class="tabs" id="campaign"
+                  ng-checked="(!menuPermissions['CREATE-CAMPAIGN']) && (!menuPermissions['REPORT-CAMPAIGN'])"
+                  ng-click="switchToTab('campaign');">
+                <label class="label" for="campaign">
+                    <img src="../img/tabs/control.svg" class="icon">
+                    Campanhas
+                </label>
+                <div class="content">
+                    <div class="row">
+                        <div class="col-1-4-xl">
+                            <label class="label-input">Selecionar Shopping</label>
+
+                            <select
+                                ng-model="controlMall"
+                                ng-init="controlMall = malls[0].id"
+                                ng-options="mall.id as mall.name for mall in malls"
+                                ng-change="getAllCampaigns([{ id: controlMall }])"
+                            >
+                            </select>
+                        </div>
+
+                        <div class="col-3">
+                            <label class="label-input">Pesquisar Campanhas</label>
+                            <input ng-model="searchText" id="searchText" ng-change="searchTable()" type="text"
+        class="search-solid -icon" ng-blur="searchBlur()" ng-focus="searchFocus()" placeholder="Nome, tipo, status, etiqueta ou duração">
+                        </div>
+                    </div>
+
+                    <!-- Tabela -->
+                    <table datatable="ng" class="row-border hover" width="100%" dt-column-defs="dtColumnDefs"
+                        dt-options="dtOptions" dt-instance="dtInstanceCallback">
+                        <thead>
+                            <tr>
+                                <th class="campaign-list-icons">Nome</th>
+                                <th class="campaign-list-icons">Status</th>
+                                <th class="campaign-list-icons">Duração</th>
+                                <th class="campaign-list-icons">Etiqueta</th>
+                                <th class="campaign-list-icons">Exclusivo do Clube</th>
+                                <th class="campaign-list-icons">Push</th>
+                                <th class="campaign-list-icons">SMS</th>
+                                <th class="campaign-list-icons">Banner no App</th>
+                                <th class="campaign-list-icons">E-mail</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="c in campaignsList">
+                                <td class="_text-center">{{c.name}}</td>
+                                <td class="_text-center">
+                                  <div ng-if="c.published">Publicado</div>
+                                  <img ng-if="c.published" class="icon-button" src="img/check.svg">
+                                  <div ng-if="!c.published">Rascunho</div>
+                                  <img ng-if="!c.published" class="icon-button" src="img/rascunho.svg" ng-click="editCampaign(c.id)">
+                                </td>
+                                <td class="_text-center">{{formatDate(c.startDate)}} - {{formatDate(c.endDate)}}</td>
+                                <td class="_text-center">{{c.tags}}</td>
+                                <td class="_text-center"><span ng-if="c.clubExclusive">Sim</span> <span ng-if="!c.clubExclusive">Não</span></td>
+
+                                <td class="campaign-list-icons">
+                                  <img class="icon-button"
+                                   ng-if="c.hasPush" src="img/visualizar.svg" ng-click="reportShowChannel( 'push', c.hasPush )">
+                                  <img class="icon-button" ng-if="!c.hasBanner && !c.published" src="img/rascunho.svg" ng-click="reportShowChannel( 'push', c.hasPush, true, c.id )">
+                                  <span ng-if="!c.hasPush && c.published"> -- </span>
+                                </td>
+
+                                <td class="campaign-list-icons">
+                                  <img class="icon-button" ng-if="c.hasSms" src="img/visualizar.svg" ng-click="reportShowChannel( 'sms', c.hasSms )">
+                                  <img class="icon-button" ng-if="!c.hasSms && !c.published" src="img/rascunho.svg" ng-click="reportShowChannel( 'sms', c.hasSms, true, c.id )">
+                                  <span ng-if="!c.hasSms && c.published"> -- </span>
+                                </td>
+
+                                <td class="campaign-list-icons">
+                                  <img class="icon-button" ng-if="c.hasBanner && c.published" src="img/rascunho.svg" ng-click="openBanner(c.hasBanner, 'EDIT', c.id)">
+                                  <img class="icon-button" ng-if="!c.hasBanner && !c.published" src="img/rascunho.svg" ng-click="reportShowChannel( 'banner', c.hasBanner, true, c.id )">
+                                  <span ng-if="!c.hasBanner && c.published"> -- </span>
+                                </td>
+
+                                <td class="campaign-list-icons">
+                                  <img class="icon-button" ng-if="c.hasEmail" src="img/visualizar.svg" ng-click="reportShowChannel( 'email', c.hasEmail )">
+                                  <img class="icon-button" ng-if="!c.hasEmail && !c.published" src="img/rascunho.svg" ng-click="reportShowChannel( 'email', c.hasEmail, true, c.id )">
+                                  <span ng-if="!c.hasEmail && c.published"> -- </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- END Tabela -->
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+</section>
+<!-- End Flash Content -->

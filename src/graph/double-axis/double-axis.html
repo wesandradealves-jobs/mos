@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+<style>
+  body {
+    font-size: 10px;
+    font-family: 'Roboto Mono', Helvetica, Arial, sans-serif;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+  }
+  
+  svg {
+      width: 854px;
+      height: 340px;
+    }
+</style>
+
+<body>
+  <script src="../_libs/d3.v3.min.js"></script>
+  <script src="../_libs/queryParser.js"></script>
+  <script src="double-axis.js"></script>
+</body>

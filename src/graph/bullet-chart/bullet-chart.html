@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+<style>
+  body {
+    font-family: 'Roboto Mono', Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    margin: auto;
+    position: relative;
+    padding-top: 10px;
+    width: 960px;
+  }
+  
+  button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: none;
+  }
+
+  /* Insert colors here */
+  .bullet {
+    font: 16px Roboto Mono;
+    margin-bottom: 3px;
+  }
+
+  .bullet .marker {
+    stroke: #5f5f5f;
+    stroke-width: 2px;
+  }
+
+  .bullet .tick line {
+    stroke: #3d0f4c;
+    stroke-width: .5px;
+  }
+
+  .bullet .range.s0 {
+    fill: #c7c9c8;
+  }
+
+  .bullet .range.s1 {
+    fill: #dcdcdc;
+  }
+
+  .bullet .range.s2 {
+    fill: #c8c8c8;
+  }
+
+  .bullet .measure.s0 {
+    fill: #3d0f4c;
+  }
+
+  .bullet .measure.s1 {
+    fill: #cbbad4;
+  }
+
+  .bullet .title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .bullet .subtitle {
+    fill: #999;
+  }
+</style>
+<button>Update</button>
+<script src="../_libs/d3.v3.min.js"></script>
+<script src="bullet-chart.js"></script>
+<script src="../_libs/queryParser.js"></script>
+<script>
+
+  var margin = { top: 5, right: 40, bottom: 20, left: 140 },
+    width = 2000 - margin.left - margin.right,
+    height = 25;
+
+  var chart = d3.bullet()
+    .width(width)
+    .height(height);
+
+  // Insert API here
+  // d3.json("api/bullets.json", function(error, data) {
+  function loadData(data) {
+    // if (error) throw error;
+
+    var svg = d3.select("body").selectAll("svg")
+      .data(data)
+    .enter().append("svg")
+      .attr("class", "bullet")
+      .attr("preserveAspectRatio","xMinYMin meet")
+      .attr("viewBox", "0 0 2000 25")
+      .attr('width', '100%')
+      .attr("height", height)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .call(chart);
+      
+    var title = svg.append("g")
+      .style("text-anchor", "end")
+      .attr("transform", "translate(-6," + height / 2 + ")");
+
+    title.append("text")
+      .attr("class", "title")
+      .text(function (d) { return d.title; });
+
+    title.append("text")
+      .attr("class", "subtitle")
+      .attr("dy", "1em")
+      .text(function (d) { return d.subtitle; });
+
+    d3.selectAll("button").on("click", function () {
+      svg.datum(randomize).call(chart.duration(1000)); // TODO automatic transition
+    });
+  };
+
+  /*
+  var urlQuery = urlQueryObj();
+  if (urlQuery.params)
+    loadData(urlQuery.params.data);
+  */
+
+  var urlQuery = urlQueryObj();
+  if ( urlQuery.params ) {
+    var graphic_data = JSON.parse( sessionStorage.graphic_data );
+    loadData( JSON.parse( graphic_data[ urlQuery.params.data ] ) );
+  }
+
+  
+  function randomize(d) {
+    if (!d.randomizer) d.randomizer = randomizer(d);
+    d.ranges = d.ranges.map(d.randomizer);
+    d.markers = d.markers.map(d.randomizer);
+    d.measures = d.measures.map(d.randomizer);
+    return d;
+  }
+
+  function randomizer(d) {
+    var k = d3.max(d.ranges) * .2;
+    return function (d) {
+      return Math.max(0, d + k * (Math.random() - .5));
+    };
+  }
+
+</script>

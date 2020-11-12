@@ -1,0 +1,346 @@
+<script type="text" src="cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+      var native_width = 0;
+      var native_height = 0;
+
+      var native_width_other = 0;
+      var native_height_other = 0;
+
+
+      $(".large-coupon").css("background", "url('" + $(".small-coupon").attr("src") + "') no-repeat");
+      $(".large-other-coupon").css("background", "url('" + $(".small-other-coupon").attr("src") + "') no-repeat");
+
+      //Now the mousemove function
+      $(".magnify-coupon").mousemove(function (e) {
+
+        //When the user hovers on the image, the script will first calculate
+        //the native dimensions if they don't exist. Only after the native dimensions
+        //are available, the script will show the zoomed version.
+        if (!native_width && !native_height) {
+          //This will create a new image object with the same image as that in .small
+          //We cannot directly get the dimensions from .small because of the
+          //width specified to 200px in the html. To get the actual dimensions we have
+          //created this image object.
+          var image_object = new Image();
+          image_object.src = $(".small-coupon").attr("src");
+
+          //This code is wrapped in the .load function which is important.
+          //width and height of the object would return 0 if accessed before
+          //the image gets loaded.
+          native_width = image_object.width;
+          native_height = image_object.height;
+        } else {
+          //x/y coordinates of the mouse
+          //This is the position of .magnify with respect to the document.
+          var magnify_offset = $(this).offset();
+          //We will deduct the positions of .magnify from the mouse positions with
+          //respect to the document to get the mouse positions with respect to the
+          //container(.magnify)
+          var mx = e.pageX - magnify_offset.left;
+          var my = e.pageY - magnify_offset.top;
+
+          //Finally the code to fade out the glass if the mouse is outside the container
+          if (mx < $(this).width() && my < $(this).height() && mx > 0 && my > 0) {
+            $(".large-coupon").fadeIn(100);
+          } else {
+            $(".large-coupon").fadeOut(100);
+          }
+          if ($(".large-coupon").is(":visible")) {
+            //The background position of .large will be changed according to the position
+            //of the mouse over the .small image. So we will get the ratio of the pixel
+            //under the mouse pointer with respect to the image and use that to position the
+            //large image inside the magnifying glass
+            var rx = Math.round(mx / $(".small-coupon").width() * native_width - $(".large-coupon").width() / 2) * -1;
+            var ry = Math.round(my / $(".small-coupon").height() * native_height - $(".large-coupon").height() / 2) * -1;
+            var bgp = rx + "px " + ry + "px";
+
+            //Time to move the magnifying glass with the mouse
+            var px = mx - $(".large-coupon").width() / 2;
+            var py = my - $(".large-coupon").height() / 2;
+            //Now the glass moves with the mouse
+            //The logic is to deduct half of the glass's width and height from the
+            //mouse coordinates to place it with its center at the mouse coordinates
+
+            //If you hover on the image now, you should see the magnifying glass in action
+            $(".large-coupon").css({
+              left: px,
+              top: py,
+              backgroundPosition: bgp
+            });
+          }
+        }
+      })
+
+
+      $(".magnify-other-coupon").mousemove(function (e) {
+
+        //When the user hovers on the image, the script will first calculate
+        //the native dimensions if they don't exist. Only after the native dimensions
+        //are available, the script will show the zoomed version.
+        if (!native_width_other && !native_height_other) {
+          //This will create a new image object with the same image as that in .small
+          //We cannot directly get the dimensions from .small because of the
+          //width specified to 200px in the html. To get the actual dimensions we have
+          //created this image object.
+          var image_object = new Image();
+          image_object.src = $(".small-other-coupon").attr("src");
+
+          //This code is wrapped in the .load function which is important.
+          //width and height of the object would return 0 if accessed before
+          //the image gets loaded.
+          native_width_other = image_object.width;
+          native_height_other = image_object.height;
+        } else {
+          //x/y coordinates of the mouse
+          //This is the position of .magnify with respect to the document.
+          var magnify_offset = $(this).offset();
+          //We will deduct the positions of .magnify from the mouse positions with
+          //respect to the document to get the mouse positions with respect to the
+          //container(.magnify)
+          var mx = e.pageX - magnify_offset.left;
+          var my = e.pageY - magnify_offset.top;
+
+          //Finally the code to fade out the glass if the mouse is outside the container
+          if (mx < $(this).width() && my < $(this).height() && mx > 0 && my > 0) {
+            $(".large-other-coupon").fadeIn(100);
+          } else {
+            $(".large-other-coupon").fadeOut(100);
+          }
+          if ($(".large-other-coupon").is(":visible")) {
+            //The background position of .large will be changed according to the position
+            //of the mouse over the .small image. So we will get the ratio of the pixel
+            //under the mouse pointer with respect to the image and use that to position the
+            //large image inside the magnifying glass
+            var rx = Math.round(mx / $(".small-other-coupon").width() * native_width_other - $(".large-other-coupon").width() / 2) * -1;
+            var ry = Math.round(my / $(".small-other-coupon").height() * native_height_other - $(".large-other-coupon").height() / 2) * -1;
+            var bgp = rx + "px " + ry + "px";
+
+            //Time to move the magnifying glass with the mouse
+            var px = mx - $(".large-other-coupon").width() / 2;
+            var py = my - $(".large-other-coupon").height() / 2;
+            //Now the glass moves with the mouse
+            //The logic is to deduct half of the glass's width and height from the
+            //mouse coordinates to place it with its center at the mouse coordinates
+
+            //If you hover on the image now, you should see the magnifying glass in action
+            $(".large-other-coupon").css({
+              left: px,
+              top: py,
+              backgroundPosition: bgp
+            });
+          }
+        }
+      })
+
+    })
+
+
+
+
+  </script>
+
+
+<div class="coupon-content">
+  <div class="row">
+    <h2 class="lightbox-title">Detalhes da transação</h2>
+  </div>
+
+  <div class="row">
+    <div class="col-1-2-l">
+      <div class="row">
+        <div class="col-1-3">
+          <div class="avatar-detailing">
+            <div class="border">
+              <div class="avatar"> {{cliente.firstName | limitTo:
+                            1}}{{cliente.lastName | limitTo: 1}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-2-3">
+          <div class="row">
+            <div class="detailing-client">
+              <img src="../img/targeting/prospect.svg" ng-if="data.clientTargetingName == 'Prospect'">
+              <img src="../img/targeting/silver.svg" ng-if="data.clientTargetingName == 'Prata'">
+              <img src="../img/targeting/gold.svg" ng-if="data.clientTargetingName == 'Ouro'">
+              <img src="../img/targeting/diamond.svg" ng-if="data.clientTargetingName == 'Diamante'">
+            </div>
+            <h5 class="title"><strong>{{cliente.fullName}}</strong> {{data.clientLastName}}</h5>
+            <span class="title -small">Cliente {{data.clientTargetingName}}</span>
+
+
+            <div class="clearfix"></div>
+            <div class="row" ng-if="canAccessCustomerView">
+              <button class="button-default -filter -small" ng-click="seeCustomerView()">Customer View</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-1-2-l">
+      <div class="row-form">
+        <label class="label-input _inline">CPF*</label>
+        <span class="_inline">{{item.client.cpf}}</span>
+      </div>
+
+      <div class="row-form">
+        <label class="label-input _inline">telefone</label>
+        <span class="_inline">{{item.client.homePhone}}</span>
+      </div>
+
+      <div class="row">
+        <label class="label-input _inline">email</label>
+        <span>{{item.client.email}}</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <hr>
+
+  <div class="row">
+    <div class="col-1-2">
+      <div class="row-form">
+        <label class="label-input _inline">Loja</label>
+        <span>{{item.store.name}}</span>
+      </div>
+
+      <div class="row-form">
+        <label class="label-input _inline">data</label>
+        <span>{{item.behaviorDate}}</span>
+      </div>
+
+      <div class="row-form">
+        <label class="label-input _inline">valor</label>
+        <span>R$ {{item.value}}</span>
+
+        <label class="label-input _inline">pontos</label>
+        <span>{{item.points}}</span>
+      </div>
+
+      <div class="row-form">
+        <label class="label-input _inline">tipo de compra</label>
+        <span>{{item.behaviorType.name}}</span>
+      </div>
+
+    </div>
+
+    <div class="col-1-2">
+
+      <div class="row-form">
+        <label class="label-input _inline">Shopping</label>
+        <span>{{item.mall.name}}</span>
+      </div>
+
+      <div class="row-form">
+        <label class="label-input _inline">Endereço</label>
+        <span>{{item.mall.address}} - {{item.mall.addressNumber}}</span>
+      </div>
+
+      <div class="row-form">
+        <label class="label-input _inline">CEP</label>
+        <span>{{item.mall.zipCode}}</span>
+
+        <label class="label-input _inline">Estado</label>
+        <span>{{item.mall.state}}</span>
+      </div>
+
+      <div class="row">
+        <label class="label-input _inline">Cidade</label>
+        <span>{{item.mall.city}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-1-2 _no-padding">
+    <div class="row">
+      <label class="label-input _inline">Cupom</label>
+    </div>
+
+    <div class="magnify-coupon box -center">
+      <div class="large-coupon"></div>
+      <img class="small-coupon" ng-src="{{item.cupom ? item.cupom : '../../img/imgbox.png'}}" width="350" height="460" />
+    </div>
+  </div>
+
+  <div class="col-1-2">
+    <div class="row">
+      <label class="label-input _inline">Canhoto</label>
+    </div>
+    <div class="magnify-other-coupon box -center">
+      <div class="large-other-coupon"></div>
+      <img class="small-other-coupon" ng-src="{{item.otherCupom ? item.otherCupom : '../../img/imgbox.png'}}" width="200" />
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="label-input _inline">Histórico</label>
+  </div>
+
+  <div class="box -center">
+    <div ng-if="approveds.length == 0">Nenhum cupom nessa loja nos últimos dias.</div>
+
+    <div ng-repeat="approved in approveds | limitTo : 15">
+      <div class="col-1-3">
+        <div>
+          <label class="label-input _inline">Tipo de Compra</label>
+          <span>{{approved.behaviorType.name}}</span>
+        </div>
+      </div>
+
+      <div class="col-1-3">
+        <div>
+          <label class="label-input _inline">Data</label>
+          <span>{{approved.behaviorDate}}</span>
+        </div>
+      </div>
+
+      <div class="col-1-3">
+        <div>
+          <label class="label-input _inline">valor</label>
+          <span>R$ {{approved.value}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row align-checkbox">
+    <div class="col-2">
+      <label class="checkbox">
+        <input type="radio" ng-model="statusUpdate.clientPointStatusId" ng-value="2">
+        <span class="checkmark"></span>Aceitar
+      </label>
+    </div>
+
+    <div class="col-2">
+      <label class="checkbox">
+        <input type="radio" ng-model="statusUpdate.clientPointStatusId" ng-value="3">
+        <span class="checkmark"></span>Recusar
+      </label>
+    </div>
+  </div>
+
+
+  <div class="row" ng-if="statusUpdate.clientPointStatusId == 3">
+    <label class="label-input _inline">Motivo</label>
+    <select ng-model="statusUpdate.clientPointReasonId" ng-options="reason.id as reason.name for reason in reasons" >
+    </select>
+    <!--option ng-value="reason.id" ng-repeat="reason in reasons" ng-selected="statusUpdate.clientPointReasonId == reason.id">{{reason.name | date:'MMMM dd, yyyy'}}</option-->
+  </div>
+
+
+  <div class="row">
+    <button class="button-default -action -small"
+        ng-disabled="!statusUpdate.clientPointStatusId || (statusUpdate.clientPointStatusId && statusUpdate.clientPointStatusId == 3 && !statusUpdate.clientPointReasonId)"
+        ng-click="updateCoupon(statusUpdate)">Salvar</button>
+  </div>
+
+</div>
+</div>

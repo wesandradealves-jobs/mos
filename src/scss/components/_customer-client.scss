@@ -1,0 +1,120 @@
+///* ========================================================================
+//   CUSTOMER CLIENT
+//   ======================================================================== */
+
+.customer-client {
+    @extend .box;
+
+    &.-height {
+        height: 212px;
+    }
+
+    > .targeting {
+        top: 4px;
+        @extend ._no-padding;
+        @extend .col-2-xl;
+    }
+    
+    > .title {
+        text-transform: uppercase;
+        padding-top: 5px;
+        @include line-height(11);
+        @extend .col-12-xl;
+    }
+    
+    > .title.-small {
+        font-family: 'Arvo', Helvetica, Arial, sans-serif;
+        color: $grey;
+        @include font-size(8); 
+        font-weight: 100;
+    }
+}
+
+.customer-avatar { 
+    margin-top: 10px;
+    padding-left: 0px !important;
+    @extend .col-1-2-xl;
+
+    > .border {
+        width: 120px;
+        height: 120px;
+        border: 3px solid $turquoise;
+        border-radius: 100%;
+        padding: 7px 0;
+        margin: 0 auto;
+    }
+
+    > .border > .avatar {
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        background: $light-grey;
+        color: $turquoise;
+        text-align: center;
+        border-radius: 100%; 
+        margin: 0 auto;
+        @include font-size(32);
+    }
+}
+
+.customer-info {
+    margin-top: 10px;
+    @extend ._no-padding;
+    @extend .col-1-2-xl;
+
+    > .info {
+        margin-bottom: 20px;
+        padding: 4px 6px 8px 6px;
+        border: 1px solid $light-grey;
+        border-radius: 5px;
+        background: #fff;
+        @include font-size(14);
+    }
+
+    > .info > .tooltip {
+        width: 100%;
+        background: #fff;
+        color: $black;
+        display: block;
+        left: 0;
+        opacity: 0;
+        padding: 10px;
+        pointer-events: none;
+        position: absolute;
+        text-align: center;
+        z-index: 800;
+        @include font-size(9);
+        margin-top: 26px;
+        border-left: 2px solid $light-grey;
+        border-right: 2px solid $light-grey;
+        border-bottom: 2px solid $light-grey;
+        -webkit-transition: all .25s ease-out;
+           -moz-transition: all .25s ease-out;
+            -ms-transition: all .25s ease-out;
+             -o-transition: all .25s ease-out;
+                transition: all .25s ease-out;
+
+        
+        &.-top { margin-top: 24px; }
+
+        @include breakpoint(xl) { &.-top { margin-top: 44px; } }
+
+        > .item {
+            width: 100%;
+            display: inline-block;
+            padding: 5px 0;
+            border-top: 1px solid $light-grey;
+            word-wrap: break-word;
+        }
+    }
+        
+    > .info > .toggle {
+        opacity: 1;
+        pointer-events: auto;
+        -webkit-transform: translateY(0px);
+           -moz-transform: translateY(0px);
+            -ms-transform: translateY(0px);
+             -o-transform: translateY(0px);
+                transform: translateY(0px);
+    }
+}

@@ -1,0 +1,123 @@
+///* ========================================================================
+//   USER MENU
+//   ======================================================================== */
+
+.wrapper-usermenu {
+    padding: 0;
+    @extend .row;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    border: 0;
+    background-color: transparent;
+    margin: 0 auto;
+    font-family: $font-family;
+    cursor: pointer;
+
+    &:after {
+        content: '';
+        margin-left: 8px;
+        display: inline-block;
+        border-top: .3em solid;
+        border-right: .3em solid transparent;
+        border-bottom: 0;
+        border-left: .3em solid transparent;
+    }
+
+    > .image {
+        width: 32px;
+        height: 32px;
+        margin-right: 8px;
+        border-radius: 32px;
+        background-color: #CCC;
+    }
+
+    > .name {
+        color: #706f6f;
+        @include font-size(11);
+    }
+}
+
+.dropdown-menu {
+    display: inline-block;
+
+    > .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1
+    }
+
+    > .inner {
+        width: 280px;
+        background: #fff;
+        color: $black;
+        text-align: left;
+        margin-top: 60px;
+        right: 0;
+        border-radius: 3px;
+        position: absolute;
+        opacity: 0;
+        transition: opacity .3s, visibility .3s;
+        visibility: hidden;
+        z-index: 5;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    > .inner > .header {
+        padding: 10px 10px;
+        background-color: $turquoise;
+
+        .title {
+            display: block;
+            color: #fff;
+            @include font-size(16);
+        }
+
+        .subtitle {
+            color: $white-grey;
+            @include font-size(12);
+        }
+
+    }
+
+    > .inner > .item {
+        color: $dark-grey;
+        padding: 10px;
+        cursor: pointer;
+        border-top: 1px solid $light-turquoise;
+        @include font-size(14);
+
+        &:hover {
+            color: $turquoise;
+        }
+    }
+
+    .open:checked ~ .inner {
+        opacity: 100;
+        visibility: visible;
+    }
+
+    .open:checked ~ .overlay {
+        display: block
+    }
+
+}
+
+.user-settings-avatar-name {
+  position: relative;
+  float: left;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $dark-turquoise;
+}
+
+@include breakpoint(m) {
+    .user-menu { float: right; }
+}

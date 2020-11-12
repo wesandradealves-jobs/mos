@@ -1,0 +1,59 @@
+.select-content {
+  width: 650px;
+  margin: 0 auto;
+}
+
+.title-tabs {
+  display: none;
+
+  &:checked {
+    &~label {
+      text-decoration: underline;
+    }
+
+    &~.content-tab {
+      display: block;
+    }
+  }
+}
+
+.label-tabs {
+  cursor: pointer;
+  font-family: $font-family;
+
+}
+
+.content-tab {
+  width: 450px;
+  height: 400px;
+  margin-top: 30px;
+  overflow: scroll;
+
+  >li {
+    transition: 0.5s;
+  }
+
+}
+
+.content-tab::-webkit-scrollbar-track {
+  background-color: $white-grey;
+}
+
+.content-tab::-webkit-scrollbar {
+  width: 6px;
+  background: $white-grey;
+}
+
+.content-tab::-webkit-scrollbar-thumb {
+  background: $light-purple;
+}
+
+.disabled-store {
+  color: $grey;
+}
+
+.selected-tab {
+  width: 100%;
+  float: left;
+  position: relative;
+}

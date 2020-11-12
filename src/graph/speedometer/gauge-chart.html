@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>d3.js gauge</title>
+    <link href="../_libs/c3.min.css" rel="stylesheet">
+    <script src="../_libs/d3.v5.min.js" charset="utf-8"></script>
+    <script src="../_libs/c3.min.js"></script>
+    <script src="../_libs/queryParser.js"></script>
+</head>
+<body>
+
+<div id="chart"></div>
+
+<script type="text/javascript">
+
+    var chart = c3.generate({
+        bindto: '#chart',
+        data: {
+            // Insert API here
+            url: 'api/gauge-chart.json',
+            mimeType: 'json',
+            type: 'gauge',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        },
+        gauge: {
+//        label: {
+//            format: function(value, ratio) {
+//                return value;
+//            },
+//            show: false // to turn off the min/max labels.
+//        },
+//    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+//    max: 100, // 100 is default
+//    units: ' %',
+//    width: 39 // for adjusting arc thickness
+        },
+        color: {
+            // Insert colors here
+            pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+            threshold: {
+//            unit: 'value', // percentage is default
+//            max: 200, // 100 is default
+                values: [30, 60, 90, 100]
+            }
+        },
+        size: {
+            height: 180
+        }
+    });
+
+    var urlQuery = urlQueryObj();
+    if ( urlQuery.params ) {
+      var graphic_data = JSON.parse( sessionStorage.graphic_data );
+      loadData( JSON.parse( graphic_data[ urlQuery.params.data ] ) );
+    }
+
+</script>
+</body>
+</html>

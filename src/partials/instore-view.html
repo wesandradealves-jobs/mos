@@ -1,0 +1,144 @@
+<!-- Menu Include -->
+<ng-include src="'partials/includes/menu.html'" ng-controller="PermissionsController"></ng-include>
+<!-- End Menu Include -->
+
+<!-- Instore View Content -->
+<section class="container">
+  <!-- UserMenu Include -->
+  <ng-include src="'partials/includes/user-menu.html'" ng-controller="UserMenuController"></ng-include>
+  <!-- End UserMenu Include -->
+
+  <h1 class="page-title">Instore View</h1>
+
+  <div class="wrapper-breadcrumbs">
+    <ol class="breadcrumbs">
+      <li class="item">Home</li>
+      <li class="item">Instore View</li>
+    </ol>
+
+    <div class="col-1-3-xl">
+      <select ng-model="offset" class="styl-period" ng-change="changePeriod()">
+        <option value="-1" disabled>-- Selecione --</option>
+        <option value="week">Semana</option>
+        <option value="month">Mês</option>
+        <option value="year">Ano</option>
+      </select>
+    </div>
+
+    <div class="col-1-3-xl">
+      <select ng-model="inStoreView.mallId" ng-class="{'input-error': mallError}" ng-blur="validateMall()"
+        ng-change="changeMall(inStoreView.mallId)">
+        <option ng-repeat="m in userMalls track by m.id" value="{{m.id}}">{{m.name}}</option>
+      </select>
+    </div>
+
+
+    <div class="col-1-3-xl" ng-mouseleave="boxMouseIn = false" ng-mouseenter="boxMouseIn = true">
+        <input ng-model="inStoreView.storeSearch" ng-change="searchStores()" type="text" placeholder="Nome ou CNPJ da loja"
+          ng-blur="boxAutoComplete = false">
+        <div class="auto-complete" ng-if="boxAutoComplete || boxMouseIn">
+          <div ng-click="loadGraphics(store)" class="link" ng-repeat="store in stores | limitTo:7">
+            <span >{{store.name}}</span>
+          </div>
+        </div>
+    </div>
+
+
+  </div>
+
+  <!-- Column #1 -->
+  <div class="col-1-4-l -noleft">
+    <div class="box loading">
+      <h5 class="title">
+        Clientes
+        <div class="button-more _mar-bottom-5" ng-click="openNgDialog('baseClient')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.baseView" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10" id="baseClient" src='../graph/pie-chart/pie-chart.html' width="100%" height="auto"
+        scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+  </div>
+  <!-- END Column #1 --->
+
+  <!-- Column #2 -->
+  <div class="col-1-4-l">
+    <div class="box loading">
+      <h5 class="title">
+        Transações
+        <div class="button-more" ng-click="openNgDialog('storeTransactions')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.storeTransactions" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10" id="storeTransactions" src='../graph/grouped-bar/grouped-bar.html' width="100%"
+        height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+  </div>
+  <!-- END Column #2 -->
+
+  <!-- Column #3 -->
+  <div class="col-1-4-l">
+    <div class="box loading">
+      <h5 class="title">
+        Ticket Médio
+        <div class="button-more" ng-click="openMultiLines('averageTicket')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.appInteractions" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10" id="averageTicket" src='../graph/multi-serie-line/multi-serie-line.html' width="100%"
+        height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+  </div>
+  <!-- END Column #3 -->
+
+  <!-- Column #4 -->
+  <div class="col-1-4-l -noright">
+    <div class="box loading">
+      <h5 class="title">
+        Vendas
+        <div class="button-more" ng-click="openBulletChart('selling')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.mixedMetrics" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10" id="selling" src="../graph/bullet-chart/bullet-chart.html" width="100%" height="auto"
+        scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+  </div>
+  <!-- END Column #4 -->
+
+  <div class="col-1-3-l -noleft">
+    <div class="box _text-center">
+      <h5 class="title">
+        Número de clientes únicos
+      </h5>
+      <br>
+      <span class="number"> {{report.TotalUniqueClients}}</span>
+    </div>
+  </div>
+
+  <div class="col-1-3-l">
+    <div class="box _text-center">
+      <h5 class="title">
+        Número de transações
+      </h5>
+      <br>
+      <span class="number">{{report.TransactionQuantity}}</span>
+    </div>
+  </div>
+
+  <div class="col-1-3-l">
+    <div class="box _text-center">
+      <h5 class="title">
+        Número de vendas
+      </h5>
+      <br>
+      <span class="number">R$ {{report.TransactionValue | number:2}}</span>
+    </div>
+  </div>
+
+</section>
+<!-- End Instore View Content -->

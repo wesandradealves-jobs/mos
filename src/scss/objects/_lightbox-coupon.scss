@@ -1,0 +1,56 @@
+///* ========================================================================
+//   LIGHTBOX COUPON
+//   ======================================================================== */
+
+.coupon-content {
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+
+  hr {
+    border-top: solid 1px $light-turquoise;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  &.-large {
+    width: 85%;
+  }
+
+  .obs {
+    font-weight: 100;
+    @include font-size(10);
+  }
+
+  >input {
+    width: 50%;
+    margin-bottom: 15px;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+
+  >.row-form {
+    width: $container-full;
+    position: relative;
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0px;
+    @extend .clearfix;
+
+    span {
+      margin-left: 10px;
+    }
+
+  }
+
+  >.align-checkbox {
+    width: $container-full;
+    margin-left: 37%;
+    @extend .clearfix;
+
+  }
+}

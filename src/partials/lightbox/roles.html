@@ -1,0 +1,26 @@
+<div class="sms-wrapper -large">
+  <h2 class="lightbox-title">Papel de Funcionário</h2>
+
+  <div class="row">
+    <label class="label-input">Papel</label>
+    <input ng-model="role.name" type="text">
+  </div>
+
+  <div class="row">
+    <label class="label-input">Funcionalidades</label>
+
+    <div class="role-select" ng-repeat="p in avaliablePermissions">
+      <input class="inp-mark" id="mark{{p.id}}" type="checkbox" style="display: none;" ng-true-value="{{p.id}}"
+        ng-model="selectedPermissions[ p.id ]" ng-checked="permisisonSelected(p.id)">
+      <label class="mark" for="mark{{p.id}}">
+        <span><svg width="12px" height="10px" viewbox="0 0 12 10">
+            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+          </svg></span>
+        <span style="display: inline;">{{p.name}}</span>
+      </label>
+    </div>
+  </div>
+  <div class="_mar-top-20">
+    <button class="button-default -purple small" type="submit" ng-disabled="!role.name" ng-click="saveRole()">Salvar</button>
+  </div>
+</div>

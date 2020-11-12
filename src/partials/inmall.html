@@ -1,0 +1,156 @@
+<!-- Menu Include -->
+<ng-include src="'partials/includes/menu.html'" ng-controller="PermissionsController"></ng-include>
+<!-- End Menu Include -->
+
+<!-- InMall View Content -->
+<section class="container">
+  <!-- UserMenu Include -->
+  <ng-include src="'partials/includes/user-menu.html'" ng-controller="UserMenuController"></ng-include>
+  <!-- End UserMenu Include -->
+
+  <h1 class="page-title">InMall View</h1>
+
+  <div class="wrapper-breadcrumbs">
+    <ol class="breadcrumbs">
+      <li class="item">Home</li>
+      <li class="item">InMall View</li>
+    </ol>
+
+    <div class="col-1-4-xl">
+      <select ng-model="offset" class="styl-period" ng-change="updateOffset()">
+        <option value="-1" disabled>-- Selecione --</option>
+        <option value="week">Semana</option>
+        <option value="month">Mês</option>
+        <option value="year">Ano</option>
+      </select>
+    </div>
+
+    <div class="col-1-4-xl">
+      <div class="box select-shopping" ng-model="malls" ng-show="malls.length == 1">
+        Selecionar Shoppings
+        <div class="button-more -select" ng-click="openMalls(malls)">
+          <img src="../img/more.svg">
+        </div>
+      </div>
+      <div class="box select-shopping" ng-model="malls" ng-show="malls.length > 1">
+        {{malls.length}} Shoppings Selecionados
+        <div class="button-more -select" ng-click="openMalls(malls)">
+          <img src="../img/more.svg">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Column #1 -->
+  <div class="col-1-4-l -noleft">
+    <div class="box loading">
+      <h5 class="title">
+        Visão da Base
+        <div class="button-more _mar-bottom-5" ng-click="openNgDialog('baseView')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.baseView" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10" id="baseView" src='../graph/sun-burn/sun-burn.html' width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+    <div class="box loading">
+      <h5 class="title">
+        Facilities
+        <div class="button-more" ng-click="openRadarChart('facilitiesUse')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.facilitiesUse" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10"  id="facilitiesUse" src="../graph/radar-chart/radar-chart.html" width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+  </div>
+  <!-- END Column #1 --->
+
+  <!-- Column #2 -->
+  <div class="col-1-4-l">
+    <div class="box loading">
+      <h5 class="title">
+        Spending por Loja
+        <div class="button-more" ng-click="openBubbleChart('storeSpending')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.storeSpending" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10"  id="storeSpending" src='../graph/bubble-chart/bubble-chart.html' width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+    <div class="box loading">
+      <h5 class="title">
+        Métricas Diversas
+        <div class="button-more" ng-click="openBulletChart('mixedMetrics')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.mixedMetrics" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10"  id="mixedMetrics" src="../graph/bullet-chart/bullet-chart.html" width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+  </div>
+  <!-- END Column #2 -->
+
+  <!-- Column #3 -->
+  <div class="col-1-4-l">
+    <div class="box loading">
+      <h5 class="title">
+        Login por dia no App
+        <div class="button-more" ng-click="openNgDialog('weeklyAppInteractions')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.weeklyAppInteractions" class="loader" src="img/loader.svg">
+      <iframe  class="_mar-top-10" id="weeklyAppInteractions" src='../graph/heat-map/heat-map.html' width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+    <div class="box loading">
+      <h5 class="title">
+        Fluxo de Segmentos
+        <div class="button-more" ng-click="openNgDialog('modalityFlow')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.modalityFlow" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10"  id="modalityFlow" src="../graph/sankey/sankey.html" width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+  </div>
+  <!-- END Column #3 -->
+
+  <!-- Column #4 -->
+  <div class="col-1-4-l">
+    <div class="box -small loading">
+      <h5 class="title">
+        Visualizações do App
+        <div class="button-more" ng-click="openMultiLines('appInteractions')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.appInteractions" class="loader" src="img/loader.svg">
+      <iframe  class="_mar-top-10" id="appInteractions" src='../graph/multi-serie-line/multi-serie-line.html' width="100%" height="auto"
+        scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+    <div class="box -small loading">
+      <h5 class="title">
+        Novos Cadastros
+        <div class="button-more" ng-click="openStackedBar('newSignup')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.newSignup" class="loader" src="img/loader.svg">
+      <iframe class="_mar-top-10"  id="newSignup" src="../graph/stacked-bar/stacked-bar.html" width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+    <div class="box -small loading">
+      <h5 class="title">
+        Spending no Período
+        <div class="button-more" ng-click="openStackedBar('dailySpending')">
+          <img src="../img/more.svg">
+        </div>
+      </h5>
+      <img ng-if="loading.dailySpending" class="loader" src="img/loader.svg">
+      <iframe  class="_mar-top-10" id="dailySpending" src="../graph/stacked-bar/stacked-bar.html" width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+    </div>
+  </div>
+  <!-- END Column #4 -->
+
+</section>
+<!-- End InMall View Content -->

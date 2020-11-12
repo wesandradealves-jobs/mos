@@ -1,0 +1,18 @@
+///* ========================================================================
+//   COMPONENTS-SUBTITLES
+//   ======================================================================== */
+
+.components-subtitle {
+    font-family: 'Arvo', Helvetica, Arial, sans-serif;
+    color: $grey;
+    @include font-size(12);
+}
+
+.lightbox-title {
+    font-family: 'Arvo', Helvetica, Arial, sans-serif;
+    @include font-size(16);
+    font-weight: 600;
+    color:$purple;
+    text-transform: uppercase;
+    text-align: center;
+}

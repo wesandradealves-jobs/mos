@@ -1,0 +1,464 @@
+<!-- Menu Include -->
+<ng-include src="'partials/includes/menu.html'" ng-controller="PermissionsController"></ng-include>
+<!-- End Menu Include -->
+
+<!-- FRALDARIO -->
+<section class="container">
+    <!-- UserMenu Include -->
+    <ng-include src="'partials/includes/user-menu.html'" ng-controller="UserMenuController"></ng-include>
+    <!-- End UserMenu Include -->
+
+    <h1 class="page-title">FRALDÁRIO</h1>
+
+    <div class="wrapper-breadcrumbs">
+        <ol class="breadcrumbs">
+            <li class="item">Home</li>
+            <li class="item">Fraldário</li>
+        </ol>
+    </div>
+        <div class="row">
+            <ul>
+                <!-- Novo Registro -->
+                <li class="nav-tab" ng-show="menuPermissions['CREATE-BABYCARE']">
+                    <input type="radio" name="tabs" class="tabs" id="new-flash" ng-checked="menuPermissions['CREATE-BABYCARE']">
+                    <label class="label -first" for="new-flash">
+                        <img src="../img/tabs/new.svg" class="icon">
+                        NOVO REGISTRO
+                    </label>
+                    <div class="content">
+
+                        <div class="col-1-2-xl">
+                            <div class="form">
+                                <div class="row">
+                                    <label class="label-input">Shopping*</label>
+                                    <select ng-model="babyCare.mallId" ng-class="{'input-error': mallError}"
+                                    ng-blur="validateMall()" ng-change="unlockFields()">
+                                        <option value="" selected disabled>-- Selecione --</option>
+                                        <option ng-repeat="m in userMalls track by m.id" ng-value="m.id"
+                                            convert-to-integer>{{m.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <label class="label-input">Dados do responsável</label>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-1-2-xl">
+                                        <label class="label-input">CPF*</label>
+                                        <input type="text" ng-change="searchClient()"
+                                            ng-disabled="choiceMall"
+                                            ng-model="client.cpf" ng-class="{'input-error': cpfError}"
+                                            ng-blur="validateCpf()" ui-br-cpf-mask required="false">
+                                    </div>
+
+
+                                    <div class="col-1-2-xl">
+                                        <label class="label-input">Telefone*</label>
+                                        <input type="text" ng-model="client.mobileNumber"
+                                            ng-disabled="lockedFields"
+                                            ui-br-phone-number required
+                                            ng-class="{'input-error': phoneError}" ng-blur="validatePhone()">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="label-input">Nome*</label>
+                                    <input type="text" ng-model="client.fullName" ng-class="{'input-error': nameError}"
+                                        ng-disabled="lockedFields"
+                                        ng-blur="validateName()" pattern="^([A-Za-zàáâäãåčćèéêëėìíîïńòóôöõùúûüūÿýñçÀÁÂÄÃÅĖĘÈÉÊËÌÍÎÏÒÓÔÖÕÙÚÛÜŪÑßÇ']{2,}[ ])([A-Za-zàáâäãåčćèéêëėìíîïńòóôöõùúûüūÿýñçÀÁÂÄÃÅĖĘÈÉÊËÌÍÎÏÒÓÔÖÕÙÚÛÜŪÑßÇ\.']+[ ]?){2,}$"
+                                        ng-pattern-restrict required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1-2-xl">
+                                        <label class="label-input">E-mail*</label>
+                                        <input type="email" ng-model="client.email" ng-class="{'input-error': emailError}"
+                                            ng-disabled="lockedFields"
+                                            ng-focus="client.emailError == false" ng-blur="validateEmail()" required>
+                                    </div>
+                                    <div class="col-1-2-xl">
+                                        <label class="label-input">CEP*</label>
+                                        <input type="text" ng-model="client.address.zipCode" ui-br-cep-mask required
+                                            ng-disabled="lockedFields"
+                                            ng-class="{'input-error': zipCodeError}" ng-blur="validateZipCode()">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1-2-xl">
+                                        <label class="label-input">Gênero*</label>
+                                        <select ng-model="client.sex"
+                                          ng-disabled="lockedFields" required ng-class="{'input-error': sexError}" ng-blur="validateSex()">
+                                            <option value="" disabled selected>-- Selecione --</option>
+                                            <option value="F">FEMININO</option>
+                                            <option value="M">MASCULINO</option>
+                                            <option value="O">OUTRO</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-1-2-xl">
+                                        <label class="label-input">Data de nascimento*</label>
+                                        <input type="text" ng-model="client.birthday"
+                                            ng-disabled="lockedFields"
+                                            ui-date-mask required ng-class="{'input-error': birthdayError}"
+                                            ng-blur="validateBirthday()">
+                                    </div>
+                                </div>
+                                <div class="row" ng-if="selectedTargeting && selectedClubAcceptance == true">
+                                  <label class="label-input">Cliente já faz parte do clube</label>
+                                  <img class="targeting-image" ng-src="{{selectedTargeting.icon}}">
+                                  <span class="targeting-text">Cliente {{selectedTargeting.name}}</span>
+                                </div>
+                                <div class="row" ng-if="!selectedTargeting || selectedClubAcceptance == false">
+                                    <div class="col-1-2-xl">
+                                        <label class="label-input">Cliente deseja fazer parte do clube?</label>
+                                        <div>
+                                            <div class="col-1-2">
+                                                <label class="checkbox">
+                                                    <input type="radio" name="radio" ng-value="true"
+                                                      ng-model="client.clubAcceptance">
+                                                    <span class="checkmark"></span>SIM
+                                                </label>
+                                            </div>
+
+                                            <div class="col-1-2 _no-padding">
+                                                <label class="checkbox">
+                                                    <input type="radio" name="radio" ng-value="false" ng-init="client.clubAcceptance = false"
+                                                      ng-model="client.clubAcceptance">
+                                                    <span class="checkmark"></span>NÃO
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-1-2-xl">
+                                        <label class="label-input">Enviar termo de adesao</label>
+                                        <select ng-model="client.clubAcceptanceChannel" ng-disabled="!client.clubAcceptance">
+                                            <option value="" checked disabled>-- Selecione --</option>
+                                            <option value="EMAIL">E-mail</option>
+                                            <option value="SMS">SMS</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-1-2-xl -noright">
+                            <div class="row">
+                                <label class="label-input">Dados da Criança</label>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-1-2-xl">
+                                    <label class="label-input">Nome da Criança*</label>
+                                    <input type="text" ng-model="babyCare.babyName"
+                                        pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\s]+$"
+                                        ng-disabled="lockedFields" ng-pattern-restrict
+                                        required ng-class="{'input-error': babyNameError}"
+                                        ng-blur="validateBabyName()">
+                                </div>
+
+                                <div class="col-1-2-xl">
+                                    <label class="label-input">Data de nascimento*</label>
+                                    <input type="text" ng-model="babyCare.birthday" ui-date-mask
+                                      ng-disabled="lockedFields" ng-blur="validateBabyBirthday()"
+                                      ng-class="{'input-error': babyBirthdayError}">
+                                </div>
+
+                            </div>
+
+                            <!--
+                        TODO: precisa ser várias opçoes selecionávies como estas
+                        opções não são exclusivas uma das outras
+                        -->
+                            <div class="row">
+                                <label class="label-input">Tipos de Atividades*</label>
+
+                                <select ng-model="babyCare.activities"
+                                  ng-disabled="lockedFields" required ng-class="{'input-error': firstError}" ng-blur="validateFirst()">
+                                    <option value="" selected disabled>-- Selecione --</option>
+                                    <option ng-value="activity.id" ng-repeat="activity in activities">{{activity.name}}</option>
+                                </select>
+                            </div>
+
+                            <!-- TODO: precisa ser várias opções selecionáveis -->
+                            <div class="row">
+                                <label class="label-input">Tipos de Uso*</label>
+
+                                <select ng-model="babyCare.usages"
+                                  ng-disabled="lockedFields" required ng-class="{'input-error': secondError}" ng-blur="validateSecond()">
+                                    <option value="" selected disabled>-- Selecione --</option>
+                                    <option ng-value="usage.id" ng-repeat="usage in usages">{{usage.name}}</option>
+                                </select>
+                            </div>
+
+                            <div class="row">
+                                <label class="label-input">Descrição do atendimento</label>
+                                <textarea ng-model="babyCare.comment" cols="30" rows="12"
+                                  ng-disabled="lockedFields"></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <span class="obs">* Campos obrigatórios</span>
+
+                        <div class="row">
+                            <button class="button-default -action -small" ng-disabled="!babyCare.mallId || !client.cpf || !client.mobileNumber || !client.fullName || !client.sex
+                          || !client.email || !client.address.zipCode || !client.birthday || (client.clubAcceptance && !client.clubAcceptanceChannel) || !babyCare.babyName || !babyCare.birthday || !babyCare.activities || !babyCare.usages"
+                                ng-click="saveBabyCare()">Salvar</button>
+                        </div>
+                    </div>
+
+                </li>
+                <!-- END Novo Registro -->
+
+                <!-- Relatório -->
+                <li class="nav-tab" ng-show="menuPermissions['REPORT-BABYCARE']">
+                    <input type="radio" name="tabs" class="tabs" id="report" ng-click="loadGraphics()" ng-checked="(!menuPermissions['CREATE-BABYCARE']) && menuPermissions['REPORT-BABYCARE']">
+                    <label class="label" for="report">
+                        <img src="../img/tabs/report.svg" class="icon">
+                        RELATÓRIO
+                    </label>
+                    <div class="content">
+
+                        <!-- Filtro -->
+                        <div class="row">
+                            <div class="col-1-3">
+                                <label class="label-input">
+                                    Shopping
+                                </label>
+                                <div class="box filter-shopping -select" ng-model="malls" ng-show="malls.length == 1">
+                                    {{singleMallSelected||user.malls[0].name}}
+                                    <div class="button-more -select" ng-click="openMalls(malls)">
+                                        <img src="../img/more.svg">
+                                    </div>
+                                </div>
+                                <div class="box -select" ng-model="malls" ng-show="malls.length > 1">
+                                    {{malls.length}} Shoppings Selecionados
+                                    <div class="button-more" ng-click="openMalls(malls)">
+                                        <img src="../img/more.svg">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-1-3">
+                                <label class="label-input">Período</label>
+                                <select ng-model="offset">
+                                    <option value="-1" disabled>-- Selecione --</option>
+                                    <option value="day">Hoje</option>
+                                    <option value="week">Semana</option>
+                                    <option value="month">Mês</option>
+                                    <option value="year">Ano</option>
+                                </select>
+                            </div>
+                            <div class="col-1-3">
+                                <button class="button-default -filter -small" ng-click="loadGraphics()" id="babycare-search-button">Buscar</button>
+                            </div>
+
+                        </div>
+                        <!-- END Filtro -->
+
+                        <!-- Gráficos -->
+                        <div class="row">
+                            <div class="col-1-3-l">
+                                <div class="box loading">
+                                    <h5 class="title">
+                                        Atendimentos por período
+                                        <div class="button-more" ng-click="openNgDialogColor('visitsByDay')">
+                                            <img src="../img/more.svg">
+                                        </div>
+                                    </h5>
+                                    <img ng-if="loading.visitsByDay" class="loader" src="img/loader.svg">
+                                    <iframe class="_mar-top-10" id="visitsByDay" src='../graph/bar-chart/bar-chart.html'
+                                        width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+                                </div>
+                            </div>
+                            <div class="col-1-3-l">
+                                <div class="box loading">
+                                    <h5 class="title">
+                                        Segmento
+                                        <div class="button-more" ng-click="openNgDialog('categories')">
+                                            <img src="../img/more.svg">
+                                        </div>
+                                    </h5>
+                                    <img ng-if="loading.categories" class="loader" src="img/loader.svg">
+                                    <iframe class="_mar-top-10" id="categories" src='../graph/pie-chart/pie-chart.html'
+                                        width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+                                </div>
+                            </div>
+                            <div class="col-1-3-l">
+                                <div class="box loading">
+                                    <h5 class="title">
+                                        Recorrência
+                                        <div class="button-more" ng-click="openNgDialog('recurrence')">
+                                            <img src="../img/more.svg">
+                                        </div>
+                                    </h5>
+                                    <img ng-if="loading.recurrence" class="loader" src="img/loader.svg">
+                                    <iframe class="_mar-top-10" id="recurrence" src='../graph/grouped-bar/grouped-bar.html'
+                                        width="100%" height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1-3-l">
+                                <div class="box loading">
+                                    <h5 class="title">
+                                        Atendimentos
+                                        <div class="button-more" ng-click="openNgDialog('visits')">
+                                            <img src="../img/more.svg">
+                                        </div>
+                                    </h5>
+                                    <img ng-if="loading.visits" class="loader" src="img/loader.svg">
+                                    <iframe class="_mar-top-10" id="visits" src='../graph/heat-map/heat-map.html' width="90%"
+                                        height="auto" scrolling="no" data-hj-allow-iframe=""></iframe>
+                                </div>
+                            </div>
+                            <div class="col-1-3-l">
+                                <div class="box loading">
+                                    <h5 class="title">
+                                        Conversões em cadastro
+                                    </h5>
+                                    <img ng-if="loading.visits" class="loader" src="img/loader.svg">
+                                    <div class="number -height">
+                                        <div ng-if="!loading.visits">{{reg.conversions}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-1-3-l">
+                                <div class="box loading">
+                                    <h5 class="title">
+                                        Consumo médio no dia
+                                    </h5>
+                                    <img ng-if="loading.visits" class="loader" src="img/loader.svg">
+                                    <div class="number -height">
+                                        <div ng-if="!loading.visits">R$ {{avg.reais}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END Gráficos -->
+
+                    </div>
+                </li>
+                <!-- END Relatório -->
+
+                <!-- Controle -->
+                <li class="nav-tab" ng-show="menuPermissions['LIST-BABYCARE']">
+                    <input type="radio" name="tabs" class="tabs" id="flash" ng-checked="(!menuPermissions['CREATE-BABYCARE']) && (!menuPermissions['REPORT-BABYCARE'])">
+                    <label class="label" for="flash">
+                        <img src="../img/tabs/control.svg" class="icon">
+                        CONTROLE
+                    </label>
+                    <div class="content" id="babycare-control">
+                        <div class="row">
+                            <div class="col-3">
+                                <label class="label-input">Shopping</label>
+
+                                <select ng-model="controlMall" ng-init="controlMall = userMalls[0].id"
+                                  ng-options="m.id as m.name for m in userMalls">
+                                </select>
+                            </div>
+                            <div class="col-2">
+                              <button class="button-default -filter -small"
+                                ng-click="getListBabyCare()">Buscar</button>
+                            </div>
+                        </div>
+
+                        <table datatable="ng" class="row-border hover" width="100%" dt-column-defs="dtColumnDefs"
+                            dt-options="dtOptions">
+                            <thead>
+                                <tr>
+                                    <th>Data de Atendimento</th>
+                                    <th>Nome do Cliente</th>
+                                    <th>Nome da Criança</th>
+                                    <th>Nota Recebida</th>
+                                    <th>Detalhamento</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="baby in babys">
+                                    <td>{{baby.registerDate}}</td>
+                                    <td>{{baby.client.fullName}}</td>
+                                    <td>{{baby.babyName}}</td>
+                                    <td class="_text-center">{{baby.score}}</td>
+                                    <td class="_text-center">
+                                        <img class="icon-button" ng-click="openDetailingBabyCare(baby)" src="img/more.svg">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </li>
+                <!-- END Controle -->
+
+
+                <!-- edit client -->
+                <li class="nav-tab" ng-show="menuPermissions['LIST-BABYCARE']">
+                      <input type="radio" name="tabs" class="tabs" id="edit-client"
+                        ng-checked="(!menuPermissions['CREATE-BABYCARE']) && (!menuPermissions['REPORT-BABYCARE'])">
+                      <label class="label" for="edit-client">
+                        <img src="../img/tabs/control.svg" class="icon">
+                        Editar Cliente
+                      </label>
+                      <div class="content" id="babycare-edit">
+                        <div class="row">
+                          <div class="col-3">
+                            <label class="label-input">Shopping</label>
+                            <select ng-model="clientMall" ng-init="clientMall = '-1' ">
+                              <option value="-1" selected disabled>-- Selecione --</option>
+                              <option ng-repeat="m in userMalls track by m.id" ng-value="m.id">{{m.name}}</option>
+                            </select>
+                          </div>
+
+                          <div class="col-1-4">
+                            <label class="label-input">CPF</label>
+                            <input ng-model="cpf" type="text" placeholder="Pesquisar o cliente" ui-br-cpf-mask>
+                          </div>
+
+                          <div class="col-1-4">
+                            <button class="button-default -filter -small" ng-click="searchClientByCpf()"
+                              ng-disabled="clientMall == '-1' || !cpf">Buscar</button>
+                          </div>
+
+                        </div>
+
+                        <table datatable="ng" class="row-border hover" width="100%" dt-column-defs="dtColumnDefs"
+                          dt-options="dtOptions">
+                          <thead>
+                            <tr>
+                              <th>CPF</th>
+                              <th>Nome do Cliente</th>
+                              <th>E-mail</th>
+                              <th>telefone</th>
+                              <th>editar</th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                            <tr ng-repeat="client in editClients">
+                              <td>{{client.cpf}}</td>
+                              <td>{{client.fullName}}</td>
+                              <td>{{client.email}}</td>
+                              <td>{{client.mobileNumber}}</td>
+                              <td class="_text-center">
+                                <img class="icon-button" ng-click="openEditClient(cpf)" src="img/rascunho.svg">
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                      </div>
+                </li>
+
+          <!-- end edit client -->
+
+            </ul>
+        </div>
+
+
+</section>
+<!-- End Baby Care Content -->

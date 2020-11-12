@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+<style>
+
+body {
+  font-family: 'Roboto Mono', Helvetica, Arial, sans-serif;
+  font-size: 8px;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 320px) {
+  body {
+    font-size: 0px;
+  }
+
+  .axis {
+    display: none !important;
+  }
+}
+
+.bar { fill: #a24a48; }
+.bar:hover { opacity: .5; }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+  font-size: 9px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+</style>
+<body>
+<script src="../_libs/d3.v3.min.js"></script>
+<script src="../_libs/queryParser.js"></script>
+<script src="bar-chart.js"></script>
+<script>
+
+var urlQuery = urlQueryObj();
+
+var margin = {top: 30, right: 10, bottom: 30, left: 00},
+    width = window.innerWidth - margin.left - margin.right,
+    height = window.innerHeight - margin.top - margin.bottom;
+
+var formatPercent = d3.format(".0%");
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(formatPercent);
+
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    //checar se o gráfico é de quantidade ou valor
+    var frequencyGraphs = ['CustomerView_bar', 'CustomerView_bar2', 'CustomerView_lightbox1', 
+    'CustomerView_lightbox2']
+    if (frequencyGraphs.indexOf(urlQuery.params.data) != -1) 
+      return "<span style='color:white'>" + d.frequency + "</span>";
+    else  
+      return "<span style='color:white'>" + "R$ " + d.frequency + "</span>";
+  })
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg.call(tip);
+
+// Insert API here
+function loadData(data) {
+//d3.json("api/bar-chart.json", function (error, data) { 
+    //console.log(d3.values(data)); // check data in console
+    // loop through JSON data
+    data.forEach(function (d) {
+        d.frequency = +d.frequency;
+    });
+
+  x.domain(data.map(function(d) { return d.letter; }));
+  y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.letter); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.frequency); })
+      .attr("height", function(d) { return height - y(d.frequency); })
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+
+};
+
+
+if ( urlQuery.params ) {
+  var graphic_data = JSON.parse( sessionStorage.graphic_data );
+  loadData( JSON.parse( graphic_data[ urlQuery.params.data ] ) );
+  var y = document.getElementsByClassName("bar");
+  var i;
+  for (i = 0; i < y.length; i++) {
+    y[i].style.fill = urlQuery.params.config.color;
+  }
+}
+
+/*
+var urlQuery = urlQueryObj();
+if ( urlQuery.params ) {
+  loadData(urlQuery.params.data);
+  var y = document.getElementsByClassName("bar");
+  var i;
+  for (i = 0; i < y.length; i++) {
+    y[i].style.fill = urlQuery.params.config.color;
+  }
+}
+*/
+
+function type(d) {
+  d.frequency = +d.frequency;
+  return d;
+} 
+
+</script>

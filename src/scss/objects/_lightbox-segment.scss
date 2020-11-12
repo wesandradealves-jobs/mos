@@ -1,0 +1,28 @@
+///* ========================================================================
+//   LIGHTBOX SMS
+//   ======================================================================== */
+
+// TO DO refatorar esse css
+.segment-wrapper {
+    width: 80%;
+    text-align: left;
+    margin: 0 auto;
+
+    &.-large{
+      width: 85%;
+    }
+
+    > input {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    textarea{resize: none;}
+}
+
+.obs {
+    font-weight: 100;
+    @include font-size(10);
+    justify-content: center;
+    display: flex;
+}

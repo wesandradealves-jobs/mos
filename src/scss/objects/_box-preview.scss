@@ -1,0 +1,113 @@
+// BOX-PREVIEW
+
+
+// OFFER
+
+.box-offer-view {
+  width: 384px;
+  height: 220px;
+  padding: 10px;
+  position: relative;
+  @extend ._mar-bottom-20;
+  border: solid 1px $light-turquoise;
+
+  >.content-banner {
+    position: absolute;
+    top: 15%;
+
+    // background cinza imagem
+    right: 0;
+    width: 45%;
+  }
+
+  >.img-view {
+    position: absolute;
+    width: 400px;
+    height: 230px;
+    padding: 0px;
+  }
+
+  &.-campaign {
+    width: 500px;
+    height: 340px;
+    border: solid 1px $light-turquoise;
+    position: relative;
+    margin: 20px 0;
+    padding: 0 20px;
+    text-align: center;
+
+  }
+
+  .img-campaign {
+    width: 500px;
+    height: 300px;
+    padding: 0px;
+
+  }
+
+}
+
+
+
+// EVENT
+
+.box-event-view {
+  width: 360px;
+  height: 500px;
+  position: relative;
+  @extend ._mar-bottom-20;
+  border: solid 1px $light-turquoise;
+
+  >.content-banner {
+    position: absolute;
+    top: 15%;
+
+    // background cinza imagem
+    right: 0;
+    width: 45%;
+  }
+
+  >.img-view {
+    position: absolute;
+    width: 360px;
+    height: 480px;
+    padding: 10px;
+
+  }
+
+  &.-campaign {
+    width: 360px;
+    height: 490px;
+    border: solid 1px $light-turquoise;
+    position: relative;
+    margin: 20px auto;
+    padding: 0 10px;
+    text-align: center;
+
+
+  }
+}
+
+// SETTINGS
+
+.view-logo {
+  width: 100px;
+  height: 77px;
+  margin-left: 0px;
+  background: #fff;
+  border: 1px solid $light-turquoise;
+  border-radius: 3px;
+
+  >.img-logo {
+    width: 100px;
+    max-height: 75px;
+    padding: 3px;
+  }
+}
+
+#logo-preview-label {
+  background-color:#f9f9f9;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}

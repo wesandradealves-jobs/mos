@@ -1,0 +1,50 @@
+<!-- BANNER PROMOÇÕES -->
+
+<div class="container-banner -mid">
+
+  <h2 class="lightbox-title">Banner no app</h2>
+
+  <!--    INFORMAÇÕES   -->
+  <form>
+
+    <div class="box-complete">
+      <div  class="col-2-5">
+        <h5 class="small">Imagem</h5>
+        <p><span>formato: {{bannerWidth}}x{{bannerHeight}}px</span></p>
+      </div>
+
+      <div ng-if="!hideButton" class="upload-box">
+        <!-- class="button-default -grey -small"  onloadend="prepareImage" -->
+        <label class="button-default -upload -grey -small" for="file">SELECIONAR ARQUIVO</label>
+        <input id="file" name="file" type="file" base-sixty-four-input ng-model="imageinput"
+        onchange="angular.element(this).scope().file_changed(this)" accept="image/*" maxsize="2048" required></input>
+      </div>
+
+
+      <div class="box-offer-view -campaign"
+        ng-class="section_type_id == 3 ? 'box-event-view' : 'box-offer-view'">
+
+        <div class="loading">
+          <img class="loader" ng-show="loading" src="img/loading_icon.svg">
+
+          <!-- TODO: must recheck that later -->
+          <div class="img-view">
+            <img class="img-campaign" ng-src="{{image}}" ng-hide="(!image)" />
+          </div>
+        </div>
+
+      </div>
+
+      <h5 class="small">Detalhamento/Disclaimer</h5>
+      <textarea class="box-textarea" placeholder="Limite de 250 caracteres" maxlength=250 ng-model="disclaimer"
+        ng-class="{'input-error': disclaimerError}" ng-blur="validateDisclaimer()"
+        id="banner-promo-disclaimer"></textarea>
+    </div>
+
+    <div class="container-button">
+      <button class="button-default -action" value="ADICIONAR" type="submit"
+        ng-click="dismissBanner()"
+        ng-disabled="!image || !disclaimer">Adicionar</button>
+    </div>
+  </form>
+</div>

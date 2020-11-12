@@ -1,0 +1,147 @@
+///* ========================================================================
+//   BUTTONS
+//   ======================================================================== */
+
+button {
+    font-family: $heading-font-family;
+    cursor: pointer;
+    line-height: normal;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    &:hover, &:active { text-decoration: none; }
+}
+
+.button-default {
+    font-family: $heading-font-family;
+    font-weight: 600;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    @include font-size(13);
+
+
+    &.-turquoise { background-color: $turquoise; }
+    &.-purple { background-color: $purple; }
+    &.-grey { background-color: $grey; }
+    &.-small { @include font-size(12); }
+
+    &.-filter {
+        @extend ._mar-top-25;
+        @extend .-turquoise;
+
+        &:hover {
+            opacity: .8;
+            transition: all .4s ease 0s;
+        }
+    }
+
+    &.-enter {
+        @extend .-purple;
+
+        &:hover {
+            opacity: .8;
+            transition: all .4s ease 0s;
+        }
+    }
+
+    &.-action {
+        display: block;
+        margin: 0 auto;
+        padding: 14px 45px;
+        @extend .-purple;
+
+        &:hover {
+            opacity: .8;
+            transition: all .4s ease 0s;
+        }
+    }
+
+    &.-upload{padding: 10px 15px;}
+}
+
+.icon-button {
+    height: 25px;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+        opacity: .8;
+        transition: all .4s ease 0s;
+    }
+}
+
+.disabled-button {
+    cursor: default;
+}
+
+.button-more {
+    height: 22px;
+    float: right;
+    padding-top: 2px;
+    cursor: pointer;
+    text-align: center;
+    display: none;
+
+
+    &:hover {
+        opacity: .8;
+        transition: all .4s ease 0s;
+    }
+
+    &.-select {
+        display: inherit;
+        // position: absolute;
+        right: 5px;
+        top: 50px;
+        margin-bottom: 5px;
+    }
+
+    &.-engagement { margin-top: 0; }
+    &.-edit { margin-top: -35px; }
+
+}
+
+.button-sucess{
+    height: 24px;
+    float: right;
+    text-align: center;
+    padding: 5px 5px;
+
+}
+
+.button-exit {
+    cursor: pointer;
+    text-align: center;
+}
+
+.button-edit {
+    cursor: pointer;
+    height: 24px;
+    float: right;
+}
+
+@include breakpoint(xl) {
+
+    .button-more {
+        display: inherit;
+
+        &.-select {
+            top: 5px;
+        }
+    }
+
+    .button-center {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.flash-search, .campaign-search {
+    margin-left: 350px;
+}

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>d3.js learning</title>
+    <script src="../_libs/d3.v3.min.js" charset="utf-8"></script>
+    <script src="../_libs/queryParser.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <style type="text/css">
+        body {
+            font-family: 'Roboto Mono', Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+
+        }
+
+        svg {
+            font: 10px 'Roboto Mono', Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+
+            shape-rendering: crispEdges;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+        }
+
+        path.domain {
+            stroke: none;
+        }
+
+        .y .tick line {
+            stroke: #ddd;
+        }
+    </style>
+
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Setup svg using Bostock's margin convention
+
+        function convertToMoney (number) {
+            var integerPart = Math.floor(number);
+            var decimalPart = Math.floor((number - integerPart) * 100);
+            var decimalPartPrefix = decimalPart < 10 ? "0" : "";
+
+            decimalPart = decimalPartPrefix + decimalPart.toString();
+
+            var buffer = [];
+            var elements = Array.from(integerPart.toString()).reverse();
+
+            for (var index = 0; index < elements.length; index += 3) {
+                var fst = elements[index];
+                var snd = elements[index + 1];
+                var thd = elements[index + 2];
+
+                fst = (fst === null || fst === undefined) ? "" : fst;
+                snd = (snd === null || snd === undefined) ? "" : snd;
+                thd = (thd === null || thd === undefined) ? "" : thd;
+
+                buffer.push(thd + snd + fst);
+            }
+
+            return "R$ " + buffer.reverse().join(".") + "," + decimalPart;
+        }
+
+        function normalizePoint (point) {
+          if (Number.isNaN(point)) {
+            return 0;
+          }
+
+          return point;
+        }
+
+        function normalizePointList (list) {
+          for (var index = 0; index < list.length; index += 1) {
+            list[index].y = normalizePoint(list[index].y);
+            list[index].y0 = normalizePoint(list[index].y0);
+          }
+
+          return list;
+        }
+
+        var margin = {
+            top: 20,
+            right: 0,
+            bottom: 35,
+            left: 90
+        };
+
+        var width = 1300 - margin.left - margin.right,
+            height = 400 - margin.top - margin.bottom;
+
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("preserveAspectRatio", "xMinYMin meet")
+            .attr("viewBox", "0 0 1300 375")
+            .attr('width', '100%')
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        //Insert api here
+        // d3.json("api/stacked-bar.json", function (error, data) {
+        function loadData(data, graphicName) {
+            var mapItem = {};
+            // loop through JSON data, ensures that it's a list
+            data.forEach(function (d) {
+              var keys = Object.keys(d);
+
+              for (var index = 0; index < keys.length; index += 1) {
+                var key = keys[index];
+
+                if (key != "date") {
+                  mapItem[key] = true;
+                }
+              }
+            });
+            var listItem = Object.keys(mapItem);
+
+            // var parse = d3.time.format("%e-%b-%y").parse;
+
+            // Transpose the data into layers
+            // Insert date name
+            var dataset = d3.layout.stack()(listItem.map(function (item) {
+                return data.map(function (d) {
+                    return {
+                        x: d.date,
+                        y: +d[item],
+                    };
+                });
+            }));
+
+            (function () {
+              for (var index = 0; index < dataset.length; index += 1) {
+                dataset[index] = normalizePointList(dataset[index]);
+              }
+            })();
+
+            // Set x, y and colors
+            var x = d3.scale.ordinal()
+                .domain(dataset[0].map(function (d) {
+                    return d.x;
+                }))
+                // .rangeRoundBands([10, width - 10], 0.02);
+                .rangeRoundBands([10, width - 10], 0.04);
+
+            var y = d3.scale.linear()
+                .domain([0, d3.max(dataset, function (d) {
+                    return d3.max(d, function (d) {
+                        return d.y0 + d.y;
+                    });
+                })])
+                .range([height, 0]);
+
+            // Insert colors here
+            var colors = ["4b8f98", "#a43043", "#ecc505", "#563062", "#2E193D"];
+
+
+            // Define and draw axes
+            var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left")
+                .ticks(5)
+                .tickSize(-width, 0, 0)
+                .tickFormat(function (d) {
+                    return (graphicName === 'InMallView_stackedbar2') ? convertToMoney(d) : d;
+                });
+
+            var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom")
+                // .tickFormat(d3.time.format("%b-%Y"));
+
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis);
+
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .style("text-anchor", "middle")
+                .call(xAxis);
+
+
+            // Create groups for each series, rects for each segment
+            var groups = svg.selectAll("g.cost")
+                .data(dataset)
+                .enter().append("g")
+                .attr("class", "cost")
+                .style("fill", function (d, i) {
+                    return colors[i];
+                });
+
+            var rect = groups.selectAll("rect")
+                .data(function (d) {
+                    return d;
+                })
+                .enter()
+                .append("rect")
+                .attr("x", function (d) {
+                    return x(d.x);
+                })
+                .attr("y", function (d) {
+                    return y(d.y0 + d.y);
+                })
+                .attr("height", function (d) {
+                    return y(d.y0) - y(d.y0 + d.y);
+                })
+                .attr("width", x.rangeBand())
+                .on("mouseover", function () {
+                    tooltip.style("display", null);
+                })
+                .on("mouseout", function () {
+                    tooltip.style("display", "none");
+                })
+                .on("mousemove", function (d) {
+                    var xPosition = d3.mouse(this)[0] - 15;
+                    var yPosition = d3.mouse(this)[1] - 25;
+                    tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+                    tooltip.select("text").text(
+                      (graphicName === 'InMallView_stackedbar2') ? convertToMoney(d.y) : d.y
+                    );
+                });
+
+            // Prep the tooltip bits, initial display is hidden
+            var tooltip = svg.append("g")
+                .attr("class", "tooltip")
+                .style("display", "none");
+
+            tooltip.append("rect")
+                .attr("width", 0)
+                .attr("height", 0)
+                .attr("fill", "white")
+                .style("opacity", 0.5);
+
+            tooltip.append("text")
+                .attr("x", 15)
+                .attr("dy", "1.2em")
+                .style("text-anchor", "middle")
+                .attr("font-size", "14px")
+                .attr("font-weight", "bold");
+        };
+
+        /*
+        var urlQuery = urlQueryObj();
+        if (urlQuery.params)
+            loadData(urlQuery.params.data);
+        */
+
+        var urlQuery = urlQueryObj();
+        if (urlQuery.params) {
+            var graphic_data = JSON.parse(sessionStorage.graphic_data);
+            loadData(JSON.parse(graphic_data[urlQuery.params.data]), urlQuery.params.data);
+        }
+    </script>
+</body>
+
+</html>

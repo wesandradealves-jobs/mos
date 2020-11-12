@@ -1,0 +1,107 @@
+{
+  "name": "Reclamações",
+  "children": [
+    {
+      "name": "Estrutura",
+      "children": [
+        {
+          "name": "bebedouro sem agua",
+          "size": 11
+        },
+        {
+          "name": "chao molhado",
+          "size": 12
+        },
+        {
+          "name": "banheiro sem agua",
+          "size": 1
+        },
+        {
+          "name": "escada rolante com defeito",
+          "size": 2
+        },
+        {
+          "name": "elevador com defeito",
+          "size": 5
+        },
+        {
+          "name": "falta de sinalização/informação",
+          "size": 15
+        },
+        {
+          "name": "falta de acessibilidade",
+          "size": 14
+        },
+        {
+          "name": "ar condicionado com defeito",
+          "size": 7
+        }
+      ]
+    },
+    {
+      "name": "Limpeza",
+      "children": [
+        {
+          "name": "praça de alimentação suja",
+          "size": 18
+        },
+        {
+          "name": "banheiro sujo",
+          "size": 6
+        }
+      ]
+    },
+    {
+      "name": "Lojas",
+      "children": [
+        {
+          "name": "comida estragada",
+          "size": 5
+        },
+        {
+          "name": "venda lojista",
+          "size": 41
+        },
+        {
+          "name": "problema com funcionario de loja",
+          "size": 35
+        },
+        {
+          "name": "promoção anunciada mas não praticada",
+          "size": 31
+        }
+      ]
+    },
+    {
+      "name": "Estacionamento",
+      "children": [
+        {
+          "name": "carro arranhado/batido no estacionamento",
+          "size": 8
+        },
+        {
+          "name": "cobrança estacionamento",
+          "size": 48
+        }
+      ]
+    },
+    {
+      "name": "Funcionários",
+      "children": [
+        {
+          "name": "problema com funcionario do mall",
+          "size": 21
+        }
+      ]
+    },
+    {
+      "name": "Clube de Vantagens",
+      "children": [
+        {
+          "name": "sala vip sem cafe",
+          "size": 3
+        }
+      ]
+    }
+  ]
+}

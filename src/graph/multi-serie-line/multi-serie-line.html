@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+<style>
+  body {
+    font-family: 'Roboto Mono', Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+  }
+
+  .axis--x path {
+    display: none;
+  }
+
+  .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+  }
+
+  svg {
+    padding-bottom: 100%;
+    padding-right: 100%;
+  }
+
+  /* @media screen and (max-width: 600px) {
+  .axis.axis--x {
+    display: none !important;
+  }
+} */
+</style>
+<svg width="100%" height="400" preserveAspectRatio="xMinYMin meet" viewBox="0 0 960 400"></svg>
+<script src="../_libs/d3.v4.min.js"></script>
+<script src="../_libs/queryParser.js"></script>
+<script>
+  var svg = d3.select("svg"),
+    margin = {
+      top: 20,
+      right: 70,
+      bottom: 60,
+      left: 50
+    },
+    width = 960 - margin.left - margin.right,
+    height = 320 - margin.top - margin.bottom,
+    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var parseTime = d3.timeParse("%e-%b-%y");
+
+  var x = d3.scaleTime().range([0, width]),
+    y = d3.scaleLinear().range([height, 0]),
+    z = d3.scaleOrdinal(d3.schemeCategory10);
+
+  var get_color = function (index) {
+    //Insert colors here
+    var colors = {
+      "Alimentacao": '#9c3d40',
+      "Alimentação": '#9c3d40',
+      "Destaques": '#ecc505',
+      "Eventos": '#9ed88f',
+      "Pontuação": '#60a19c',
+      "Pontuacao": '#60a19c',
+      "WiFi": '#563062',
+      "Spending": '#d2930f',
+      "low": '#9c3d40',
+      "high": '#ecc505',
+      "mean": '#9ed88f',
+      "Loja": '#a43043',
+        "Segmento": '#ecc505',
+    };
+
+    if (colors[index])
+      return colors[index];
+    else
+      return '#60a19c';
+  };
+
+
+  var line = d3.line()
+    .curve(d3.curveBasis)
+    .x(function (d) {
+      return x(parseTime(d.date));
+    })
+    .y(function (d) {
+      return y(d.temperature);
+    });
+
+  //Insert API here
+  function loadData(data) {
+    //d3.json('api/multi-line.json', function(error,data){
+    //if (error) throw error;
+
+    var keys = d3.keys(data[0]);
+    var i = keys.indexOf('date');
+    if (i != -1) {
+      keys.splice(i, 1);
+    }
+
+    var cities = keys.map(function (d) {
+      return {
+        id: d,
+        values: data.map(function (e) {
+          return {
+            date: e.date,
+            temperature: +e[d]
+          };
+        })
+      }
+    });
+
+    x.domain(d3.extent(data, function (d) {
+      return parseTime(d.date);
+    }));
+
+    y.domain([
+      d3.min(cities, function (c) {
+        return d3.min(c.values, function (d) {
+          return d.temperature;
+        });
+      }),
+      d3.max(cities, function (c) {
+        return d3.max(c.values, function (d) {
+          return d.temperature;
+        });
+      })
+    ]);
+
+    z.domain(cities.map(function (c) {
+      return c.id;
+    }));
+
+    g.append("g")
+      .attr("class", "axis axis--x")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+    g.append("g")
+      .attr("class", "axis axis--y")
+      .call(d3.axisLeft(y))
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", "0.71em")
+      .attr("fill", "#000")
+
+    var city = g.selectAll(".city")
+      .data(cities)
+      .enter().append("g")
+      .attr("class", "city");
+
+    city.append("path")
+      .attr("class", "line")
+      .attr("d", function (d) {
+        return line(d.values);
+      })
+      .style("stroke", function (d) {
+        return get_color(d.id);
+      });
+
+    city.append("text")
+      .datum(function (d) {
+        return {
+          id: d.id,
+          value: d.values[d.values.length - 1]
+        };
+      })
+      .attr("transform", function (d) {
+        return "translate(" + x(parseTime(d.value.date)) + "," + y(d.value.temperature) + ")";
+      })
+      .attr("x", 3)
+      .attr("dy", "0.35em")
+      .style("font", "0px sans-serif")
+      .attr("class", "font-label")
+      .text(function (d) {
+        return d.id;
+      });
+  };
+
+/*
+  var urlQuery = urlQueryObj();
+  if (urlQuery.params)
+    loadData(urlQuery.params.data);
+*/
+
+var urlQuery = urlQueryObj();
+if ( urlQuery.params ) {
+  var graphic_data = JSON.parse( sessionStorage.graphic_data );
+  loadData( JSON.parse( graphic_data[ urlQuery.params.data ] ) );
+}
+</script>

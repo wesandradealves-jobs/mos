@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+<style>
+
+body {
+  font-family: 'Roboto Mono', Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+}
+
+path {
+  stroke: #fff;
+}
+
+</style>
+<body>
+<script src="../_libs/d3.v3.min.js"></script>
+<script src="../_libs/queryParser.js"></script>
+<script>
+
+var width = window.innerWidth,
+    height = window.innerHeight,
+    radius = (Math.min(width, height) / 2) - 10;
+
+var formatNumber = d3.format(",d");
+
+var x = d3.scale.linear()
+    .range([0, 2 * Math.PI]);
+
+var y = d3.scale.sqrt()
+    .range([0, radius]);
+
+var color = d3.scale.category20c();
+
+function color_tmp(name, segmentColor) {
+  //var colores_g = ["#3366cc", "#563062", "#bebebe", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
+  //return colores_g[n % colores_g.length];
+
+  //Insert colors here
+    var cores = {
+    "Total de Cadastros" : "#4b8f98",
+
+    //aliansce
+    "Carioca Shopping": "#595077",
+    "Pátio Alcântara": "#5d3c6d",
+    "Itapecerica Shopping": "#613062",
+    "Shopping Metro Tucuruvi": "#2e696d",
+    "Bangu Shopping": "#315f77",
+    "Shopping Leblon": "#4c4868",
+    "Boulevard Shopping Nações Bauru": "#154e4f",
+    "Boulevard Shopping Belém": "#22213b",
+    "Parque Shopping Maceió": "#342b5f",
+    "Boulevard Shopping Feira de Santana": "#233a45",
+    "Shopping da Bahia": "#3d1338",
+    "Boulevard Shopping Vitória da Conquista": "#632a49",
+    "Shopping Parangaba": "#773256",
+    "Boulevard Shopping Brasília": "#89344f",
+    "Boulevard Shopping Vila Velha": "#993647",
+    "Boulevard Shopping Belo Horizonte": "#833628",
+    "Parque Shopping Belém": "#633336",
+    "Boulevard Shopping Campina Grande": "#5f7084",
+    "Via Parque Shopping": "#00716c",
+    "Shopping Grande Rio": "#134451",
+    "São Gonçalo Shopping": "#3e606f",
+    "Caxias Shopping": "#476d63",
+    "Boulevard Shopping Campos": "#433743",
+    "Santa Cruz Shopping": "#2b2346",
+    "Passeio Shopping": "#0b667c",
+    "Shopping Praça Nova Santa Maria": "#10556e",
+    "Floripa Shopping": "#6a988b",
+    "SuperShopping Osasco": "#5c5c5c",
+    "Shopping Taboão": "#755070",
+    "Shopping West Plaza": "#466d77",
+    "Continental Shopping": "#0e1730",
+    "Santana Parque Shopping": "#004e5a",
+    "Shopping Santa Úrsula": "#6c8a8c",
+    "Manauara Shopping": "#697f78",
+    "Shopping Campo Limpo": "#6b6b6b",
+    "Franca Shopping": "#542656",
+    "Araçatuba Shopping": "#3a2a39",
+    "Parque Dom Pedro Shopping": "#273e4c",
+    "Passeio das Águas Shopping": "#445b66",
+    "Uberlândia Shopping": "#5a4486",
+
+
+      // saphyr
+    "Shopping Patio Maceio": "#613062",
+    "Serra Sul Shopping": "#316f77",
+    "Shopping Via Norte": "#315f77",
+    "Shopping Spazio": "#554e71",
+    "Shopping Patio Roraima": "#407a82",
+    "Fashion Mall": "#13545d",
+    "Jardim Guadalupe Shopping": "#22213b",
+    "Rio Branco (ViaVerde Shopping)": "#342b5f",
+    "Bossa Nova Shopping": "#282142",
+
+
+    //sexo
+    "masculino": "#6a988b",
+    "feminino": "#7c3c5b",
+
+    //origem
+    "Auto Cadastro": "#2e193d",
+    "Fraldario": "#cbe6e1",
+    "Customer Service": "#b06348",
+    "Sala VIP": "#6b6a69",
+    "Outros": "#4b8f98",
+
+    //categoria
+    "0": "#4f7872",
+    "1": "#bcbcbc",
+    "2": "#dab276",
+    "3": "#cbe2e7",
+
+    //modalidade
+    "Spot": "#a69c81",
+    "Vindi": "#9d8e78",
+    "CredZ": "#8e8278",
+
+    // faixa etária
+    "vazio": "#b3a6af",
+    "18-24": "#86cbc3",
+    "25-29": "#6facac",
+    "30-34": "#e8dca8",
+    "35-39": "#a8badd",
+    "40-44": "#378b8c",
+    "45-49": "#5aafad",
+    "50-54": "#dab276",
+    "55-59": "#b06348",
+    "60-64": "#cbe2e7",
+    "65+": "#5c5c5c",
+
+    // clientes
+    "Clientes Únicos": "#563062",  
+    "Clientes Recorrentes": "#bebebe",
+  };
+
+  if(segmentColor) {
+    if ( cores[segmentColor] )
+      return cores[segmentColor];
+    else
+      return "#a43043";
+  } else {
+    if ( cores[name] )
+      return cores[name];
+    else
+      return "#a43043";
+  }
+
+}
+
+
+var partition = d3.layout.partition()
+    .value(function(d) { return d.size; });
+
+var arc = d3.svg.arc()
+    .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+    .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
+    .innerRadius(function(d) { return Math.max(0, y(d.y)); })
+    .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
+
+// Insert API here
+// d3.json("api/visao_da_base_dados_cadastrais.json", function(error, root) {
+function loadData(data) {
+  // if (error) throw error;
+
+  svg.selectAll("path")
+      .data(partition.nodes(data))
+    .enter().append("path")
+      .attr("d", arc)
+      //.style("fill", function(d) { console.log(d); return color((d.children ? d : d.parent).name); })
+      .style("fill", function(d) { /*console.log(d);*/ return color_tmp(d.name, d.segmentColor); })
+      .on("click", click)
+    .append("title")
+      .text(function(d) { return d.name + "\n" + formatNumber(d.value); });
+};
+
+function click(d) {
+  svg.transition()
+      .duration(750)
+      .tween("scale", function() {
+        var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+            yd = d3.interpolate(y.domain(), [d.y, 1]),
+            yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+        return function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); };
+      })
+    .selectAll("path")
+      .attrTween("d", function(d) { return function() { return arc(d); }; });
+}
+
+d3.select(self.frameElement).style("height", height + "px");
+
+
+var urlQuery = urlQueryObj();
+if ( urlQuery.params ) {
+  var graphic_data = JSON.parse( sessionStorage.graphic_data );
+  loadData( JSON.parse( graphic_data[ urlQuery.params.data ] ) );
+}
+
+
+</script>

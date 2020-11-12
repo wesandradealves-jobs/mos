@@ -1,0 +1,242 @@
+[
+  {
+    "date": "1-Aug-12",
+    "Alimentação": 70,
+    "Destaques": 401,
+    "Eventos": 75,
+    "Pontuação": 229,
+    "WiFi": 14
+  }
+  {
+    "date": "2-Aug-12",
+    "Alimentação": 47,,
+    "Destaques": 340,
+    "Eventos": 60,
+    "Pontuação": 186,
+    "WiFi": 18
+  },
+  {
+    "date": "3-Aug-12",
+    "Alimentação": 87,
+    "Destaques": 469,
+    "Eventos": 90,
+    "Pontuação": 307,
+    "WiFi": 44
+  },
+  {
+    "date": "4-Aug-12",
+    "Alimentação": 111,
+    "Destaques": 561,
+    "Eventos": 128,
+    "Pontuação": 254,
+    "WiFi": 49
+  },
+  {
+    "date": "5-Aug-12",
+    "Alimentação": 78,
+    "Destaques": 595,
+    "Eventos": 91,
+    "Pontuação": 267,
+    "WiFi": 48
+  },
+  {
+    "date": "6-Aug-12",
+    "Alimentação": 64,
+    "Destaques": 477,
+    "Eventos": 53,
+    "Pontuação": 225,
+    "WiFi": 52
+  },
+  {
+    "date": "7-Aug-12",
+    "Alimentação": 52,
+    "Destaques": 350,
+    "Eventos": 56,
+    "Pontuação": 213,
+    "WiFi": 30
+  },
+  {
+    "date": "8-Aug-12",
+    "Alimentação": 41,
+    "Destaques": 289,
+    "Eventos": 31,
+    "Pontuação": 175,
+    "WiFi": 24
+  },
+  {
+    "date": "9-Aug-12",
+    "Alimentação": 33,
+    "Destaques": 297,
+    "Eventos": 59,
+    "Pontuação": 167,
+    "WiFi": 31
+  },
+  {
+    "date": "10-Aug-12",
+    "Alimentação": 61,
+    "Destaques": 385,
+    "Eventos": 68,
+    "Pontuação": 243,
+    "WiFi": 26
+  },
+  {
+    "date": "11-Aug-12",
+    "Alimentação": 63,
+    "Destaques": 494,
+    "Eventos": 78,
+    "Pontuação": 278,
+    "WiFi": 37
+  },
+  {
+    "date": "12-Aug-12",
+    "Alimentação": 83,
+    "Destaques": 503,
+    "Eventos": 74,
+    "Pontuação": 241,
+    "WiFi": 43
+  },
+  {
+    "date": "13-Aug-12",
+    "Alimentação": 100,
+    "Destaques": 633,
+    "Eventos": 97,
+    "Pontuação": 282,
+    "WiFi": 59
+  },
+  {
+    "date": "14-Aug-12",
+    "Alimentação": 59,
+    "Destaques": 485,
+    "Eventos": 65,
+    "Pontuação": 211,
+    "WiFi": 49
+  },
+  {
+    "date": "15-Aug-12",
+    "Alimentação": 46,
+    "Destaques": 352,
+    "Eventos": 30,
+    "Pontuação": 166,
+    "WiFi": 20
+  },
+  {
+    "date": "16-Aug-12",
+    "Alimentação": 74,
+    "Destaques": 475,
+    "Eventos": 88,
+    "Pontuação": 258,
+    "WiFi": 54
+  },
+  {
+    "date": "17-Aug-12",
+    "Alimentação": 80,
+    "Destaques": 549,
+    "Eventos": 81,
+    "Pontuação": 247,
+    "WiFi": 40
+  },
+  {
+    "date": "18-Aug-12",
+    "Alimentação": 96,
+    "Destaques": 605,
+    "Eventos": 103,
+    "Pontuação": 323,
+    "WiFi": 60
+  },
+  {
+    "date": "19-Aug-12",
+    "Alimentação": 111,
+    "Destaques": 657,
+    "Eventos": 107,
+    "Pontuação": 313,
+    "WiFi": 65
+  },
+  {
+    "date": "20-Aug-12",
+    "Alimentação": 101,
+    "Destaques": 589,
+    "Eventos": 83,
+    "Pontuação": 288,
+    "WiFi": 50
+  },
+  {
+    "date": "21-Aug-12",
+    "Alimentação": 85,
+    "Destaques": 582,
+    "Eventos": 92,
+    "Pontuação": 274,
+    "WiFi": 45
+  },
+  {
+    "date": "22-Aug-12",
+    "Alimentação": 66,
+    "Destaques": 391,
+    "Eventos": 74,
+    "Pontuação": 221,
+    "WiFi": 29
+  },
+  {
+    "date": "23-Aug-12",
+    "Alimentação": 52,
+    "Destaques": 378,
+    "Eventos": 78,
+    "Pontuação": 202,
+    "WiFi": 32
+  },
+  {
+    "date": "24-Aug-12",
+    "Alimentação": 71,
+    "Destaques": 519,
+    "Eventos": 92,
+    "Pontuação": 240,
+    "WiFi": 40
+  },
+  {
+    "date": "25-Aug-12",
+    "Alimentação": 97,
+    "Destaques": 703,
+    "Eventos": 111,
+    "Pontuação": 287,
+    "WiFi": 49
+  },
+  {
+    "date": "26-Aug-12",
+    "Alimentação": 77,
+    "Destaques": 677,
+    "Eventos": 86,
+    "Pontuação": 312,
+    "WiFi": 51
+  },
+  {
+    "date": "27-Aug-12",
+    "Alimentação": 81,
+    "Destaques": 735,
+    "Eventos": 87,
+    "Pontuação": 329,
+    "WiFi": 51
+  },
+  {
+    "date": "28-Aug-12",
+    "Alimentação": 137,
+    "Destaques": 1032,
+    "Eventos": 129,
+    "Pontuação": 460,
+    "WiFi": 62
+  },
+  {
+    "date": "29-Aug-12",
+    "Alimentação": 100,
+    "Destaques": 785,
+    "Eventos": 84,
+    "Pontuação": 326,
+    "WiFi": 47
+  },
+  {
+    "date": "30-Aug-12",
+    "Alimentação": 133,
+    "Destaques": 1107,
+    "Eventos": 117,
+    "Pontuação": 492,
+    "WiFi": 62
+  }
+]

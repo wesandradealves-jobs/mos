@@ -1,0 +1,68 @@
+///* ========================================================================
+//   LAST BREATH
+//   Me desculpa por esse código; folha de estilo criada para agilizar o
+//   processo de criação de classes, em virtude do prazo do projeto.
+//   Depois fazer a organização correta do CSS.
+//   ======================================================================== */
+
+.styl-period {
+    height:36px;
+    background: $white-grey;
+    border: 1px solid #cbe6e1;
+    border-radius: 3px;
+    padding: 10px;
+    margin: 0px !important;
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+    @include font-size(12);
+    line-height: 1.375rem;
+    font-family: $font-family;
+    cursor: pointer;
+}
+
+.select-shopping {
+    @include font-size(12);
+    margin-bottom: 0 !important;
+    border-radius: 3px;
+    background: $white-grey;
+    padding: 5px;
+}
+
+.filter-shopping {
+    background: $white-grey;
+    font-size: 10px !important;
+}
+
+.legend-radar {
+    font-family: 'Roboto Mono', Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    fill: #333333;
+    font-size: 11px;
+    text-align: center;
+
+    &.-bottom {
+        margin-bottom: 30px;
+    }
+}
+
+
+//GRAPES JS
+.gjs-pn-btn.fa.fa-warning, .gjs-pn-btn.fa.fa-download { display: none !important; }
+.fa-eye { display: none !important; }
+.gjs-pn-buttons { display: inline-block !important; }
+.gjs-field select { height: 24px !important;}
+.gjs-pn-devices-c {margin-bottom: 20px !important;}
+.gjs-one-bg {
+    background-color: #6b6a69 !important;
+}
+.gjs-four-color {
+    color: #54bbab !important;
+}
+
+.gjs-four-color-h:hover {
+    color: #54bbab !important;
+}
+
+.margin-bottom-20 {margin-bottom: 20px;}
+.gjs-block { padding: 5px !important; }

@@ -1,0 +1,62 @@
+///* ========================================================================
+//   TABLES
+//   ======================================================================== */
+
+table {
+    width: $container-full;
+    @include font-size($font-size - 2);
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 0;
+    text-align: left;
+    thead,
+    tbody,
+    tfoot {
+      td,
+      th {
+        color: $table-color;
+        padding: 10px;
+        border-bottom: 1px solid $table-underline-color;
+      }
+    }
+}
+
+div[id^=DataTables_Table_] .dataTables_filter {
+  margin-bottom: 30px;
+  margin-right: 50%;
+  margin-top: -56px;
+  margin-left: -75px;
+}
+
+div[id^=DataTables_Table_] div[id^=DataTables_Table_] label {
+  color: transparent;
+  font-size: 0;
+}
+
+div[id^=DataTables_Table_] div[id^=DataTables_Table_] input {
+  background: url(../../img/search.png) no-repeat scroll 9px 9px;
+  padding-left: 33px;
+  box-sizing: border-box;
+  width: 300px;
+  height: 36px;
+  background-color: #f9f9f9;
+  -webkit-appearance: none;
+  border-radius: 2px;
+  border: solid 1px #dcdcdc;
+  font-family: "Roboto Mono", Helvetica, Arial, sans-serif;
+}
+
+#sac-control div[id^=DataTables_Table_] .dataTables_filter,
+#sac-edit div[id^=DataTables_Table_] .dataTables_filter,
+#babycare-control div[id^=DataTables_Table_] .dataTables_filter, 
+#babycare-edit div[id^=DataTables_Table_] .dataTables_filter, 
+#vip-control div[id^=DataTables_Table_] .dataTables_filter,
+#vip-edit div[id^=DataTables_Table_] .dataTables_filter,
+#coupons-content div[id^=DataTables_Table_] .dataTables_filter,
+#segment-management div[id^=DataTables_Table_] .dataTables_filter,
+#operator-management div[id^=DataTables_Table_] .dataTables_filter,
+#plat-permissions div[id^=DataTables_Table_] .dataTables_filter,
+
+{
+  display: none;
+}

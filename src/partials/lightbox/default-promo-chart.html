@@ -1,0 +1,34 @@
+<head>
+    <style>
+      .green {
+              background: rgb(84, 187, 171);
+      }
+
+      .darker-green {
+        background: rgb(79, 120, 114);
+      }
+
+      .orange {
+        background: orange;
+      }
+
+      .steel-blue {
+        background: steelblue;
+      }
+
+      .red {
+        background: red;
+      }
+    </style>
+  </head>
+
+<div>
+  <h5>{{title}}</h5>
+  <iframe id="graphic" src='' width="854px" height="350px" scrolling="no"
+    ng-focus="loadGraphic()" data-hj-allow-iframe=""></iframe>
+  <div class="legend-charts">
+    <span class="square steel-blue"        ng-if="prop1"></span>{{prop1 || ''}}
+    <span class="square red" ng-if="prop2"></span>{{prop2 || ''}}
+    <span class="square orange"       ng-if="prop3"></span>{{prop3 || ''}}
+  </div>
+</div>

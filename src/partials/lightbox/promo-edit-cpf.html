@@ -1,0 +1,36 @@
+<div class="detail-content">
+    <div class="row">
+      <h2 class="lightbox-title">Anexar Cpf's a excluir</h2>
+    </div>
+
+    <div
+      ng-disabled="didUploadBlacklist"
+      ng-model="cpfBlacklist"
+      class="drop-box"
+      ngf-drag-over-class="'dragover'"
+      ngf-multiple="false"
+      ngf-allow-dir="false"
+      ngf-accept="'text/csv'"
+      ngf-pattern="'.csv'"
+      ngf-drop="file_changed($files)"
+      ngf-drop-disabled="didUploadBlacklist"
+      ngf-select="file_changed($files)"
+      ngf-select-disabled="didUploadBlacklist"
+      id="csv-dropbox">
+
+      <div class="text-drag" ng-show="didUploadBlacklist"><br>Upload realizado com sucesso!<br></div>
+      <div class="text-drag" ng-show="uploadBlacklistError"><br>Linha {{cpfUploadLineNumberError}} com valor inválido, por favor verifique o arquivo.<br></div>
+      <span class="text-drag" ng-hide="didUploadBlacklist"><br>Arraste o Arquivo* para cá <br> - ou - <br> Clique aqui para carregar do
+        computador</span>
+    </div>
+
+    <div class="row">
+      <span class="obs">*O arquivo deve ter Um CPF por linha. Os CPFs devem estar organizados na primeira coluna à
+        esquerda, sem título/cabeçalho, apenas números. O arquivo deve ter o formato TXT.</span>
+    </div>
+
+    <input
+      ng-disabled="!didUploadBlacklist"
+      class="button-default -purple -action -small" ng-click="closeWindow()" value="SALVAR" type="submit">
+
+  </div>

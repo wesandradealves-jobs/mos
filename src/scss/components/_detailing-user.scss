@@ -1,0 +1,73 @@
+///* ========================================================================
+//   DETAILING USER
+//   ======================================================================== */
+
+.detail-content {
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+    display: table;
+
+    .detailing-client{
+        top: 4px;
+        margin-right: 10px;
+        margin-top: 5px;
+        @extend ._no-padding;
+        @extend ._left;
+
+    }
+
+    .detailing-text {
+        font-family: $font-family;
+        font-size: $font-size;
+        color: $grey;
+    }
+
+    .label-detailing {
+        color: $dark-grey;
+        margin-right: 5px;
+        font-weight: 900;
+        font-family: $heading-font-family;
+        text-transform: uppercase;
+        @include font-size(12);
+        @include line-height(22);
+    }
+
+    .textarea-detailing{
+        width: 100%;
+        background-color: $background-color;
+        overflow: auto;
+        resize: none;
+        border: none;
+        @include line-height(30);
+    }
+
+
+}
+
+.avatar-detailing {
+    padding-left: 0px !important;
+
+    >.border {
+        width: 120px;
+        height: 120px;
+        border: 3px solid $turquoise;
+        border-radius: 100%;
+        padding: 7px 0;
+        margin: 0 auto;
+    }
+
+    >.border>.avatar {
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        background: $light-grey;
+        color: $turquoise;
+        text-align: center;
+        border-radius: 100%;
+        margin: 0 auto;
+        @include font-size(32);
+    }
+
+
+}

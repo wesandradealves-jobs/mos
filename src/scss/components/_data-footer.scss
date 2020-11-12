@@ -1,0 +1,41 @@
+///* ========================================================================
+//   DATA FOOTER
+//   ======================================================================== */
+
+.data-footer {
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    @include font-size(16);
+
+    &.-light-turquoise { background-color: $light-turquoise; }
+    &.-turquoise { background-color: $turquoise; }
+    &.-dark-turquoise { background-color: $dark-turquoise; }
+    &.-aquamarine { background-color: $aquamarine; }
+    &.-light-purple { background-color: $light-purple; }
+    &.-purple { background-color: $purple; }
+    &.-dark-purple { background-color: $dark-purple; }
+    
+    > .gradient {
+        width: 100%;
+        padding-top: 5px;
+        background-image: url(../../img/gradient.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+
+    > .gradient > .number {
+        display: block;
+        padding: 0 10px;
+        @include font-size(18);
+    }   
+
+    > .gradient > .divider { width: 50px; }
+
+    > .text { 
+        padding: 0 10px 5px 10px;
+        font-size: 14px;
+        
+        .-small { @include font-size(12); }
+    }
+}

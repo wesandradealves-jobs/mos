@@ -1,0 +1,11 @@
+.idea/
+node_modules/
+dist/
+src/css
+src/js/vendor
+yarn-error.log
+src/js/factories/environment.js
+*.DS_Store
+*.DS_Store?
+.env
+__.git

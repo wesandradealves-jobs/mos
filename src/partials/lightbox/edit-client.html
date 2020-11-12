@@ -1,0 +1,92 @@
+<div class=" sms-wrapper">
+  <form>
+    <h2 class="lightbox-title">Editar cliente</h2>
+
+    <div class="row">
+      <label class="label-input">Nome completo*</label>
+      <input ng-model="client.fullName" type="text" required ng-class="" ng-blur="validateName()">
+    </div>
+
+    <div class="row">
+      <div class="col-1-2">
+        <label class="label-input">CPF*</label>
+        <input type="text" ng-change="searchClient()" ng-disabled="choiceMall" ng-model="client.cpf"
+          ng-class="{'input-error': cpfError}" ng-blur="validateCpf()" ui-br-cpf-mask required="false">
+      </div>
+
+      <div class="col-1-2">
+        <label class="label-input">Gênero*</label>
+        <select ng-model="client.sex" ng-disabled="lockedFields" required ng-class="{'input-error': sexError}"
+          ng-blur="validateSex()">
+          <option value="" disabled selected>-- Selecione --</option>
+          <option value="F">FEMININO</option>
+          <option value="M">MASCULINO</option>
+          <option value="O">OUTRO</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-1-2">
+        <label class="label-input">Data de nascimento*</label>
+        <input type="text" ng-model="client.birthday" ng-disabled="lockedFields" ui-date-mask required
+          ng-class="{'input-error': birthdayError}" ng-blur="validateBirthday()">
+      </div>
+
+      <div class="col-1-2">
+        <label class="label-input">Telefone</label>
+        <input type="text" ng-model="client.mobileNumber" ui-br-phone-number required
+          ng-class="{'input-error': contactPhoneError}" ng-blur="validateContactPhone()">
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="label-input">E-mail*</label>
+      <input type="email" ng-model="client.email" required ng-class="{'input-error': emailError}"
+        ng-blur="validateEmail()">
+    </div>
+
+    <div class="row">
+      <div class="col-1-2">
+        <label class="label-input">CEP*</label>
+        <input type="text" ng-model="client.address.zipCode" ui-br-cep-mask required ng-disabled="lockedFields"
+          ng-class="{'input-error': zipCodeError}" ng-blur="validateZipCode()">
+      </div>
+
+      <div class="col-1-2">
+        <label class="label-input">Bairro</label>
+        <input type="text" ng-model="client.address.neighborhood" ng-disabled="lockedFields">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4-5">
+        <label class="label-input">Rua</label>
+        <input type="text" ng-model="client.address.street" ng-disabled="lockedFields">
+      </div>
+
+      <div class="col-1-5">
+        <label class="label-input">Número</label>
+        <input type="text" ng-model="client.address.number" ng-disabled="lockedFields">
+      </div>
+
+    </div>
+
+    <div class="row">
+            <div class="col-1-2">
+              <label class="label-input">Cidade</label>
+              <input type="text" ng-model="client.address.city" ng-disabled="lockedFields">
+            </div>
+
+            <div class="col-1-2">
+              <label class="label-input">Estado</label>
+              <input type="text" ng-model="client.address.state" ng-disabled="lockedFields">
+            </div>
+
+          </div>
+  </form>
+
+  <div class="row">
+    <button class="button-default -action" ng-click="updateClient()">Salvar</button>
+  </div>
+</div>

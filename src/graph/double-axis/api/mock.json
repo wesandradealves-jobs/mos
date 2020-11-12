@@ -1,0 +1,132 @@
+[
+  {
+    "date": "1-May-12",
+    "value1": 58.13,
+    "value2": 3.41
+  },
+  {
+    "date": "30-Apr-12",
+    "value1": 53.98,
+    "value2": 4.55
+  },
+  {
+    "date": "27-Apr-12",
+    "value1": 67,
+    "value2": 6.78
+  },
+  {
+    "date": "26-Apr-12",
+    "value1": 89.7,
+    "value2": 7.85
+  },
+  {
+    "date": "25-Apr-12",
+    "value1": 99,
+    "value2": 8.92
+  },
+  {
+    "date": "24-Apr-12",
+    "value1": 130.28,
+    "value2": 9.92
+  },
+  {
+    "date": "23-Apr-12",
+    "value1": 166.7,
+    "value2": 10.13
+  },
+  {
+    "date": "20-Apr-12",
+    "value1": 234.98,
+    "value2": 12.23
+  },
+  {
+    "date": "19-Apr-12",
+    "value1": 345.44,
+    "value2": 13.45
+  },
+  {
+    "date": "18-Apr-12",
+    "value1": 443.34,
+    "value2": 16.04
+  },
+  {
+    "date": "17-Apr-12",
+    "value1": 543.7,
+    "value2": 18.03
+  },
+  {
+    "date": "16-Apr-12",
+    "value1": 580.13,
+    "value2": 21.02
+  },
+  {
+    "date": "13-Apr-12",
+    "value1": 605.23,
+    "value2": 22.34
+  },
+  {
+    "date": "12-Apr-12",
+    "value1": 622.77,
+    "value2": 20.15
+  },
+  {
+    "date": "11-Apr-12",
+    "value1": 626.2,
+    "value2": 21.26
+  },
+  {
+    "date": "10-Apr-12",
+    "value1": 628.44,
+    "value2": 31.04
+  },
+  {
+    "date": "9-Apr-12",
+    "value1": 636.23,
+    "value2": 35.04
+  },
+  {
+    "date": "5-Apr-12",
+    "value1": 633.68,
+    "value2": 41.02
+  },
+  {
+    "date": "4-Apr-12",
+    "value1": 624.31,
+    "value2": 43.05
+  },
+  {
+    "date": "3-Apr-12",
+    "value1": 629.32,
+    "value2": 46.03
+  },
+  {
+    "date": "2-Apr-12",
+    "value1": 618.63,
+    "value2": 51.03
+  },
+  {
+    "date": "30-Mar-12",
+    "value1": 599.55,
+    "value2": 53.42
+  },
+  {
+    "date": "29-Mar-12",
+    "value1": 609.86,
+    "value2": 57.82
+  },
+  {
+    "date": "28-Mar-12",
+    "value1": 617.62,
+    "value2": 59.01
+  },
+  {
+    "date": "27-Mar-12",
+    "value1": 614.48,
+    "value2": 56.03
+  },
+  {
+    "date": "26-Mar-12",
+    "value1": 606.98,
+    "value2": 58.01
+  }
+]

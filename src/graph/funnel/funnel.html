@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>Simple Bar chart</title>
+    <script src="../_libs/d3.v3.min.js"></script>
+    <script src="../_libs/queryParser.js"></script>
+    <script src="../../js/vendor/d3-funnel/dist/d3-funnel.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <style>
+        body {
+            font-family: 'Roboto Mono', Helvetica, Arial, sans-serif;
+        }
+
+        .y {
+            display: none;
+        }
+
+        .label {
+            color: #fff !important;
+            font-size: 16px;
+        }
+
+        .axis {
+            font-size: 13px;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            display: none;
+        }
+
+        #graphic-container {
+          width: 100%;
+        }
+
+        #graphic {
+          width: 80%;
+          margin: 0 auto;
+        }
+
+        svg {
+          display: block;
+          margin: 0 auto;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="graphic-container">
+      <div id="graphic"></div>
+    </div>
+
+    <script>
+        // var data = [{"label":"envios","value":1},{"label":"recebimentos","value":4},{"label":"abertos","value":10},{"label":"clicks","value":6},{"label":"compras","value":100}]
+
+        // var color = d3.scale.ordinal().range(["#f2c800", "#b40b3e", "#00c0ab", "#2d9199", "#6a1b66", "#331040"]);
+
+        //sort bars based on value
+        // data = data.sort(function (a, b) {
+        //     return d3.ascending(a.value, b.value);
+        // })
+
+        //set up svg using margin conventions - we'll need plenty of room on the left for labels
+        var margin = {
+            top: 0,
+            right: 70,
+            bottom: 0,
+            left: 70
+        };
+
+        var width = 960 - margin.left - margin.right,
+            height = 350 - margin.top - margin.bottom;
+
+// ===
+
+        const funnelColors = (["#f2c800", "#b40b3e", "#00c0ab", "#2d9199", "#6a1b66", "#331040"]).reverse();
+
+        const plotFunnel = function (data) {
+          /*
+          const data = [
+            { label: 'Inquiries', value: 5000 },
+            { label: 'Applicants', value: 2500 },
+            { label: 'Admits', value: 500 },
+            { label: 'Deposits', value: 200 },
+          ];
+          */
+
+          const sum = data.map(function (d) {
+            return Number.parseInt(d.actualValue, 10);
+          }).reduce(function (x, y) {
+            return x + y;
+          });
+
+          const options = {
+            chart: {
+              width: sum === 0 ? '35%' : '100%',
+              // height: '90%', // Math.round(height * 0.95),
+              bottomPinch: 0,
+              animate: 500,
+              curve: {
+                enabled: true,
+                height: 20,
+              },
+              inverted: false,
+            },
+            block: {
+              // dynamicHeight: true,
+              // minHeight: Math.round(height * 0.15),
+              // maxHeight: Math.round(height * 0.5),
+              dynamicSlope: true,
+              highlight: true,
+              barOverlay: false,
+              fill: {
+                scale: funnelColors
+              }
+            },
+            tooltip: {
+              enabled: false,
+            },
+            label: {
+              format: function (label, _value) {
+                return label;
+              },
+            }
+          };
+
+          const chart = new D3Funnel('#graphic');
+          chart.draw(data, options);
+        };
+// ===
+
+/*
+        var svg = d3.select("#graphic").append("svg")
+            .attr("preserveAspectRatio","xMinYMin meet")
+            .attr("viewBox", "0 0 960 350")
+            .attr('width', '100%')
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+*/
+
+        function loadData(data) {
+          console.log(data);
+
+          const defaultOrder = data.graphics.reverse().map(function (d) {
+            return {
+              label: d.label + ': ' + d.value.toString(),
+              tag: d.label,
+              actualValue: d.value,
+            };
+          });
+
+          const orderHashMap = {};
+
+          const ordered = data.graphics.sort(function (x, y) {
+            return x.value - y.value;
+          }).map(function (d, i) {
+            return {
+              tag: d.label,
+              value: i + 1
+            };
+          }).forEach(function (d) {
+            orderHashMap[d.tag] = d.value;
+          });
+
+          const crossed = defaultOrder.map(function (d) {
+            return {
+              label: d.label,
+              actualValue: d.actualValue,
+              value: orderHashMap[d.tag],
+            };
+          });
+
+          plotFunnel(crossed);
+
+
+          // plotFunnel(data.graphics.reverse());
+          /*
+          var x = d3.scale.linear()
+              .range([0, width])
+              .domain([0, d3.max(data.graphics, function (d) {
+                  return d.value;
+              })]);
+
+          var y = d3.scale.ordinal()
+              .rangeRoundBands([height, 0], .1)
+              .domain(data.graphics.map(function (d) {
+                  return d.label;
+              }));
+
+          //make y axis to show bar names
+          var yAxis = d3.svg.axis()
+              .scale(y)
+              //no tick marks
+              .tickSize(0)
+              .orient("left");
+
+          var gy = svg.append("g")
+              .attr("class", "y axis")
+              .call(yAxis)
+
+          var bars = svg.selectAll(".bar")
+              .data(data.graphics)
+              .enter()
+              .append("g")
+
+          //append rects
+          bars.append("rect")
+              .attr("class", "bar")
+              .style("fill", function(d, i) {
+                  return color(i);
+              })
+              .attr("y", function (d) {
+                  return y(d.label);
+              })
+              .attr("height", y.rangeBand())
+              .attr("x", 0)
+              .attr("width", function (d) {
+                  return x(d.value);
+              });
+
+          //add a value label to the right of each bar
+          bars.append("text")
+              .attr("class", "label")
+              //y position of the label is halfway down the bar
+              .attr("y", function (d) {
+                  return y(d.label) + y.rangeBand() / 2 + 4;
+              })
+              //x position is 3 pixels to the right of the bar
+              .attr("x", function (d) {
+                  return +5;
+              })
+              .text(function (d) {
+                  return d.value;
+              });
+          */
+        }
+
+        var urlQuery = urlQueryObj();
+        if ( urlQuery.params ) {
+            var graphic_data = JSON.parse( sessionStorage.graphic_data );
+            loadData( JSON.parse( graphic_data[ urlQuery.params.data ] ) );
+        }
+
+    </script>
+
+</body>
+
+</html>

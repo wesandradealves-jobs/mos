@@ -1,0 +1,118 @@
+///* ========================================================================
+//   BOX
+//   ======================================================================== */
+.box {
+    background: #fff;
+    border: 1px solid $light-turquoise;
+    padding: 10px;
+    margin-bottom: 30px;
+    @extend .clearfix;
+
+    &.-height {
+        height: 212px;
+    }
+
+    &.-small {
+        height: 127px;
+    }
+
+    &.-medium{
+        height: 274px;
+    }
+
+    &.-channels {
+        border: solid 1px $light-turquoise;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    &.-select{
+        border: solid 1px $light-turquoise;
+        border-radius: 5px;
+        padding: 5px;
+        @include font-size(12);
+    }
+
+    >.title {
+        text-transform: uppercase;
+        font-size: 11px;
+    }
+
+    &.-center {
+        text-align: center;
+    }
+
+    >.number {
+        color: $purple;
+        font-family: $heading-font-family;
+        text-align: center;
+        padding: 18px 0;
+        @include font-size(21);
+
+        &.-big {
+            padding: 40px 0;
+            @include font-size(36);
+        }
+
+        &.-height {
+            padding: 75px 0;
+            @include font-size(36);
+        }
+    }
+
+    >.pattern-flash {
+        display: table;
+        max-height: 200px;
+        min-height: 200px;
+        margin: 15px auto;
+        text-align: center;
+
+        img {
+            max-height: 200px
+        }
+    }
+
+    >.pattern-campaing {
+        text-align: center;
+        height: 208px;
+        padding-top: 20px;
+
+        img {
+            max-width: 315px;
+        }
+    }
+}
+
+@include breakpoint(s) {
+    .box {
+        &.-small {
+            height: auto;
+        }
+    }
+}
+
+@include breakpoint(m) {
+    .box {
+        &.-small {
+            height: auto;
+        }
+    }
+}
+
+@include breakpoint(l) {
+    .box {
+        &.-small {
+            height: 131px;
+        }
+    }
+}
+
+@include breakpoint(xl) {
+    .box {
+        text-align: left;
+
+        &.-small {
+            height: 131px;
+        }
+    }
+}

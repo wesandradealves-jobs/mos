@@ -1,0 +1,152 @@
+<!-- Sidebar -->
+
+<aside class="wrapper-sidemenu" ng-mouseenter="toggleSidebar(true)" ng-mouseleave="toggleSidebar(false)">
+  	<ul class="side-menu">
+	    <li class="list"  ng-click="clickSidebar(true)">
+	      <a href="#/" class="link" ng-click="toggleSidebar(false)">
+		      <i class="icon">
+		        <img src="../img/logo.png">
+		      </i>
+	      </a>    	
+	    </li>    
+	    <li class="list" ng-show="menuPermissions['ACCESS-INMALVIEW']">
+	      <!--CHAPOLIN APPROVES-->
+	      <a href="#/inMallView" class="link" ng-click="toggleSidebar(false)">
+	        <span>InMall View</span>
+	        <i class="icon">
+	          <img src="../img/menu/inmall.svg">
+	        </i>
+	      </a>
+	    </li>
+	    <li class="list" ng-show="menuPermissions['ACCESS-CUSTOMERVIEW']">
+	      <a href="#/customerView" class="link" ng-click="toggleSidebar(false)">
+	        <span>Customer View</span>
+	        <i class="icon">
+	          <img src="../img/menu/customer.svg">
+	        </i>
+	      </a>
+	    </li>
+
+	    <li class="list" ng-show="menuPermissions['ACCESS-INSTOREVIEW']">
+	      <a href="#/instoreView" class="link" ng-click="toggleSidebar(false)">
+	        <span>Instore View</span>
+	        <i class="icon">
+	          <img src="../img/menu/instore-view.svg">
+	        </i>
+	      </a>
+	    </li>
+
+	    <li class="list" ng-show="menuPermissions['ACCESS-STORE-AREA']">
+	      <a href="#/storekeeper" class="link" ng-click="toggleSidebar(false)">
+	        <span>Lojista</span>
+	        <i class="icon">
+	          <img src="../img/menu/shopping-cart.svg" style="width: 25px; height: 30px;">
+	        </i>
+	      </a>
+	    </li>
+
+	    <li class="list" ng-show="menuPermissions['ACCESS-FLASH']">
+	      <a href="#/flash" class="link" ng-click="toggleSidebar(false)">
+	        <span>Flash</span>
+	        <i class="icon">
+	          <img src="../img/menu/flash.svg">
+	        </i>
+	      </a>
+	    </li>
+
+	    <li class="list" ng-show="menuPermissions['ACCESS-CAMPAIGN']">
+	      <a href="#/campaign" class="link" ng-click="toggleSidebar(false)">
+	        <span>Campanhas</span>
+	        <i class="icon">
+	          <img src="../img/menu/eventos.svg">
+	        </i>
+	      </a>
+	    </li>
+
+	    <li class="list" ng-show="menuPermissions['ACCESS-PROMOTIONS']">
+	      <a href="#/promocoes" class="link" ng-click="toggleSidebar(false)">
+	          <span>Promoções</span>
+	          <i class="icon">
+	              <img src="../img/menu/promo.svg">
+	          </i>
+	      </a>
+	    </li>
+
+	    <li class="list" ng-show="menuPermissions['ACCESS-CUSTOMERSERVICE']">
+	      <a href="#/customerService" class="link" ng-click="toggleSidebar(false)">
+	        <span>SAC</span>
+	        <i class="icon">
+	          <img src="../img/menu/sac.svg">
+	        </i>
+	      </a>
+	    </li>
+
+	    <li class="list" ng-show="menuPermissions['ACCESS-LOAN']">
+	      <a href="#/loan" class="link" ng-click="toggleSidebar(false)">
+	        <span>Empréstimo</span>
+	        <i class="icon">
+	          <img src="../img/menu/loan.svg">
+	        </i>
+	      </a>
+	    </li>
+
+	    <li class="list" ng-show="menuPermissions['ACCESS-BABYCARE']">
+	      <a href="#/babyCare" class="link" ng-click="toggleSidebar(false)">
+	        <span>Fraldário</span>
+	        <i class="icon">
+	          <img src="../img/menu/fraldario.svg">
+	        </i>
+	      </a>
+	    </li>
+
+	    <li class="list" ng-show="menuPermissions['ACCESS-VIPROOM']">
+	      <a href="#/vipLounge" class="link" ng-click="toggleSidebar(false)">
+	        <span>Sala VIP</span>
+	        <i class="icon">
+	          <img src="../img/menu/vip.svg">
+	        </i>
+	      </a>
+	    </li>
+
+	    <li class="list" ng-show="menuPermissions['ACCESS-COUPONS']">
+	      <a href="#/coupons" class="link" ng-click="toggleSidebar(false)">
+	        <span>Transações</span>
+	        <i class="icon">
+	          <img src="../img/menu/transacoes.svg">
+	        </i>
+	      </a>
+	    </li>
+
+	    <li class="list" ng-show="menuPermissions['ACCESS-COALITION']">
+	      <a href="#/coalition" class="link" ng-click="toggleSidebar(false)">
+	        <span>Coalizão</span>
+	        <i class="icon">
+	          <img src="../img/menu/coalizao.svg" style="width: 25px; height: 30px;">
+	        </i>
+	      </a>
+	    </li>
+
+	    <li class="list" ng-show="menuPermissions['ACCESS-LOST-FOUND']">
+	      <a href="#/lostfound" class="link" ng-click="toggleSidebar(false)">
+	        <span>Achados e Perdidos</span>
+	        <i class="icon">
+	          <img src="../img/menu/lostfound.svg" style="width: 25px; height: 30px;">
+	        </i>
+	      </a>
+	    </li>
+
+	    <li class="list" ng-show="menuPermissions['ACCESS-SETTINGS']">
+	      <a href="#/settings" class="link" ng-click="toggleSidebar(false)">
+	        <span>Configurações</span>
+	        <i class="icon">
+	          <img src="../img/menu/configuracoes.svg">
+	        </i>
+	      </a>
+	    </li>
+  	</ul>
+	<p class="footer"> 
+		<span class="_left">v. {{version}} {{envLabel}}</span>
+		<span class="_right"><img src={{userMalls[0].administration.logo}}></span>
+		<!-- <img src="../img/saphyr.svg"> -->
+	</p>  
+</aside>

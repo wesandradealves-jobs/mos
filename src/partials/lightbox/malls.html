@@ -1,0 +1,54 @@
+    <h2 class="lightbox-title">Selecionar Shoppings</h2>
+
+    <div class="mall-search">
+        <div class="mall-select">
+            <input class="inp-mark" id="mark" type="checkbox" style="display: none;"
+               ng-click="selecionarTodos()" ng-model="inputAll" ng-init="inputAll = false;"/>
+            <label class="mark" for="mark">
+                <span>
+                    <svg width="12px" height="10px" viewbox="0 0 12 10">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                    </svg>
+                </span>
+                <span>Todos</span>
+            </label>
+        </div>
+
+        <div class="mall-select" ng-repeat="u in user.malls track by u.id">
+            <!-- workaround porque o ng-model força o primeiro checkbox como checked -->
+            <!--
+            <input class="inp-mark" id="mark-1" type="checkbox" style="display: none;"
+              ng-model="selectedMalls['-1']" ng-selected="true" ng-checked="true"/>
+            -->
+            <!-- UPDATE: não funfa ainda -->
+
+            <input class="inp-mark" id="mark{{u.id}}" type="checkbox" style="display: none;"
+              ng-model="selectedMalls[ u.id.toString() ]"
+              ng-selected="u.id.toString() == '-1'" ng-checked="u.id.toString() == '-1'"/>
+
+            <label class="mark" for="mark{{u.id}}">
+                <span>
+                    <svg width="12px" height="10px" viewbox="0 0 12 10">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                    </svg>
+                </span>
+                <span style="display: inline;">{{u.name}}</span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="_mar-top-20">
+            <button class="button-default -purple small" type="submit" ng-click="saveMalls()">Confirmar</button>
+        </div>
+    </div>
+
+    <script>
+      window.addEventListener('malls-lightbox-load-dataset', function (event) {
+        for (var index = 0; index < event.detail.malls.length; index += 1) {
+          document.getElementById(
+            `mark${event.detail.malls[index]}`
+          ).click();
+        }
+      }, { once: true });
+    </script>

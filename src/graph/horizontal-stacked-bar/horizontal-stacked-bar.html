@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Diverging Stacked Bar Chart</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset='utf-8' />
+    <script src="../_libs/d3.v4.min.js"></script>
+    <script src="../_libs/queryParser.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <style>
+      button {display:none;}
+
+      body {
+          font-family: 'Roboto Mono', Helvetica, Arial, sans-serif;
+          text-transform: uppercase;
+
+      }
+      #chart {
+        max-width: 600px;
+        max-height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="removeOne()">Remove</button><button onclick="addOne()">Add</button>
+    <div id="chart"></div>
+    <script src="horizontal-stacked-bar.js"></script>
+    <script>
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    var chart = divergingBarChart();
+
+    var data = [];
+
+    //Insert API here
+    function loadData(_data) {
+//    d3.json("api/horizontal-stacked.json", function (error, _data) {
+//      console.log(d3.values(data)); // check data in console
+      // loop through JSON data
+      _data.forEach(function (d) {
+        data.push( {data : +d.data, label : d.label } );
+      });
+
+      function resize() {
+        if (d3.select("#chart svg").empty()) {
+          return;
+        }
+        var margin = {top: 20, right: 20, bottom: 0, left: 0},
+            width = window.innerWidth - margin.left - margin.right,
+            height = window.innerHeight - margin.top - margin.bottom;
+        chart.width(width);
+        chart.height(height);
+        d3.select("#chart").call(chart);
+      }
+
+      d3.select("#chart").datum(data).call(chart);
+      d3.select(window).on('resize', resize);
+      resize();
+    };
+
+    /*
+    var urlQuery = urlQueryObj();
+    if ( urlQuery.params )
+      loadData(urlQuery.params.data);
+    */
+
+    var urlQuery = urlQueryObj();
+    if ( urlQuery.params ) {
+      var graphic_data = JSON.parse( sessionStorage.graphic_data );
+      loadData( JSON.parse( graphic_data[ urlQuery.params.data ] ) );
+    }
+
+    </script>
+</body>
+</html>

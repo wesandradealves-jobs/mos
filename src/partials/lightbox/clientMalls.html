@@ -1,0 +1,15 @@
+    <h2 class="lightbox-title">Selecionar Shoppings</h2>
+
+    <div class="mall-search">
+        <div class="mall-unique" ng-repeat="u in radioControl.clientMalls">
+            <label class="checkbox">
+              <input type="radio" name="opcao" ng-value="u.mall" ng-model="radioControl.selectedMall">
+              <span class="checkmark"></span>{{u.mall.name}}
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="_mar-top-20">
+            <button class="button-default -purple small" type="submit" ng-click="radioControl.saveMall()">Confirmar</button>
+        </div>
+    </div>

@@ -1,0 +1,622 @@
+<!-- Menu Include -->
+<ng-include src="'partials/includes/menu.html'" ng-controller="PermissionsController"></ng-include>
+<!-- End Menu Include -->
+
+<!-- PROMO -->
+<section class="container">
+  <!-- UserMenu Include -->
+  <ng-include src="'partials/includes/user-menu.html'" ng-controller="UserMenuController"></ng-include>
+  <!-- End UserMenu Include -->
+
+  <h1 class="page-title">Promoções</h1>
+
+  <div class="wrapper-breadcrumbs">
+    <ol class="breadcrumbs">
+      <li class="item">Home</li>
+      <li class="item">Promoções</li>
+    </ol>
+  </div>
+
+
+
+  <div class="row">
+    <ul>
+      <!-- NOVA PROMOCAO -->
+      <li class="nav-tab" ng-show="menuPermissions['CREATE-PROMOTIONS']">
+        <input type="radio" name="tabs" class="tabs" id="new-promo" ng-checked="menuPermissions['CREATE-PROMOTIONS']"
+          ng-click="switchToTab('new-promo');">
+        <label class="label -first" for="new-promo">
+          <img src="../img/tabs/new.svg" class="icon">
+          Nova Promoção
+        </label>
+        <div class="content">
+          <div class="col-1-2-xl">
+            <div class="row">
+              <form>
+                <div class="col-1-2-xl">
+                  <label class="label-input">Shopping*</label>
+
+                  <select ng-model="promo.mallId" ng-change="fillStoreSelect()" required>
+                    <option ng-repeat="mall in malls" value="{{mall.id}}">{{mall.name}}</option>
+                  </select>
+
+                  <!-- <select tabindex="1" ng-model="selectedMall" ng-options="m.id as m.name for m in malls" required>
+                  </select> -->
+                </div>
+
+                <div class="col-1-2-xl">
+                  <label class="label-input">Nome da promoção*</label>
+                  <input type="text" ng-model="promo.name" required ng-class="{'input-error': nameError}"
+                    ng-blur="validateName()">
+                </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-1-2-xl">
+                <label class="label-input">Data Inicial*</label>
+                <input ui-date-mask required ng-model="promo.sinceDate" ng-class="{'input-error': sinceError}"
+                  ng-blur="validateSince()" type="text">
+              </div>
+              <div class="col-1-2-xl">
+                <label class="label-input">Data Final*</label>
+                <input ui-date-mask required ng-model="promo.untilDate" ng-class="{'input-error': untiltError}"
+                  ng-blur="validateUntil()" type="text">
+              </div>
+            </div>
+
+            <div class="row">
+              <label class="label-input">Etiquetas</label>
+              <select chosen multiple data-placeholder="" ng-model="promo.labels" disable-search="false"
+                allow-single-deselect="true" skip-no-results="true" placeholder-text-multiple="' '"
+                id="campaign-register-input-tags" ng-options="label.id as label.name for label in promoLabels"
+                no-results-text="'Nenhum resultado corresponde a '">
+                <option disabled value=""></option>
+                <!-- <option ng-repeat="pl in promoLabels" ng-value="pl.id">{{pl.name}}</option> -->
+              </select>
+            </div>
+
+            <div class="row">
+              <div class="box -channels">
+                <h6>
+                  Lojas Participantes*
+                  <div class="button-more" ng-click="openSelectStore()" ng-if="!promoInEditionMode">
+                    <img src="../img/more.svg">
+                  </div>
+
+                  <div ng-if="promo.subscribedStores && promo.didChooseStores" class="button-sucess">
+                    <img src="../img/success.svg">
+                  </div>
+
+                  <div ng-if="promoInEditionMode" ng-click="openSelectStore()" class="button-edit">
+                    <img src="../img/rascunho.svg">
+                  </div>
+                </h6>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-2-3-xl">
+                <label class="label-input">Exclusivo do clube</label>
+                <div ng-init="promo.clubExclusive = false">
+                  <div class="col-1-2">
+                    <label class="checkbox">
+                      <input type="radio" name="promoClubExclusive" ng-model="promo.clubExclusive" ng-value="true">
+                      <span class="checkmark"></span>SIM
+                    </label>
+                  </div>
+
+                  <div class="col-1-2 _no-padding">
+                    <label class="checkbox">
+                      <input type="radio" name="promoClubExclusive" ng-model="promo.clubExclusive" ng-value="false">
+                      <span class="checkmark"></span>NÃO
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-1-2-xl -noright">
+
+            <div class="row">
+              <label class="label-input">Mecânica*</label>
+
+              <select ng-model="promo.mallPromotionTypeId">
+                <option disabled selected value="">-- Selecionar --</option>
+                <option ng-repeat="pt in promoTypes" value="{{pt.id}}">{{pt.name}}</option>
+              </select>
+            </div>
+
+            <!-- SORTEIO POR SIMILARIDADE -->
+
+            <div class="row" ng-if="promo.mallPromotionTypeId.toString() === '1'">
+              <div ng-class="{'col-1-2' : !promo.clubExclusive }">
+                <label class="label-input">valor por número da sorte*</label>
+                <input ng-model="promo.exchangeVolumeValue" ui-money-mask="2" type="text">
+              </div>
+
+              <div class="col-1-2" ng-if="!promo.clubExclusive">
+                <label class="label-input">Multiplicador do Clube </label>
+                <input ng-model="promo.raffleDetails.clubeAcceptanceMultiplier" type="text">
+              </div>
+            </div>
+
+            <div class="row" ng-if="promo.mallPromotionTypeId.toString() === '1'">
+              <label class="label-input">Número do concurso*</label>
+              <input ng-model="promo.raffleDetails.federalLotteryDraw" type="text">
+            </div>
+
+            <!-- COMPRE E GANHE -->
+
+            <div class="row" ng-if="promo.mallPromotionTypeId.toString() === '2'">
+              <div class="col-1-2">
+                <label class="label-input">Número total de brindes*</label>
+                <input ng-model="promo.giftDetails.totalGiftsAmount" type="number">
+              </div>
+
+              <div class="col-1-2">
+                <label class="label-input">Limite de brindes por clientes</label>
+                <input ng-model="promo.giftDetails.maximumClientGifts" type="number">
+              </div>
+            </div>
+
+            <div class="row" ng-if="promo.mallPromotionTypeId.toString() === '2'">
+              <div ng-class="{'col-1-2' : !promo.clubExclusive }">
+                <label class="label-input">valor por brinde*</label>
+                <input ng-model="promo.exchangeVolumeValue" ui-money-mask="2" type="text">
+              </div>
+
+              <div class="col-1-2" ng-if="!promo.clubExclusive">
+                <label class="label-input">valor por brinde (cliente do clube)</label>
+                <input ng-model="promo.giftDetails.clubExchangeValue" ui-money-mask="2" type="text">
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-1-2">
+                <label class="label-input">Regulamento</label>
+
+                <div class="box _no-margin">
+                  <div class="button-more" ng-if="!promoInEditionMode">
+                    <img src="../img/more.svg" ng-click="openRule()">
+                  </div>
+
+                  <div ng-if="promoInEditionMode" ng-click="openRule()" class="button-edit">
+                    <img src="../img/rascunho.svg">
+                  </div>
+
+                  <div ng-if="(promo.regulation || promo.regulationUrl) && promo.didUploadRegulation" class="button-sucess">
+                      <img src="../img/success.svg">
+                  </div>
+
+                  <span>documento.pdf</span>
+                </div>
+
+              </div>
+
+              <div class="col-1-2">
+                <label class="label-input">CPFs a excluir</label>
+                <div class="box  _no-margin">
+                  <div ng-if="promoInEditionMode" ng-click="openPromoEditCpf()" class="button-edit">
+                    <img src="../img/rascunho.svg">
+                  </div>
+                  <div class="button-more" ng-if="!promoInEditionMode">
+                    <img src="../img/more.svg" ng-click="openPromoEditCpf()">
+                  </div>
+                  <div ng-if="promo.blacklist.length > 0" class="button-sucess">
+                      <img ng-if="promo.didUploadBlacklist" src="../img/success.svg">
+                  </div>
+                  <span>lista.csv</span>
+                </div>
+              </div>
+            </div>
+            <div class="box -channels">
+              <h6>
+                Imagem da promoção
+
+                <div id="promo-banner-tooltip-text" class="_right"></div>
+                <div class="position-tooltip" id="promo-banner-tooltip-button" >
+                  <img src="../img/tooltip.svg" alt="">
+                </div>
+
+                <div class="button-edit" ng-if="promoInEditionMode" ng-click="openBannerPromo()">
+                  <img src="../img/rascunho.svg">
+                </div>
+
+                <div class="button-more" ng-if="!promoInEditionMode" ng-click="openBannerPromo()">
+                  <img src="../img/more.svg">
+                </div>
+
+                <div class="button-sucess" ng-if="promo.didUploadBanner">
+                  <img src="../img/success.svg">
+                </div>
+              </h6>
+            </div>
+            <!--
+            <div class="row">
+              <label class="label-input">Disclaimer</label>
+              <textarea rows="7" maxlength= 300 ng-model="promo.disclaimer" placeholder="Digite a mensagem aqui"
+                ng-class="{'input-error': pushError}" ng-blur="validatePush()"></textarea>
+                <span class="components-subtitle" >{{promo.disclaimer.length}}/300</span>
+            </div> -->
+
+            </form>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <span class="obs">*Campos obrigatórios</span>
+
+          <!-- BUTTON -->
+
+          <div class="col-9 _right">
+            <div class="col-1-3">
+              <input class="button-default -purple -action -small" value="PUBLICAR" type="submit"
+                ng-click="publishPromo()"
+                ng-disabled="promo.mallId == '-1' || !promo.name || !promo.sinceDate || !promo.untilDate || !promo.subscribedStores || !validPromo()">
+            </div>
+
+            <div class="_right">
+              <div class="col-2-5">
+                <input class="button-default -grey -small -filter" value="Apagar" type="submit"
+                  ng-click="excludePromo()" ng-disabled="!promo.id">
+              </div>
+
+              <div class="col-2-5">
+                <input class="button-default -turquoise -small -filter" value="Salvar" type="submit"
+                  ng-click="savePromo();"
+                  ng-disabled="promo.mallId == '-1' || !promo.name || !promo.sinceDate || !promo.untilDate">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </li>
+
+      <!-- RELATORIO -->
+      <li class="nav-tab" ng-show="menuPermissions['REPORT-PROMOTIONS']">
+        <input type="radio" name="tabs" class="tabs" id="promo-report"
+          ng-checked="!menuPermissions['CREATE-PROMOTIONS'] && menuPermissions['REPORT-PROMOTIONS']"
+          ng-click="switchToTab('promo-report');">
+        <label class="label" for="promo-report">
+          <img src="../img/tabs/report.svg" class="icon">
+          Relatório
+        </label>
+        <div class="content">
+
+          <!-- FILTRO -->
+          <div class="row">
+            <div class="col-1-3">
+              <label class="label-input">Shopping</label>
+              <select ng-model="reportMall" ng-init="reportMall = malls[0].id.toString()"
+                ng-change="refreshPromosList()">
+                <option ng-repeat="m in malls" value="{{m.id}}">{{m.name}}</option>
+              </select>
+            </div>
+
+            <div class="col-1-3">
+              <label class="label-input">Promoção</label>
+              <select ng-model="reportPromo" ng-disabled="!reportPromos[0]">
+                <option disabled selected value="-1">-- Selecione --</option>
+                <option ng-repeat="p in reportPromos track by p.id" value="{{p.id}}">{{p.name}}</option>
+              </select>
+            </div>
+
+            <div class="col-1-3">
+              <button class="button-default -turquoise -small -filter" ng-click="loadGraphics()"
+                ng-disabled="reportMall == '-1' || selectedCampaignId == '-1'">Buscar</button>
+            </div>
+
+          </div>
+
+
+          <div class="box no-promos-to-show" ng-if="!mallHasPromos">
+            <p id="no-promos-message">Nenhum registro encontrado</p>
+          </div>
+          <div class="row" ng-if="mallHasPromos">
+            <!-- VENDA TOTAL DIARIA -->
+            <div class="col-1-3-l">
+              <div class="box -medium loading">
+                <h5 class="title">
+                  Venda total diária
+                  <div class="button-more" ng-click="openBarChart('totalDailySales')">
+                    <img src="../img/more.svg">
+                  </div>
+                </h5>
+                <img ng-if="loading.dailySales" class="loader" src="img/loader.svg">
+                <div class="pattern-campaing">
+                  <iframe id="dailySales" src="../graph/bar-chart/bar-chart.html" width="100%" height="auto"
+                    scrolling="no" data-hj-allow-iframe=""></iframe>
+                </div>
+              </div>
+            </div>
+
+            <!-- VENDA INDIVIDUAL POR loja  -->
+
+            <div class="col-1-3-l">
+              <div class="box -medium loading">
+                <h5 class="title">
+                  Venda individual por loja
+                  <div class="button-more" ng-click="openNgDialog('individualSalesStore')">
+                    <img src="../img/more.svg">
+                  </div>
+                </h5>
+                <img ng-if="loading.individualSalesStore" class="loader" src="img/loader.svg">
+                <div class="pattern-promo">
+                  <iframe id="individualSalesStore" src='../graph/pie-chart/pie-chart.html' width="100%" height="auto"
+                    scrolling="no" data-hj-allow-iframe=""></iframe>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- TODO corrigir este gráfico -->
+            <!-- BANNER -->
+            <div class="col-1-3-l">
+              <div class="box -medium">
+                <h5 class="title">
+                  Desempenho da Promoção
+
+                  <div class="button-more" ng-click="openClusteredColumnChart()">
+                    <img src="../img/more.svg">
+                  </div>
+                </h5>
+
+                <div class="loading">
+                    <img ng-if="loading.promotionPerformanceChart" class="loader" src="img/loader.svg">
+
+                    <clustered-column values="promoPerformanceData" title="0" style="width: auto; height: 250px"></clustered-column>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-1-2">
+
+              <div class="col-1-3">
+                <div class="box _text-center">
+                  <h5 class="title">
+                    Venda total
+                  </h5>
+                  <span class="number">R$ {{reportValues.totalPurchaseValue | number: 2}}</span>
+                </div>
+              </div>
+
+              <div class="col-1-3">
+                <div class="box _text-center">
+                  <h5 class="title">
+                    Tkt Médio Trans.
+                  </h5>
+                  <span class="number">R$ {{reportValues.averageTicketTx | number: 2}}</span>
+                </div>
+              </div>
+
+              <div class="col-1-3">
+                <div class="box _text-center">
+                  <h5 class="title">Tkt Médio Clientes</h5>
+
+                  <span class="number">R$ {{reportValues.averageTicketClients | number: 2}}</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-1-2">
+
+              <div class="col-1-4">
+                  <div class="box _text-center">
+                    <h5 class="title">
+                      Total de transações
+                    </h5>
+                    <span class="number">{{reportValues.totalTxs}}</span>
+                  </div>
+                </div>
+
+              <div class="col-1-4">
+                <div class="box _text-center">
+                  <h5 class="title">Total de clientes</h5>
+                  <span class="number">{{reportValues.totalClients}}</span>
+                </div>
+              </div>
+
+              <div class="col-1-4" ng-if="reportPromoData.mallPromotionTypeId !== '1' ">
+                <div class="box _text-center">
+                  <h5 class="title">Total de brindes</h5>
+                  <span class="number">{{reportValues.totalGifts}}</span>
+                </div>
+              </div>
+
+              <div class="col-1-4">
+                <div class="box _text-center">
+                  <h5 class="title" ng-if="reportPromoData.mallPromotionTypeId !== '1' ">Brindes Distribuídos</h5>
+                  <span class="number" ng-if="reportPromoData.mallPromotionTypeId !== '1' ">{{reportValues.distributedGifts}}</span>
+                  <h5 class="title" ng-if="reportPromoData.mallPromotionTypeId === '1' ">Vencedor</h5>
+                  <div class="button-more" ng-if="reportPromoData.mallPromotionTypeId === '1'"
+                    ng-click="openPromoWinner(reportValues.winnerClientId, reportPromoData.raffleDetails)" ng-disabled="reportValues.winnerCpf === '--'">
+                    <img src="../img/more.svg">
+                  </div>
+                  <span class="number" style="font-size: 1.1em;" ng-if="reportPromoData.mallPromotionTypeId === '1'">{{reportValues.winnerCpf}}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </li>
+
+      <!-- PROMOÇOES -->
+      <li class="nav-tab" ng-show="menuPermissions['LIST-PROMOTIONS']">
+        <input type="radio" name="tabs" class="tabs" id="promo"
+          ng-checked="!menuPermissions['CREATE-PROMOTIONS'] && !menuPermissions['REPORT-PROMOTIONS']"
+          ng-click="switchToTab('promo');">
+        <label class="label" for="promo">
+          <img src="../img/tabs/control.svg" class="icon">
+          Promoções
+        </label>
+        <div class="content">
+          <div class="row">
+            <div class="col-1-4-xl">
+              <label class="label-input">Selecionar Shopping</label>
+              <select ng-model="controlMall" ng-change="getPromos()">
+                <option ng-repeat="mall in malls" value="{{mall.id}}">{{mall.name}}</option>
+              </select>
+            </div>
+            <!-- <div class="col-2-xl">
+              <button class="button-default -turquoise -small -filter" ng-click="reloadCampaignsList()"
+                ng-disabled="controlMall == '-1'">Buscar</button>
+            </div> -->
+          </div>
+
+          <!-- Tabela -->
+          <table datatable="ng" class="row-border hover" width="100%" dt-column-defs="dtColumnDefs"
+            dt-options="dtOptions">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Status</th>
+                <th>Tipo</th>
+                <th>Duração</th>
+                <th>Exclusivo do Clube</th>
+                <th>R$ por num ou Brinde</th>
+                <th>Regulamento</th>
+                <th>CPF's excluidos</th>
+                <th>Resultados</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr ng-repeat="p in promos">
+              <td class="_text-center">{{p.name}}</td>
+              <td class="_text-center">
+                <span ng-if="p.published && p.raffleDetails && p.raffleDetails.winnerClientId">
+                  Sorteado <img class="icon-button disabled-button" src="img/check.svg">
+                </span>
+                <span ng-if="p.published && !(p.raffleDetails && p.raffleDetails.winnerClientId)">
+                  Publicado <img class="icon-button disabled-button" src="img/check.svg">
+                </span>
+                <span ng-if="!p.published">
+                  Rascunho <img class="icon-button" src="img/rascunho.svg" ng-click="switchToRegister(p.originalCopy)">
+                </span>
+              </td>
+
+              <td>{{p.type}}</td>
+              <td>{{p.interval}}</td>
+              <td class="_text-center"><span ng-if="p.clubExclusive">Sim</span> <span
+                  ng-if="!p.clubExclusive">Não</span></td>
+              <td class="_text-center">R${{p.exchangeVolumeValue}}</td>
+              <td class="_text-center">
+                <img class="icon-button" src="img/more.svg" ng-if="!p.published && !p.regulationUrl" ng-click="openRule()">
+                <img class="icon-button" src="img/visualizar.svg" ng-if="p.regulationUrl" ng-click="openUploadedRegulation(p)">
+                <span class="" ng-if="p.published && !p.regulationUrl" ng-click="">-</span>
+              </td>
+              <td class="_text-center">
+                <img class="icon-button" src="img/more.svg" ng-if="!p.published && p.blacklist.length === 0" ng-click="openPromoEditCpf()">
+                <img class="icon-button" src="img/visualizar.svg" ng-if="p.blacklist.length > 0" ng-click="openUploadedBlacklist(p)">
+                <span class="" ng-if="p.published && p.blacklist.length === 0" ng-click="">-</span>
+              </td>
+              <td class="_text-center">
+                <img ng-if="p.mallPromotionTypeId.toString() === '1'" class="icon-button" src="img/more.svg"
+                  ng-click="openPromoResult(p)"
+                  ng-disabled="!(p.published && finishedPromotion(p))"/>
+                <span ng-if="p.mallPromotionTypeId.toString() === '2'">-</span>
+              </td>
+              </tr>
+            </tbody>
+
+          </table>
+          <!-- END Tabela -->
+        </div>
+      </li>
+
+      <!-- OPERACAO -->
+      <li class="nav-tab" ng-show="menuPermissions['OPERATIONS-PROMOTIONS']">
+        <input type="radio" name="tabs" class="tabs" id="promo-operations"
+          ng-checked="!menuPermissions['CREATE-PROMOTIONS'] && !menuPermissions['REPORT-PROMOTIONS'] && !menuPermissions['LIST-PROMOTIONS']">
+        <label class="label" for="promo-operations">
+          <img src="../img/tabs/control.svg" class="icon">
+          Operação
+        </label>
+        <div class="content">
+          <div class="row">
+            <div class="col-1-4">
+              <label class="label-input">Shopping</label>
+              <select ng-model="operationsMall" ng-change="getOperationsPromos()">
+                <option ng-repeat="m in malls track by m.id" value="{{m.id}}">{{m.name}}</option>
+              </select>
+            </div>
+
+            <div class="col-1-4">
+              <label class="label-input">Promoção</label>
+              <select ng-model="operationsPromo" ng-disabled="operationsPromo === '-1'">
+                <option disabled selected value="-1">-- Selecione --</option>
+                <option ng-repeat="p in operationsPromos track by p.id" value="{{p.id}}">{{p.name}}</option>
+              </select>
+            </div>
+
+            <div class="col-1-4">
+              <label class="label-input">CPF ou número de retirada</label>
+              <input class="search -icon" type="text" ng-model="operationsClientCpf"
+                placeholder="CPF ou número do brinde"/>
+            </div>
+
+            <div class="col-1-4-xl">
+              <button class="button-default -turquoise -small -filter"
+                ng-click="listPromoGifts()"
+                ng-disabled="operationsPromo === '-1'">Buscar</button>
+            </div>
+          </div>
+
+          <table datatable="ng" class="row-border hover" width="100%" dt-column-defs="dtColumnDefs"
+            dt-options="dtOptions">
+            <thead>
+              <tr>
+                <th>Número de Retirada</th>
+                <th>Nome do Cliente</th>
+                <th>CPF</th>
+                <th>Nome da Promoção</th>
+                <th>Status</th>
+                <th>Brinde</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr ng-repeat="gift in operationsGifts">
+                <td class="_text-center">{{gift.id}}</td>
+                <td>{{gift.client.fullName}}</td>
+                <td class="_text-center">{{gift.client.cpf}}</td>
+                <td>{{gift.mallPromotion.name}}</td>
+                <td class="_text-center">{{gift.giftWasRedeemed ? 'Brinde entregue' : 'A ser Entregue'}}</td>
+                <td class="_text-center"> <button class="button-default -turquoise -small"
+                  ng-disabled="gift.giftWasRedeemed"
+                  ng-click="operationsRedeemGift(gift.id, gift.client.id)">Entregar</button> </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </li>
+
+    </ul>
+  </div>
+
+  <script>
+    // TOOLTIP
+    (function () {
+      const reference = document.querySelector('#promo-banner-tooltip-button');
+      new Tooltip(reference, {
+        placement: 'top',
+        title: 'Arte de divulgação no app em promoção.',
+        // arrowSelector: 'tooltip-arrow',
+        // innerSelector: 'tooltip-content',
+        container: document.querySelector('#promo-banner-tooltip-text'),
+      });
+    })();
+  </script>
+
+</section>
+<!-- End Flash Content -->

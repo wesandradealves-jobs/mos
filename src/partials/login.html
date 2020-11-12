@@ -1,0 +1,50 @@
+<form id="login-prompt-screen">
+    <h1 class="page-title">LOGIN</h1>
+
+    <p></p>
+    <label class="label-input">E-mail</label>
+    <input class="" type="email" ng-model="login.email"
+      id="login-prompt-username" required/>
+
+    <p></p>
+    <label class="label-input">Senha</label>
+    <input class="" type="password" ng-model="login.password"
+      id="login-prompt-password" required/>
+
+    <p></p>
+    <button class="button-default -action" ng-click="enterLogin()"
+      id="login-prompt-trigger" ng-disabled="!login.email || !login.password">Entrar</button>
+
+    <script>
+    (function () {
+      var usernameInput = document.getElementById("login-prompt-username");
+      var passwordInput = document.getElementById("login-prompt-password");
+      var triggerButton = document.getElementById("login-prompt-trigger");
+
+      usernameInput.focus();
+
+      var typePassword = function (event) {
+        if (event.keyCode === 13 || event.which === 13) {
+          passwordInput.focus();
+        }
+      };
+
+      var triggerLogin = function (event) {
+        if (event.keyCode === 13 || event.which === 13) {
+          triggerButton.click();
+        }
+      };
+
+      usernameInput.addEventListener("keyup", typePassword);
+      passwordInput.addEventListener("keyup", triggerLogin);
+    })();
+    </script>
+
+    <iframe
+    id="register-session"
+    src="{{mos2RegisterUrl}}"
+    width="1"
+    height="1"
+    scrolling="no"
+    ></iframe>
+</form>

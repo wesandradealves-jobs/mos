@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+  <style>
+
+    body {
+      padding-top: 20px;
+      text-align: center;
+    }
+
+    .dataset-button {
+      display: none;
+    }
+
+    rect.bordered {
+      stroke: #E6E6E6;
+      stroke-width: 2px;
+    }
+
+    text.mono {
+      font-size: 14px;
+      font-family:'Roboto Mono', Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
+      fill: #aaa;
+    }
+
+    text.axis-workweek {
+      fill: #000;
+    }
+
+    text.axis-worktime {
+      fill: #000;
+    }
+
+  </style>
+  <script src="../_libs/d3.v3.min.js"></script>
+  <script src="../_libs/queryParser.js"></script>
+</head>
+
+<body>
+  <div id="chart"></div>
+  <div id="dataset-picker">
+  </div>
+  <script type="text/javascript">
+    var margin = { top: 50, right: 0, bottom: 50, left: 35 },
+      width = 1200 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom,
+      gridSize = Math.floor(width / 24),
+      legendElementWidth = gridSize * 2,
+      buckets = 6,
+      //Insert colors here
+      colors = ["#ddf5db", "#a8f1c3", "#a4e7d6", "#81cfd1", "#15bbbc", "#00a2a3", "#008491", "#0b667c", "#035058"], // alternatively colorbrewer.YlGnBu[9]
+      days = ["Dom", "Seg", "Ter", "Qui", "Qua", "Sex", "Sab"],
+      times = [];
+
+    for (var timeHourIndex = 0; timeHourIndex < 24; timeHourIndex += 1) {
+      times[timeHourIndex] = (timeHourIndex < 10 ? '0' : '') + timeHourIndex.toString() + 'h';
+    }
+
+    //Insert API here
+    // d3.json('api/heat-map.json', function(error,data){
+    function loadData(data) {
+
+      var colorScale = d3.scale.quantile()
+        .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })])
+        .range(colors);
+
+      var svg = d3.select("#chart").append("svg")
+        .attr("preserveAspectRatio","xMinYMin meet")
+        .attr("viewBox", "0 0 1200 600")
+        .attr('width', '100%')
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      var dayLabels = svg.selectAll(".dayLabel")
+        .data(days)
+        .enter().append("text")
+        .text(function (d) { return d; })
+        .attr("x", 0)
+        .attr("y", function (d, i) { return i * gridSize; })
+        .style("text-anchor", "end")
+        .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
+        .attr("class", function (d, i) { return ((i >= 1 && i <= 5) ? "dayLabel mono axis axis-workweek" : "dayLabel mono axis"); });
+
+      var timeLabels = svg.selectAll(".timeLabel")
+        .data(times)
+        .enter().append("text")
+        .text(function (d) { return d; })
+        .attr("x", function (d, i) { return i * gridSize; })
+        .attr("y", 0)
+        .style("text-anchor", "middle")
+        .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+        .attr("class", function (d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
+
+      var heatMap = svg.selectAll(".hour")
+        .data(data)
+        .enter().append("rect")
+        .attr("x", function (d) { return (d.hour - 1) * gridSize; })
+        .attr("y", function (d) { return (d.day - 1) * gridSize; })
+        .attr("rx", 4)
+        .attr("ry", 4)
+        .attr("class", "hour bordered")
+        .attr("width", gridSize)
+        .attr("height", gridSize)
+        .style("fill", colors[0]);
+
+      heatMap.transition().duration(1000)
+        .style("fill", function (d) {
+          // conserta o heatmap com cores fortes quando os dados vem
+          // vazios / zerados da requisição. logo, aqui usamos cores
+          // fracas caso todos os valores sejam zerados / "nulos"
+          return d.value === 0 ? colors[0] : colorScale(d.value);
+        });
+
+      heatMap.append("title").text(function (d) { return d.value; });
+
+      var legend = svg.selectAll(".legend")
+        .data([0].concat(colorScale.quantiles()), function (d) { return d; })
+        .enter().append("g")
+        .attr("class", "legend");
+
+      // conserta a legenda pro zero afastada das outras legendas
+      var minimumLegendIndexOffset = colorScale
+        .quantiles()
+        .filter(function (x) { return x === 0; })
+        .length;
+
+      legend.append("rect")
+        .attr("x", function (d, i) {
+          // conserta a legenda pro zero afastada das outras legendas
+          const offset = Math.max(i, minimumLegendIndexOffset) - (minimumLegendIndexOffset - 1);
+          return (legendElementWidth * offset) + gridSize;
+        }).attr("y", height)
+        .attr("width", legendElementWidth)
+        .attr("height", gridSize / 2)
+        .style("fill", function (d, i) { return colors[i]; });
+
+      legend.append("text")
+        .attr("class", "mono")
+        .text(function (d) { return "≥ " + Math.round(d); })
+        .attr("x", function (d, i) {
+          // conserta a legenda pro zero afastada das outras legendas
+          const offset = Math.max(i, minimumLegendIndexOffset) - (minimumLegendIndexOffset - 1);
+          return (legendElementWidth * offset) + gridSize;
+        }).attr("y", height + gridSize);
+    };
+
+    /*
+    var urlQuery = urlQueryObj();
+    if (urlQuery.params)
+      loadData(urlQuery.params.data);
+      */
+
+    var urlQuery = urlQueryObj();
+    if ( urlQuery.params ) {
+      var graphic_data = JSON.parse( sessionStorage.graphic_data );
+      loadData( JSON.parse( graphic_data[ urlQuery.params.data ] ) );
+    }
+
+  </script>
+</body>
+
+</html>

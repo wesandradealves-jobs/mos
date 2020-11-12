@@ -1,0 +1,119 @@
+<!-- Menu Include -->
+<ng-include src="'partials/includes/menu.html'" ng-controller="PermissionsController"></ng-include>
+<!-- End Menu Include -->
+
+<!-- PURCHASES -->
+<section class="container">
+  <!-- UserMenu Include -->
+  <ng-include src="'partials/includes/user-menu.html'" ng-controller="UserMenuController"></ng-include>
+  <!-- End UserMenu Include -->
+
+  <h1 class="page-title">Transações</h1>
+
+  <div class="wrapper-breadcrumbs">
+    <ol class="breadcrumbs">
+      <li class="item">Home</li>
+      <li class="item">Transações</li>
+    </ol>
+  </div>
+
+
+  <div class="row">
+    <ul>
+      <!-- TRANSACOES -->
+      <li class="nav-tab" ng-show="menuPermissions['APPROVE-COUPONS']">
+        <input type="radio" name="tabs" class="tabs" id="purchases"
+          ng-checked="menuPermissions['APPROVE-COUPONS']">
+        <!-- <label class="label" for="purchases">
+              <img src="../img/tabs/permissoes.svg" class="icon"> PURCHASES
+            </label> -->
+        <div class="content" id="coupons-content">
+          <div class="row">
+
+            <div class="col-2-5-xl">
+              <div class="col-1-2">
+                <label class="label-input">Shopping</label>
+                <select ng-model="selectedMalls">
+                  <option ng-repeat="m in malls" ng-value="m.id">{{m.name}}</option>
+                </select>
+              </div>
+
+              <div class="col-1-2">
+                <label class="label-input">Pesquisa por CPF</label>
+                <input type="text" ng-model="filter.cpf">
+              </div>
+            </div>
+
+            <div class="col-3-5-xl">
+              <div class="row">
+
+                <div class="col-1-2">
+
+                  <div class="col-1-2">
+                    <label class="label-input">Data Inicial*</label>
+                    <input type="text" ng-model="filter.initialDate" required ui-date-mask ng-blur='validadeDate("initialDate")' ng-class="{'input-error': initialDateError}">
+                  </div>
+
+                  <div class="col-1-2">
+                    <label class="label-input">Data Final*</label>
+                    <input type="text" ng-model="filter.finalDate" required ui-date-mask ng-blur='validadeDate("finalDate")' ng-class="{'input-error': finalDateError}">
+                  </div>
+
+                </div>
+
+                <div class="col-5">
+                  <label class="label-input">Status</label>
+                  <select ng-model="filter.clientPointStatusId">
+                    <option ng-repeat="s in pointStatusIds" ng-value="s.id">{{s.name}}</option>
+                  </select>
+                </div>
+
+                <div class="col-2">
+                  <button class="button-default -filter -small" ng-click="getCoupons()" 
+                  ng-disabled="!filter.finalDate || !filter.initialDate">Buscar</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Tabela -->
+          <table datatable="ng" class="row-border hover table" width="100%" dt-column-defs="dtColumnDefs"
+            dt-options="dtOptions">
+            <thead>
+              <tr>
+                <th>cliente</th>
+                <th>loja</th>
+                <th>pontos</th>
+                <th>valor</th>
+                <th>data</th>
+                <th>status</th>
+                <th>detalhes</th>
+              </tr>
+            </thead>
+
+            <tbody class="table">
+              <tr ng-repeat="c in coupons">
+                <td>{{c.client.fullName}}</td>
+                <td>{{c.store.name}}</td>
+                <td>{{c.points}}</td>
+                <td>{{c.value}}</td>
+                <td>{{parseDateToLocale(c.behaviorDate)}}</td>
+                <td>{{c.pointStatus.name}}</td>
+                <td class="table -center">
+                  <img src="../img/more.svg" class="" ng-click="openDialog(c)">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </li>
+
+
+    </ul>
+  </div>
+
+
+</section>

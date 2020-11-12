@@ -1,0 +1,80 @@
+///* ========================================================================
+//   STYLESHEETS
+//   ======================================================================== */
+
+// Settings
+@import "settings/_core";
+
+// Tools
+@import "tools/_breakpoint";
+@import "tools/_font-size";
+@import "tools/_line-height";
+
+// Generic
+@import "generic/_box-sizing";
+@import "generic/_reset";
+
+// Base
+@import "base/_forms";
+@import "base/_page";
+@import "base/_tables";
+@import "base/_typography";
+
+// Objects
+@import "objects/_components-subtitle";
+@import "objects/_grids";
+@import "objects/_iframe-position";
+@import "objects/_iframe-promo-panorama";
+@import "objects/_no-promos-to-show";
+@import "objects/_input-error";
+@import "objects/_label-input";
+@import "objects/_legend-charts";
+@import "objects/_lightbox-sms";
+@import "objects/_lightbox-segment";
+@import "objects/_page-title";
+@import "objects/_components-subtitle";
+@import "objects/_targeting-text";
+@import "objects/_box-search";
+@import "objects/_upload-box";
+@import "objects/_lightbox-search.scss";
+@import "objects/_banner-app.scss";
+@import "objects/_loading.scss";
+@import "objects/_box-preview.scss";
+@import "objects/_lightbox-coupon.scss";
+@import "objects/_magnify-zoom.scss";
+@import "objects/_select-store.scss";
+@import "objects/_lightbox-campaign-funnels.scss";
+@import "objects/_register-edit-store.scss";
+
+
+
+// Components
+@import "components/_box";
+@import "components/_breadcrumbs";
+@import "components/_buttons";
+@import "components/_carousel";
+@import "components/_customer-client";
+@import "components/_data-footer";
+@import "components/_search";
+@import "components/_side-menu";
+@import "components/_tabs";
+@import "components/_user-menu";
+@import "components/_checkbox";
+@import "components/_radio-button";
+@import "components/_drag-drop";
+@import "components/_detailing-user";
+@import "components/_table";
+@import "components/_tooltip";
+
+
+// Trumps
+@import "trumps/_choosen";
+@import "trumps/_clearfix";
+@import "trumps/_data-tables";
+@import "trumps/_helpers";
+@import "trumps/_ng-dialog";
+@import "trumps/_last-breath";
+@import "trumps/_sweet-alert.scss";
+
+// Charts
+@import "charts/_funnel";

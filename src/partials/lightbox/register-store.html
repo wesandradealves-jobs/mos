@@ -1,0 +1,358 @@
+<div class=" sms-wrapper">
+  <form id="register-store">
+    <div class="row">
+      <h2 class="lightbox-title">Dados Cadastrais da Loja</h2>
+    </div>
+    <div class="row">
+      <div class="col-1-2">
+        <label class="label-input">Nome*</label>
+        <input
+          ng-model="store.name"
+          type="text"
+          required
+          ng-class="{'input-error': nameError}"
+          ng-blur="validateName()"
+          maxlength="50"
+        />
+      </div>
+
+      <div class="col-1-2">
+        <div class="col-2-3">
+          <div class="upload-box -left">
+            <label class="label-input store-logo">Logotipo da Loja</label>
+
+            <label class="button-default -upload -grey -small" for="file"
+              >Selecionar Imagem</label
+            >
+            <input
+              id="file"
+              name="file"
+              type="file"
+              base-sixty-four-input
+              ng-model="store.uploadedLogo"
+              onchange="angular.element(this).scope().file_changed(this)"
+              accept="image/"
+              maxsize="2048"
+            />
+          </div>
+        </div>
+
+        <div class="col-1-3 _no-padding">
+          <div class="loading">
+            <!-- <img class="loader" src="img/loading_icon.svg"> -->
+            <label class="view-logo label-input" id="logo-preview-label">
+              <span ng-if="!store.logo">PREVIEW</span>
+              <img class="img-logo" src="{{store.logo}}" />
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="label-input">Razão Social*</label>
+      <input
+        ng-model="store.legalName"
+        type="text"
+        required
+        ng-class="{'input-error': legalNameError}"
+        ng-blur="validateLegalName()"
+        maxlength="30"
+      />
+    </div>
+
+    <div class="row">
+      <div class="col-4-5">
+        <label class="label-input">Localização</label>
+        <input
+          ng-model="store.location"
+          type="text"
+          ng-class="{'input-error': localizationError}"
+          ng-blur="validateLocalization()"
+          maxlength="30"
+        />
+      </div>
+
+      <div class="col-1-5">
+        <div class="soon" ng-click="selectSoon()" style="margin-top: 25px;">
+          <input type="checkbox" class="inp-mark" style="display: none;" ng-model="store.emBreve" ng-checked="store.emBreve">
+          <label class="mark">
+            <span>
+              <svg width="12px" height="10px" viewbox="0 0 12 10">
+                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+              </svg>
+            </span>
+            <label id="soon-label">EM BREVE</label>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+			<div class="col-1-2">
+				<label class="label-input">Segmento*</label>
+				<select ng-model="chosenSegmentId" ng-change="getSubsegmentsFromSegment(chosenSegmentId)" required>
+					<option value="" disabled selected>-- Selecione --</option>
+					<option
+						value="{{segment.id}}"
+            ng-repeat="segment in segments"
+            ng-selected="chosenSegmentId === segment.id"
+            >{{segment.name}}
+          </option>
+				</select>
+			</div>
+
+      <div class="col-1-2">
+        <label class="label-input">
+          Subsegmento*
+        </label>
+        <select
+          chosen
+          required
+          multiple
+					data-placeholder=""
+          ng-model="chosenActivities"
+					disable-search="false"
+					allow-single-deselect="true"
+					skip-no-results="true"
+					placeholder-text-multiple="' '"
+          id="campaign-register-input-tags"
+          ng-options="activity.name for activity in activitiesFromSegment"
+          value="activity.id"
+				>
+				  <option disabled value=""></option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-1-2">
+        <label class="label-input">CNPJ*</label>
+        <input
+          ng-model="store.cnpj"
+          type="text"
+          ui-br-cpfcnpj-mask
+          required
+          ng-class="{'input-error': cnpjError}"
+          ng-blur="validateCNPJ()"
+        />
+      </div>
+
+      <div class="col-1-2">
+        <label class="label-input">Telefone 1*</label>
+        <input
+          type="text"
+          ng-model="store.phones[0]"
+          ui-br-phone-number
+          required
+          ng-class="{'input-error': phone1error}"
+          ng-blur="validateStorePhone1()"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-1-2">
+            <label class="label-input">Telefone 2</label>
+            <input
+              type="text"
+              ng-model="store.phones[1]"
+              ui-br-phone-number
+            />
+          </div>
+
+        <div class="col-1-2">
+          <label class="label-input">Telefone 3</label>
+          <input
+            type="text"
+            ng-model="store.phones[2]"
+            ui-br-phone-number
+          />
+        </div>
+      </div>
+
+    <div class="row">
+      <div class="col-1-2">
+        <label class="label-input">Facebook</label>
+        <input
+          ng-model="store.facebook"
+          type="text"
+          maxlength="40"
+        />
+      </div>
+
+      <div class="col-1-2">
+        <label class="label-input">Instagram</label>
+        <input
+          type="text"
+          ng-model="store.instagram"
+          maxlength="40"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-1-2">
+        <label class="label-input">Site</label>
+        <input
+          ng-model="store.url"
+          type="text"
+          maxlength="40"
+        />
+      </div>
+
+      <div class="col-1-2">
+        <label class="label-input">
+          <span class="col-1">LUC</span>
+          <div class="col-5" id="luc-tooltip">
+            <img src="../img/tooltip.svg" alt="" width="15px">
+          </div>
+        </label>
+        <input
+          type="text"
+          ng-model="store.standNumber"
+          required
+          ng-class=""
+          ng-blur=""
+          maxlength="10"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-1-2">
+        <label class="label-input">Tipo*</label>
+        <div>
+          <div class="col-1-2">
+            <label class="checkbox">
+              <input
+                ng-model="store.type"
+                type="radio"
+                name="opcao"
+                value="loja"
+              />
+              <span class="checkmark"></span>Loja
+            </label>
+          </div>
+
+          <div class="col-1-2 _no-padding">
+            <label class="checkbox">
+              <input
+                ng-model="store.type"
+                type="radio"
+                name="opcao"
+                value="quiosque"
+              />
+              <span class="checkmark"></span>Quiosque
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-1-2">
+        <label class="label-input">Status*</label>
+        <div>
+          <div class="col-1-2">
+            <label class="checkbox">
+              <input
+                ng-model="store.active"
+                type="radio"
+                name="option"
+                ng-value="true"
+              />
+              <span class="checkmark"></span>Ativo
+            </label>
+          </div>
+
+          <div class="col-1-2 _no-padding">
+            <label class="checkbox">
+              <input
+                ng-model="store.active"
+                type="radio"
+                name="option"
+                ng-value="false"
+              />
+              <span class="checkmark"></span>Inativo
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="label-input">
+        Informações adicionais
+      </label>
+
+      <textarea ng-model="store.description" rows="3" maxlength="350"></textarea>
+    </div>
+
+    <h2 class="lightbox-title">Dados de contato do lojista</h2>
+
+    <div class="row">
+      <div class="col-1-2">
+        <label class="label-input">Nome*</label>
+        <input
+          type="text"
+          ng-model="store.contactName"
+          required
+          pattern="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\s]+$"
+          ng-pattern-restrict
+          ng-class="{'input-error': contactNameError}"
+          ng-blur="validateContactName()"
+          maxlength="50"
+        />
+      </div>
+
+      <div class="col-1-2">
+        <label class="label-input">Telefone*</label>
+        <input
+          type="text"
+          ng-model="store.contactPhone"
+          ui-br-phone-number
+          required
+          ng-class="{'input-error': contactPhoneError}"
+          ng-blur="validateContactPhone()"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="label-input">E-mail*</label>
+      <input
+        type="email"
+        ng-model="store.email"
+        required
+        ng-class="{'input-error': emailError}"
+        ng-blur="validateEmail()"
+        maxlength="100"
+      />
+      <span class="obs create-store-required-fields">*Campos obrigatórios</span>
+    </div>
+
+  </form>
+
+  <div class="row">
+    <button
+      class="button-default -action"
+      ng-click="newStore()"
+      ng-disabled="!store.name || !store.legalName || !chosenSegment || !chosenActivities || !store.cnpj || !store.phones[0] || !store.type || !store.active || !store.contactName || !store.contactPhone || !store.email"
+    >
+      Salvar
+    </button>
+  </div>
+</div>
+
+<script>
+  // TOOLTIP
+  (function () {
+    const reference = document.querySelector('#luc-tooltip');
+    new Tooltip(reference, {
+      placement: 'top',
+      title: 'Loja de uso comercial - digite o número de identificação da localização da loja no Shopping',
+      // arrowSelector: 'tooltip-arrow',
+      // innerSelector: 'tooltip-content',
+      container: document.querySelector('#luc-tooltip'),
+    });
+  })();
+</script>

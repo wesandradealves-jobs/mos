@@ -1,0 +1,41 @@
+[
+  {
+    "Frequency":"63Hz",
+    "Data":[
+      {
+        "Name": "Noise power Lw db(A)",
+        "Value":46
+      },
+      {
+        "Name": "Noise pressure Lw db(A)",
+        "Value":32
+      }
+    ]
+  },
+  {
+    "Frequency":"120Hz",
+    "Data":[
+      {
+        "Name": "Noise power Lw db(A)",
+        "Value":78
+      },
+      {
+        "Name": "Noise pressure Lw db(A)",
+        "Value":64
+      }
+    ]
+  },
+  {
+    "Frequency":"240Hz",
+    "Data":[
+      {
+        "Name": "Noise power Lw db(A)",
+        "Value":178
+      },
+      {
+        "Name": "Noise pressure Lw db(A)",
+        "Value":24
+      }
+    ]
+  }
+]

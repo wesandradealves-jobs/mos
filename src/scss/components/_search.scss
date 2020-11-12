@@ -1,0 +1,82 @@
+///* ========================================================================
+//   SEARCH
+//   ======================================================================== */
+
+.search {
+    width: $container-full;
+    height: $input-height;
+    padding: 10px;
+    background-color: #FFF;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px $light-grey;
+
+    &:focus {
+        background-color: #FFF;
+        border-color: $input-border-focus-color;
+        outline: 0;
+    }
+
+    &.-icon {
+        background-color: #fff;
+        background-image: url("../../img/search.png");
+        background-position: 5px 10px;
+        background-repeat: no-repeat;
+        padding-left: 30px;
+        margin-top: 20px;
+    }
+
+}
+.search-solid {
+    width: $container-full;
+    height: $input-height;
+    padding: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    border-radius: 5px;
+
+    &:focus {
+        background-color: #FFF;
+        border-color: $input-border-focus-color;
+        outline: 0;
+    }
+
+    &.-icon {
+        background-image: url("../../img/search.png");
+        background-position: 5px 10px;
+        background-repeat: no-repeat;
+        padding-left: 30px;
+        margin-top: 0px;
+    }
+
+}
+
+.auto-complete {
+  width: 95%;
+  position: absolute;
+  background: white;
+  right: 0;
+  z-index: 999;
+  top: 35px;
+  color: $grey;
+  box-shadow: 0 2px 2px $light-grey;
+  @include font-size(10);
+
+  > .link {
+    cursor: pointer;
+    padding: 5px 20px;
+    border-bottom: 1px solid $light-grey;
+
+    &:hover { background: $white-grey; }
+
+  }
+
+}
+
+@include breakpoint(xl) {
+    .search {
+        &.-icon { margin-top: 0; }
+    }
+}
